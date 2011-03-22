@@ -10,11 +10,15 @@ class Newsletter_SignUp {
 		
 		add_action('thesis_hook_after_comment_box',array(&$this,'add_checkbox'),20);
 		add_action('comment_form',array(&$this,'add_checkbox'),20);
-		add_action('comment_post', array(&$this,'do_signup'), 50);
+		add_action('comment_post', array(&$this,'do_signup'), 50, 2);
 		
 		if($this->options['add_to_reg_form'] == 1) {
 			add_action('register_form',array(&$this,'add_checkbox'),20);
 			add_action('register_post',array(&$this,'do_signup'), 50);
+		}
+		
+		if($this->options['only_approved'] == 1) {
+			add_action('comment_approved',array(&$this,'do_signup'),10,1);
 		}
 		
 	}
@@ -36,11 +40,25 @@ class Newsletter_SignUp {
 		$ns_checkbox = true;
 	}
 	
-	function do_signup($comment_id)
+	function do_signup($cid,$comment)
 	{
 		if($_POST['newsletter-signup-do'] != 1 || empty($this->options['form_action'])) return;
-		
-		$emailadres = (strlen($_POST['email']) > 0) ? $_POST['email'] : $_POST['user_email'];
+				
+		if($this->options['only_approved'] == 1 && !is_object($comment)) {
+			$cid = (int) $cid;
+			$comment = get_comment($cid);
+			
+			if($comment->comment_approved != 1) { 
+				return;
+			} else {
+				$emailadres = $comment->comment_author_email;
+				$naam = $comment->comment_author;
+			}
+			
+		} else {
+			$emailadres = ($_POST['email']) ? $_POST['email'] : $_POST['user_email'];
+			$naam = (strlen($_POST['author']) > 0) ? $_POST['author'] : $_POST['user_login'];
+		}
 		
 		// Setup variables array
 		$variables = array(
@@ -50,7 +68,7 @@ class Newsletter_SignUp {
 		);
 		
 		// Subscribe with name? Add to $variables array.
-		if($this->options['subscribe_with_name'] == 1) $variables[$this->options['name_id']] = $_POST['author'];
+		if($this->options['subscribe_with_name'] == 1) $variables[$this->options['name_id']] = $naam;
 		
 		// Add list specific variables
 		if($this->options['email_service']=='aweber') {
@@ -86,6 +104,7 @@ class Newsletter_SignUp {
 			// execute post request
 			curl_exec($streamCtx);
 			curl_close($streamCtx);
+			echo curl_error();
 			
 		} else {
 		
