@@ -21,7 +21,7 @@
 			<?php require_once(ABSPATH.WPINC.'/rss.php');  
 			if ( $rss = fetch_rss( 'http://feeds.feedburner.com/dannyvankooten' ) ) {
 				$content = '<ul>';
-				$rss->items = array_slice( $rss->items, 0, 3 );
+				$rss->items = array_slice( $rss->items, 0, 5 );
 				foreach ( (array) $rss->items as $item ) {
 					$content .= '<li>';
 					$content .= '<a target="_blank" href="'.clean_url( $item['link'], $protocolls=null, 'display' ).'">'. htmlentities($item['title']) .'</a> ';
