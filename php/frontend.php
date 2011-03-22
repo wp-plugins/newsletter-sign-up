@@ -28,8 +28,8 @@ class Newsletter_SignUp {
 		if(!$ns_checkbox) {
 		?>
 		<p style="clear:both; display:block;">
-			<input style="margin:0 5px 0 0; display:inline-block; width:13px; height:13px; " value="1" type="checkbox" name="newsletter-signup-do" <?php if($this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
-			<?php if(strlen($this->options['checkbox_text']) > 0) { echo $this->options['checkbox_text']; } else { echo "Sign me up for the newsletter!"; } ?>
+			<input id="ns_checkbox" style="margin:0 5px 0 0; display:inline-block; width:13px; height:13px; " value="1" type="checkbox" name="newsletter-signup-do" <?php if($this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
+			<label for="ns_checkbox"><?php if(strlen($this->options['checkbox_text']) > 0) { echo $this->options['checkbox_text']; } else { echo "Sign me up for the newsletter!"; } ?></label>
 		</p>
 		<?php 
 		}
