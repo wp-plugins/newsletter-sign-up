@@ -12,10 +12,10 @@ Adds a checkbox to your comment form that allows people to subscribe to your new
 
 = Newsletter Sign-Up =
 
-This is the continued and better version of [Qoate Newsletter Sign Up](http://wordpress.org/extend/plugins/qoate-newsletter-sign-up/), offering much
+This is the continued and much better version of [Qoate Newsletter Sign Up](http://wordpress.org/extend/plugins/qoate-newsletter-sign-up/), offering much
 cleaner code, better performance and much more.
 
-** NOTE THAT THIS IS THE FIRST RELEASE, TESTERS FOR DIFFERENT NEWSLETTER SERVICES ARE MUCH APPRECIATED **
+**NOTE THAT THIS IS THE FIRST RELEASE, TESTERS FOR DIFFERENT NEWSLETTER SERVICES ARE MUCH APPRECIATED**
 
 Want to turn your commenters into subscribers? This plugins makes it easy for your visitors to subscribe to your newsletter by adding a checkbox
 to your comment form that allows them to automatically be added to your mailinglist of choice.
@@ -25,7 +25,7 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 
 More info:
 
-* [Qoate Newsletter Sign Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
+* [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 * Read more great [WordPress tips](http://dannyvankooten.com/) to get the most out of your website
 * Check out more [WordPress plugins](http://dannyvankooten.com/wordpress/) by the same author
 
