@@ -8,8 +8,15 @@ class Newsletter_SignUp_Admin {
 		add_action('admin_init', array(&$this,'settings_init'));
 		add_action('admin_menu', array(&$this,'add_option_page'));
 		add_action('admin_print_styles',array(&$this,'add_admin_head'));
+		add_filter("plugin_action_links_newsletter-sign-up/newsletter-sign-up.php", array(&$this,'add_settings_link'));
 	}
-	
+
+	function add_settings_link($links) { 
+		$settings_link = '<a href="options-general.php?page=ns-options.php">Settings</a>'; 
+		array_unshift($links, $settings_link); 
+		return $links; 
+	}
+
 	function settings_init()
 	{
 		register_setting('ns_options_group', 'ns_options');
