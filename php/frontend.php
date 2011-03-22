@@ -6,17 +6,24 @@ class Newsletter_SignUp {
 	
 	public function __construct()
 	{
+		$this->options = get_option('ns_options');
+		
+		add_action('thesis_hook_after_comment_box',array(&$this,'add_checkbox'),20);
 		add_action('comment_form',array(&$this,'add_checkbox'),20);
 		add_action('comment_post', array(&$this,'do_signup'), 50);
 		
-		$this->options = get_option('ns_options');
+		if($this->options['add_to_reg_form'] == 1) {
+			add_action('register_form',array(&$this,'add_checkbox'),20);
+			add_action('register_post',array(&$this,'do_signup'), 50);
+		}
+		
 	}
 	
 	public function add_checkbox() 
 	{ 	
 		global $ns_checkbox;
 
-		if($this->options['cookie_hide'] == 1 && isset($_COOKIE['ns_subscriber'])) $ns_checkbox = true;
+		if(isset($this->options['cookie_hide']) && $this->options['cookie_hide'] == 1 && isset($_COOKIE['ns_subscriber'])) $ns_checkbox = true;
 		
 		if(!$ns_checkbox) {
 		?>
@@ -33,15 +40,19 @@ class Newsletter_SignUp {
 	{
 		if($_POST['newsletter-signup-do'] != 1 || empty($this->options['form_action'])) return;
 		
-		global $comment_author_email, $comment_author, $user_email;
+		$emailadres = (strlen($_POST['email']) > 0) ? $_POST['email'] : $_POST['user_email'];
 		
-		$emailadres = (strlen($comment_author_email) > 0) ? $comment_author_email : $user_email;
+		// Setup variables array
 		$variables = array(
 			
 			$this->options['email_id'] => $emailadres,
 			
 		);
 		
+		// Subscribe with name? Add to $variables array.
+		if($this->options['subscribe_with_name'] == 1) $variables[$this->options['name_id']] = $_POST['author'];
+		
+		// Add list specific variables
 		if($this->options['email_service']=='aweber') {
 			$variables['listname'] = $this->options['aweber_list_name'];
 			$variables['redirect'] = get_bloginfo('wpurl');
@@ -55,20 +66,45 @@ class Newsletter_SignUp {
 			$variables['makeconfirmed']='0';
 		}
 		
-		$encodedVariables = array_map ( 'rawurlencode_callback', $variables, array_keys($variables) );
-		$postContent = join('&', $encodedVariables);
-		$postContentLen = strlen($postContent);
-		$streamCtx = stream_context_create (
-			array (
-				'http' => array (
-					'method' => 'POST',
-					'content' => $postContent,
-					'header'  => "Content-Type: application/x-www-form-urlencoded\r\nContent-Length: $postContentLen\r\n"
+		// Setup data string
+		foreach($variables as $key=>$value) { $variables_string .= $key.'='.$value.'&'; }
+		rtrim($variables_string,'&');
+		
+					
+		if(function_exists('curl_init')) {
+		
+			//open connection
+			$streamCtx = curl_init();
+			
+			//set the url, number of vars and data
+			curl_setopt($streamCtx,CURLOPT_URL,$this->options['form_action']);
+			curl_setopt($streamCtx,CURLOPT_POST,count($variables));
+			curl_setopt($streamCtx,CURLOPT_POSTFIELDS,$variables_string);
+			curl_setopt($streamCtx,CURLOPT_TIMEOUT,5);
+			curl_setopt($streamCtx,CURLOPT_RETURNTRANSFER,true);
+			
+			// execute post request
+			curl_exec($streamCtx);
+			curl_close($streamCtx);
+			
+		} else {
+		
+			// Make the post request (no CURL)			
+			$postContentLen = strlen($variables_string);
+			$streamCtx = stream_context_create (
+				array (
+					'http' => array (
+						'method' => 'POST',
+						'content' => $variables_string,
+						'header'  => "Content-Type: application/x-www-form-urlencoded\r\nContent-Length: $postContentLen\r\n"
+					)
 				)
-			)
-		);
-		$fp = @fopen($this->options['form_action'], 'r', FALSE, $streamCtx);		
-		@setcookie('ns_subscriber',true,time()+9999999);	
+			);
+			$fp = @fopen($this->options['form_action'], 'r', FALSE, $streamCtx);
+			
+		}
+		// set the cookie if preferred
+		if(isset($this->options['cookie_hide']) && $this->options['cookie_hide'] == 1) @setcookie('ns_subscriber',true,time()+9999999);	
 	}
 
 }

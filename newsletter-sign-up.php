@@ -3,7 +3,7 @@
 Plugin Name: Newsletter Sign-Up
 Plugin URI: http://DannyvanKooten.com/wordpress-plugins/newsletter-sign-up/
 Description: Adds a checkbox to your comment form to turn your comments into subscribers
-Version: 0.1
+Version: 1.0
 Author: Danny van Kooten
 Author URI: http://DannyvanKooten.com
 License: GPL2

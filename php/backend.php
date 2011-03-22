@@ -38,8 +38,8 @@ class Newsletter_SignUp_Admin {
 	{
 		$this->setup_admin_page("Newsletter Sign-Up Settings","Newsletter Sign-Up Configuration Settings");
 	?>
-			<p style="margin:5px">Here you can set the options for your newsletter sign-up. To find the right settings check the source of your 
-			newsletter sign up form, and find the 'action' of the form, and the 'name' of the e-mail input field.</p>
+			<p style="margin:10px">Here you can configure the plugin. In order for the plugin to work properly you need to atleast provide
+			a form action and an email identifier. For more information on what to fill in check out <a target="_blank" href="http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/">this post on my blog</a>.</p>
 			<form method="post" id="ns_settings_page" action="options.php">
 				<?php settings_fields('ns_options_group');  $options = get_option('ns_options'); ?>
 				<table class="form-table">
@@ -58,7 +58,7 @@ class Newsletter_SignUp_Admin {
 				<tr valign="top"><th scope="row">Newsletter form action</th>
 					<td><input size="25%" type="text" id="ns_form_action" name="ns_options[form_action]" value="<?php echo $options['form_action']; ?>" /></td>
 				</tr>
-				<tr valign="top"><th scope="row">Email identifier (name)</th>
+				<tr valign="top"><th scope="row">Email identifier <span class="ns_small">name attribute of input field that holds the emailadress</span></th>
 					<td><input size="25%" type="text" name="ns_options[email_id]" id="ns_email_id" value="<?php echo $options['email_id']; ?>" READONLY /></td>
 				</tr>
 				<tr valign="top" id="ns_aweber_options"<?php if($options['email_service'] != 'aweber') echo ' style="display:none" ';?> >
@@ -69,15 +69,25 @@ class Newsletter_SignUp_Admin {
 					<th scope="row">PHPList list ID</th>
 					<td><input size="2" type="text" name="ns_options[phplist_list_id]" value="<?php if(strlen($options['phplist_list_id']) > 0) { echo $options['phplist_list_id']; } else { echo 1; }; ?>" /></td>
 				</tr>
+				<tr valign="top"><th scope="row">Subscribe with name?</th>
+					<td><input type="checkbox" id="ns_subscribe_with_name" name="ns_options[subscribe_with_name]" value="1"<?php if($options['subscribe_with_name']=='1') { echo ' checked="checked"'; } ?> /></td>
+				</tr>
+				<tr id="ns_email_id_row" valign="top"<?php if($options['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>><th scope="row">Name identifier <span class="ns_small">name attribute of input field that holds the name</span></th>
+					<td><input size="25%" id="ns_name_id" type="text" name="ns_options[name_id]" value="<?php echo $options['name_id']; ?>" /></td>
+				</tr>
 				<tr valign="top"><th scope="row">Text to show after the checkbox</th>
 					<td><input size="25%" type="text" name="ns_options[checkbox_text]" value="<?php echo $options['checkbox_text']; ?>" /></td>
 				</tr>
 				<tr valign="top"><th scope="row">Pre-check the checkbox?</th>
 					<td><input type="checkbox" name="ns_options[precheck_checkbox]" value="1"<?php if($options['precheck_checkbox']=='1') { echo ' checked="checked"'; } ?> /></td>
 				</tr>
+				<tr valign="top"><th scope="row">Add the checkbox to registration form?</th>
+					<td><input type="checkbox" name="ns_options[add_to_reg_form]" value="1"<?php if($options['add_to_reg_form'] == '1') { echo ' checked="checked"'; } ?> /></td>
+				</tr>
 				<tr valign="top"><th scope="row">Hide the checkbox for user who used it to subscribe?<span class="ns_small">(uses a cookie)</span></th>
 					<td><input type="checkbox" name="ns_options[cookie_hide]" value="1"<?php if($options['cookie_hide'] == '1') { echo ' checked="checked"'; } ?> /></td>
 				</tr>
+				
 			</table>
 				<p class="submit">
 					<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />

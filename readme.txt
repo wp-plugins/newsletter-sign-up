@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,comment,subscribers,mailchimp,aweber,phplist,icontact,mailinglist
 Requires at least: 2.0
 Tested up to: 3.1
-Stable tag: 0.1
+Stable tag: 1.0
 
 Adds a checkbox to your comment form that allows people to subscribe to your newsletter. Turn your commenters into subscribers!
 
@@ -55,6 +55,12 @@ Take a look at the source code of your sign-up form and look for the input field
 For more questions and answers go have a look at my website regarding [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 
 == Changelog ==
+
+= 1.0 =
+* Stable release
+* Added CURL support
+* Added option to show a checkbox at registration form
+* Added option to subscribe commenters with their name
 
 = 0.1 =
 Beta release

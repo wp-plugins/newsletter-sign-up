@@ -9,14 +9,14 @@
 					<p>Consider the following options, please:</p>
 					<ul>
 						<li>Tell others about this plugin.</li>
-						<li><a href="http://wordpress.org/extend/plugins/qoate-newsletter-sign-up/" target="_blank">Give a good rating on WordPress.org.</a></li>
+						<li><a href="http://wordpress.org/extend/plugins/newsletter-sign-up/" target="_blank">Give a good rating on WordPress.org.</a></li>
 						<li><a href="http://DannyvanKooten.com/donate/" target="_blank">Buy me a beer</a></li>
 					</ul>				
 				</div>
 			</div>
 			
 			<div class="postbox qoate-right-box">
-			<h3 class="hdnle"><span>Qoate updates..</span></h3>
+			<h3 class="hdnle"><span>Latest blog posts..</span></h3>
 			<div class="inside">
 			<?php require_once(ABSPATH.WPINC.'/rss.php');  
 			if ( $rss = fetch_rss( 'http://feeds.feedburner.com/dannyvankooten' ) ) {
