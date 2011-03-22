@@ -17,7 +17,7 @@ class Newsletter_SignUp {
 			add_action('register_post',array(&$this,'do_signup'), 50);
 		}
 		
-		if($this->options['only_approved'] == 1) {
+		if(isset($this->options['only_approved']) && $this->options['only_approved'] == 1) {
 			add_action('comment_approved',array(&$this,'do_signup'),10,1);
 		}
 		

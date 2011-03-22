@@ -56,10 +56,10 @@ class Newsletter_SignUp_Admin {
 					</td>
 				</tr>
 				<tr valign="top"><th scope="row">Newsletter form action</th>
-					<td><input size="25%" type="text" id="ns_form_action" name="ns_options[form_action]" value="<?php echo $options['form_action']; ?>" /></td>
+					<td><input size="25%" type="text" id="ns_form_action" name="ns_options[form_action]" value="<?php if(isset($options['form_action'])) echo $options['form_action']; ?>" /></td>
 				</tr>
 				<tr valign="top"><th scope="row">Email identifier <span class="ns_small">name attribute of input field that holds the emailadress</span></th>
-					<td><input size="25%" type="text" name="ns_options[email_id]" id="ns_email_id" value="<?php echo $options['email_id']; ?>" READONLY /></td>
+					<td><input size="25%" type="text" name="ns_options[email_id]" id="ns_email_id" value="<?php if(isset($options['email_id'])) echo $options['email_id']; ?>" READONLY /></td>
 				</tr>
 				<tr valign="top" id="ns_aweber_options"<?php if($options['email_service'] != 'aweber') echo ' style="display:none" ';?> >
 					<th scope="row">Aweber List name</th>
@@ -67,28 +67,28 @@ class Newsletter_SignUp_Admin {
 				</tr>
 				<tr valign="top" id="ns_phplist_options"<?php if($options['email_service'] != 'phplist') echo ' style="display:none" ';?> >
 					<th scope="row">PHPList list ID</th>
-					<td><input size="2" type="text" name="ns_options[phplist_list_id]" value="<?php if(strlen($options['phplist_list_id']) > 0) { echo $options['phplist_list_id']; } else { echo 1; }; ?>" /></td>
+					<td><input size="2" type="text" name="ns_options[phplist_list_id]" value="<?php if(isset($options['phplist_list_id']) && strlen($options['phplist_list_id']) > 0) { echo $options['phplist_list_id']; } else { echo 1; }; ?>" /></td>
 				</tr>
 				<tr valign="top"><th scope="row"><label for="ns_subscribe_with_name">Subscribe with name?</label></th>
-					<td><input type="checkbox" id="ns_subscribe_with_name" name="ns_options[subscribe_with_name]" value="1"<?php if($options['subscribe_with_name']=='1') { echo ' checked="checked"'; } ?> /></td>
+					<td><input type="checkbox" id="ns_subscribe_with_name" name="ns_options[subscribe_with_name]" value="1"<?php if(isset($options['subscribe_with_name']) && $options['subscribe_with_name']=='1') { echo ' checked="checked"'; } ?> /></td>
 				</tr>
 				<tr id="ns_email_id_row" valign="top"<?php if($options['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>><th scope="row">Name identifier <span class="ns_small">name attribute of input field that holds the name</span></th>
-					<td><input size="25%" id="ns_name_id" type="text" name="ns_options[name_id]" value="<?php echo $options['name_id']; ?>" /></td>
+					<td><input size="25%" id="ns_name_id" type="text" name="ns_options[name_id]" value="<?php if(isset($options['name_id'])) echo $options['name_id']; ?>" /></td>
 				</tr>
 				<tr valign="top"><th scope="row">Text to show after the checkbox</th>
-					<td><input size="25%" type="text" name="ns_options[checkbox_text]" value="<?php echo $options['checkbox_text']; ?>" /></td>
+					<td><input size="25%" type="text" name="ns_options[checkbox_text]" value="<?php if(isset($options['checkbox_text'])) echo $options['checkbox_text']; ?>" /></td>
 				</tr>
 				<tr valign="top"><th scope="row"><label for="ns_precheck_checkbox">Pre-check the checkbox?</label></th>
-					<td><input type="checkbox" id="ns_precheck_checkbox" name="ns_options[precheck_checkbox]" value="1"<?php if($options['precheck_checkbox']=='1') { echo ' checked="checked"'; } ?> /></td>
+					<td><input type="checkbox" id="ns_precheck_checkbox" name="ns_options[precheck_checkbox]" value="1"<?php if(isset($options['precheck_checkbox']) && $options['precheck_checkbox']=='1') { echo ' checked="checked"'; } ?> /></td>
 				</tr>
 				<tr valign="top"><th scope="row"><label for="ns_add_to_reg_form">Add the checkbox to registration form?</label></th>
-					<td><input type="checkbox" id="ns_add_to_reg_form" name="ns_options[add_to_reg_form]" value="1"<?php if($options['add_to_reg_form'] == '1') { echo ' checked="checked"'; } ?> /></td>
+					<td><input type="checkbox" id="ns_add_to_reg_form" name="ns_options[add_to_reg_form]" value="1"<?php if(isset($options['add_to_reg_form']) && $options['add_to_reg_form'] == '1') { echo ' checked="checked"'; } ?> /></td>
 				</tr>
 				<tr valign="top"><th scope="row"><label for="ns_cookie_hide">Hide the checkbox for user who used it to subscribe?</label><span class="ns_small">(uses a cookie)</span></th>
-					<td><input type="checkbox" id="ns_cookie_hide" name="ns_options[cookie_hide]" value="1"<?php if($options['cookie_hide'] == '1') { echo ' checked="checked"'; } ?> /></td>
+					<td><input type="checkbox" id="ns_cookie_hide" name="ns_options[cookie_hide]" value="1"<?php if(isset($options['cookie_hide']) && $options['cookie_hide'] == '1') { echo ' checked="checked"'; } ?> /></td>
 				</tr>
 				<!--<tr valign="top"><th scope="row"><label for="ns_only_approved">Only subscribe approved commenters?</label></th>
-					<td><input type="checkbox" id="ns_only_approved" name="ns_options[only_approved]" value="1"<?php if($options['only_approved'] == '1') { echo ' checked="checked"'; } ?> /></td>
+					<td><input type="checkbox" id="ns_only_approved" name="ns_options[only_approved]" value="1"<?php if(isset($options['only_approved']) && $options['only_approved'] == '1') { echo ' checked="checked"'; } ?> /></td>
 				</tr>-->
 				
 			</table>
