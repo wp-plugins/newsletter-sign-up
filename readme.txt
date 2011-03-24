@@ -20,7 +20,7 @@ cleaner code, better performance and much more.
 Want to turn your commenters into subscribers? This plugins makes it easy for your visitors to subscribe to your newsletter by adding a checkbox
 to your comment form that allows them to automatically be added to your mailinglist of choice.
 
-This plugin currently supports the following newsletter providers but is not limited to those: Aweber, Mailchimp, iContact, PHPList, Feedblitz.
+This plugin currently supports the following newsletter providers but is not limited to those: Aweber, [Mailchimp](http://eepurl.com/c78PM), iContact, PHPList, Feedblitz.
 You can practically use the plugin for EVERY newsletter provider that's around if you use the right configuration settings.
 
 More info:
