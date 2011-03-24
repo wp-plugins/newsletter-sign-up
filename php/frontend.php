@@ -10,15 +10,16 @@ class Newsletter_SignUp {
 		
 		add_action('thesis_hook_after_comment_box',array(&$this,'add_checkbox'),20);
 		add_action('comment_form',array(&$this,'add_checkbox'),20);
+		add_action('comment_approved_',array(&$this,'do_signup'),10,1);
 		add_action('comment_post', array(&$this,'do_signup'), 50, 2);
 		
-		if($this->options['add_to_reg_form'] == 1) {
+		if(isset($this->options['add_to_reg_form']) && $this->options['add_to_reg_form'] == 1) {
 			add_action('register_form',array(&$this,'add_checkbox'),20);
 			add_action('register_post',array(&$this,'do_signup'), 50);
 		}
-		
-		if(isset($this->options['only_approved']) && $this->options['only_approved'] == 1) {
-			add_action('comment_approved',array(&$this,'do_signup'),10,1);
+		if(isset($this->options['add_to_bp_form']) && $this->options['add_to_bp_form'] == 1) {
+			add_action('bp_before_registration_submit_buttons',array(&$this,'add_checkbox'),20);
+			add_action('bp_complete_signup',array(&$this,'do_signup'),20);
 		}
 		
 	}
@@ -33,7 +34,7 @@ class Newsletter_SignUp {
 		?>
 		<p style="clear:both; display:block;">
 			<input id="ns_checkbox" style="margin:0 5px 0 0; display:inline-block; width:13px; height:13px; " value="1" type="checkbox" name="newsletter-signup-do" <?php if($this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
-			<label for="ns_checkbox"><?php if(strlen($this->options['checkbox_text']) > 0) { echo $this->options['checkbox_text']; } else { echo "Sign me up for the newsletter!"; } ?></label>
+			<label for="ns_checkbox" style="display:inline-block;"><?php if(strlen($this->options['checkbox_text']) > 0) { echo $this->options['checkbox_text']; } else { echo "Sign me up for the newsletter!"; } ?></label>
 		</p>
 		<?php 
 		}
@@ -43,23 +44,34 @@ class Newsletter_SignUp {
 	function do_signup($cid,$comment)
 	{
 		if($_POST['newsletter-signup-do'] != 1 || empty($this->options['form_action'])) return;
-				
-		if($this->options['only_approved'] == 1 && !is_object($comment)) {
-			$cid = (int) $cid;
-			$comment = get_comment($cid);
-			
-			if($comment->comment_approved != 1) { 
-				return;
-			} else {
-				$emailadres = $comment->comment_author_email;
-				$naam = $comment->comment_author;
-			}
-			
-		} else {
-			$emailadres = ($_POST['email']) ? $_POST['email'] : $_POST['user_email'];
-			$naam = (strlen($_POST['author']) > 0) ? $_POST['author'] : $_POST['user_login'];
-		}
 		
+		$cid = (int) $cid;		
+
+		if(isset($_POST['user_email'])) {
+			
+			// gather emailadress from user who WordPress registered
+			$emailadres = $_POST['user_email'];
+			$naam = $_POST['user_login'];
+		
+		} elseif(isset($_POST['signup_email'])) {
+		
+			// gather emailadress from user who BuddyPress registered
+			$emailadres = $_POST['signup_email'];
+			$naam = $_POST['signup_username'];
+
+		} else {
+			
+			// gather emailadress from commenter
+			if(!is_object($comment)) $comment = get_comment($cid);
+
+			if($comment->comment_karma != 0) { 
+				return;
+			}
+		
+			$emailadres = $comment->comment_author_email;
+			$naam = $comment->comment_author;
+		}
+
 		// Setup variables array
 		$variables = array(
 			
@@ -71,23 +83,28 @@ class Newsletter_SignUp {
 		if($this->options['subscribe_with_name'] == 1) $variables[$this->options['name_id']] = $naam;
 		
 		// Add list specific variables
-		if($this->options['email_service']=='aweber') {
-			$variables['listname'] = $this->options['aweber_list_name'];
-			$variables['redirect'] = get_bloginfo('wpurl');
-			$variables['meta_message'] = '1';
-			$variables['meta_required'] = 'email';
-		} elseif($this->options['email_service']=='phplist') {
-			$variables['list['.$$this->options['phplist_list_id'].']'] = 'signup';
-			$variables['subscribe'] = "Subscribe";
-			$variables["htmlemail"] = "1"; 
-			$variables['emailconfirm'] = $emailadres;
-			$variables['makeconfirmed']='0';
+		switch($this->options['email_service']) {
+			
+			case 'aweber':
+				$variables['listname'] = $this->options['aweber_list_name'];
+				$variables['redirect'] = get_bloginfo('wpurl');
+				$variables['meta_message'] = '1';
+				$variables['meta_required'] = 'email';
+			break;
+			
+			case 'phplist':
+				$variables['list['.$$this->options['phplist_list_id'].']'] = 'signup';
+				$variables['subscribe'] = "Subscribe";
+				$variables["htmlemail"] = "1"; 
+				$variables['emailconfirm'] = $emailadres;
+				$variables['makeconfirmed']='0';
+			break;
+		
 		}
 		
 		// Setup data string
 		foreach($variables as $key=>$value) { $variables_string .= $key.'='.$value.'&'; }
 		rtrim($variables_string,'&');
-		
 					
 		if(function_exists('curl_init')) {
 		
@@ -98,14 +115,15 @@ class Newsletter_SignUp {
 			curl_setopt($streamCtx,CURLOPT_URL,$this->options['form_action']);
 			curl_setopt($streamCtx,CURLOPT_POST,count($variables));
 			curl_setopt($streamCtx,CURLOPT_POSTFIELDS,$variables_string);
+			curl_setopt($streamCtx,CURLOPT_USERAGENT, 'Mozilla/5.0');
+			curl_setopt($streamCtx,CURLOPT_HEADER, false);
 			curl_setopt($streamCtx,CURLOPT_TIMEOUT,5);
-			curl_setopt($streamCtx,CURLOPT_RETURNTRANSFER,true);
+			curl_setopt($streamCtx,CURLOPT_RETURNTRANSFER,1);
 			
 			// execute post request
 			curl_exec($streamCtx);
 			curl_close($streamCtx);
-			echo curl_error();
-			
+
 		} else {
 		
 			// Make the post request (no CURL)			
