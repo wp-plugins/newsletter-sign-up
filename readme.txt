@@ -74,6 +74,10 @@ Yes, it's possible. Just provide your name identifier (finding it is much like t
 
 Yes, you can. This option was added in v1.0.1.
 
+== Screenshots ==
+
+1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
+
 == Changelog ==
 = 1.0.2 =
 * Added option to send custom data along with the sign-up request. 
