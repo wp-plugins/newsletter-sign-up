@@ -40,7 +40,10 @@ Got a great idea on how to improve this plugin, so you can get even more newslet
 
 == Installation ==
 
-Follow the instruction on the [Qoate Newsletter Sign Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/) page.
+1. Upload the contents of newsletter-sign-up.zip to your plugins directory.
+1. Activate the plugin
+1. Specify your newsletter service settings. For more info head over to: [How to configure Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
+1. That's all. Watch your list grow!
 
 == Frequently Asked Questions ==
 
