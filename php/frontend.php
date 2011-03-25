@@ -102,6 +102,13 @@ class Newsletter_SignUp {
 		
 		}
 		
+		// Add additional data
+		if(isset($this->options['extra_data']) && is_array($this->options['extra_data'])) {
+			foreach($this->options['extra_data'] as $key => $value) {
+				$variables[$value['name']] = $value['value'];
+			}		
+		}
+		
 		// Setup data string
 		foreach($variables as $key=>$value) { $variables_string .= $key.'='.$value.'&'; }
 		rtrim($variables_string,'&');

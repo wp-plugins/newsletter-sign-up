@@ -31,7 +31,7 @@ class Newsletter_SignUp_Admin {
 
 	function settings_init()
 	{
-		register_setting('ns_options_group', 'ns_options');
+		register_setting('ns_options_group', 'ns_options',array(&$this,'check_options'));
 	}
 	
 	function add_option_page()
@@ -44,6 +44,17 @@ class Newsletter_SignUp_Admin {
 		wp_enqueue_style('ns_admin_css', NS_PLUGIN_URL.'css/backend.css');
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('ns_admin_js', NS_PLUGIN_URL.'js/backend.js');
+	}
+	
+	function check_options($options)
+	{
+		if(is_array($options['extra_data'])) :
+			foreach($options['extra_data'] as $key => $value) :
+				if(empty($value['name'])) unset($options['extra_data'][$key]);
+			endforeach;		
+		endif;
+		
+		return $options;
 	}
 	
 	function ns_option_page()
@@ -107,9 +118,44 @@ class Newsletter_SignUp_Admin {
 				</tr>
 				
 			</table>
-				<p class="submit">
-					<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
+			<p class="submit">
+				<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
+			</p>
+			
+			
+			</div>
+		</div>
+		<div class="postbox">
+			<h3 class="hndle"><span>Additional data</span></h3>
+				<div class="inside">
+				<p style="margin:10px;">
+					Want to send some additional data to your newsletter service? Specify the name / keys and values here and it will be sent along with the other required fields. Just empty the name field and hit save to delete a name / value pair.
 				</p>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="column">Name</th>
+						<th scope="column">Value</th>
+					</tr>
+				<?php 
+				$last_key = 0;
+				if(isset($this->options['extra_data']) && is_array($options['extra_data'])) :
+					foreach($options['extra_data'] as $key => $value) : ?>
+						<tr valign="top">
+							<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $key; ?>][name]" value="<?php echo $value['name']; ?>" /></td>
+							<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $key; ?>][value]" value="<?php echo $value['value']; ?>" /></td>
+						</tr>					
+					<?php
+					$last_key = $key + 1;
+					endforeach; 
+				endif; ?>
+				<tr valign="top">
+					<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $last_key; ?>][name]" value="" /></td>
+					<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $last_key; ?>][value]" value="" /></td>
+				</tr>
+			</table>
+			<p class="submit">
+				<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
+			</p>
 				</form>
 		<?php
 		$this->close_admin_page();

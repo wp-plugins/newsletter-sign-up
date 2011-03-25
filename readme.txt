@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,comment,subscribers,mailchimp,aweber,phplist,icontact,mailinglist
 Requires at least: 2.0
 Tested up to: 3.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 Adds a checkbox to your comment form that allows people to subscribe to your newsletter. Turn your commenters into subscribers!
 
@@ -15,13 +15,20 @@ Adds a checkbox to your comment form that allows people to subscribe to your new
 This is the continued and much better version of [Qoate Newsletter Sign Up](http://wordpress.org/extend/plugins/qoate-newsletter-sign-up/), offering much
 cleaner code, better performance and much more.
 
-**NOTE THAT THIS IS THE FIRST RELEASE, TESTERS FOR DIFFERENT NEWSLETTER SERVICES ARE MUCH APPRECIATED**
-
 Want to turn your commenters into subscribers? This plugins makes it easy for your visitors to subscribe to your newsletter by adding a checkbox
 to your comment form that allows them to automatically be added to your mailinglist of choice.
 
 This plugin currently supports the following newsletter providers but is not limited to those: Aweber, [Mailchimp](http://eepurl.com/c78PM), iContact, PHPList, Feedblitz.
 You can practically use the plugin for EVERY newsletter provider that's around if you use the right configuration settings.
+
+Features:
+
+* Add a "sign-up to our newsletter" checkbox to your comment form
+* Add a "sign-up to our newsletter" checkbox to your WP register form
+* Add a "sign-up to our newsletter" checkbox to your BuddyPress register form
+* Specify additional data to be sent to your newsletter service along with the sign-up request
+* Subscribe the commenter with their name
+* Hide the checkbox for users who used it to sign-up to your newsletter before
 
 More info:
 
@@ -68,6 +75,8 @@ Yes, it's possible. Just provide your name identifier (finding it is much like t
 Yes, you can. This option was added in v1.0.1.
 
 == Changelog ==
+= 1.0.2 =
+* Added option to send custom data along with the sign-up request. 
 
 = 1.0.1 =
 * Improved script and stylesheet loading - now only loads on NS options page.
