@@ -21,7 +21,7 @@ to your comment form that allows them to automatically be added to your mailingl
 This plugin currently supports the following newsletter providers but is not limited to those: Aweber, [Mailchimp](http://eepurl.com/c78PM), iContact, PHPList, Feedblitz.
 You can practically use the plugin for EVERY newsletter provider that's around if you use the right configuration settings.
 
-Features:
+**Features:**
 
 * Add a "sign-up to our newsletter" checkbox to your comment form
 * Add a "sign-up to our newsletter" checkbox to your WP register form
@@ -30,7 +30,7 @@ Features:
 * Subscribe the commenter with their name
 * Hide the checkbox for users who used it to sign-up to your newsletter before
 
-More info:
+**More info:**
 
 * [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 * Read more great [WordPress tips](http://dannyvankooten.com/) to get the most out of your website
