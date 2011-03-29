@@ -124,7 +124,8 @@ class Newsletter_SignUp {
 			curl_setopt($streamCtx,CURLOPT_POSTFIELDS,$variables_string);
 			curl_setopt($streamCtx,CURLOPT_USERAGENT, 'Mozilla/5.0');
 			curl_setopt($streamCtx,CURLOPT_HEADER, false);
-			curl_setopt($streamCtx,CURLOPT_TIMEOUT,5);
+			curl_setopt($streamCtx,CURLOPT_CONNECTTIMEOUT,3);
+			curl_setopt($streamCtx,CURLOPT_TIMEOUT,8);
 			curl_setopt($streamCtx,CURLOPT_RETURNTRANSFER,1);
 			
 			// execute post request
