@@ -82,6 +82,7 @@ Yes, you can. This option was added in v1.0.1.
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+
 = 1.0.4 =
 * Small change in seconds before timeout when making the POST request.
 * Fixed bug with addititional data not being properly saved.
