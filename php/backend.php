@@ -128,7 +128,8 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 						</tr>
 					<?php 
 					$last_key = 0;
-					if(isset($this->options['extra_data']) && is_array($options['extra_data'])) :
+					
+					if(isset($options['extra_data']) && is_array($options['extra_data'])) :
 						foreach($options['extra_data'] as $key => $value) : ?>
 							<tr valign="top">
 								<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $key; ?>][name]" value="<?php echo $value['name']; ?>" /></td>
