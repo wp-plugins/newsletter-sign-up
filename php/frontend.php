@@ -33,8 +33,8 @@ class Newsletter_SignUp {
 		if(!$ns_checkbox) {
 		?>
 		<p style="clear:both; display:block;">
-			<input id="ns_checkbox" style="margin:0 5px 0 0; display:inline-block; width:13px; height:13px; " value="1" type="checkbox" name="newsletter-signup-do" <?php if($this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
-			<label for="ns_checkbox" style="display:inline-block;"><?php if(strlen($this->options['checkbox_text']) > 0) { echo $this->options['checkbox_text']; } else { echo "Sign me up for the newsletter!"; } ?></label>
+			<input id="ns_checkbox" style="margin:0 5px 0 0; display:inline-block; width:13px; height:13px; " value="1" type="checkbox" name="newsletter-signup-do" <?php if(isset($this->options['precheck_checkbox']) && $this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
+			<label for="ns_checkbox" style="display:inline-block;"><?php if(!empty($this->options['checkbox_text'])) { echo $this->options['checkbox_text']; } else { echo "Sign me up for the newsletter!"; } ?></label>
 		</p>
 		<?php 
 		}
@@ -80,7 +80,7 @@ class Newsletter_SignUp {
 		);
 		
 		// Subscribe with name? Add to $variables array.
-		if($this->options['subscribe_with_name'] == 1) $variables[$this->options['name_id']] = $naam;
+		if(isset($this->options['subscribe_with_name']) && $this->options['subscribe_with_name'] == 1) $variables[$this->options['name_id']] = $naam;
 		
 		// Add list specific variables
 		switch($this->options['email_service']) {

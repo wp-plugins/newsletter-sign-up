@@ -166,7 +166,7 @@ if(!class_exists('DvK_Plugin_Admin')) {
 				update_option('dvkdbwidget',$options);
 			}		
 			
-			if ($options['dontshow']) {
+			if (isset($options['dontshow']) && $options['dontshow']) {
 				echo "If you reload, this widget will be gone and never appear again, unless you decide to delete the database option 'dvkdbwidget'.";
 				return;
 			}
