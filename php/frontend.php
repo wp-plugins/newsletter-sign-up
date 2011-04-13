@@ -41,7 +41,7 @@ class Newsletter_SignUp {
 		$ns_checkbox = true;
 	}
 	
-	function do_signup($cid,$comment)
+	function do_signup($cid,$comment = null)
 	{
 		if($_POST['newsletter-signup-do'] != 1 || empty($this->options['form_action'])) return;
 		
