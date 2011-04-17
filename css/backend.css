@@ -35,6 +35,9 @@ li.dvk-email{
 	background:url(http://static.dannyvankooten.com/images/email-icon.png) no-repeat left center;
 	list-style:none;
 }
+.postbox .inside{
+	padding:0 10px;
+}
 
 .dvk-box b,.dvk-box strong{
 	font-weight:bold;

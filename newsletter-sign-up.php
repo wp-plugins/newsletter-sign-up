@@ -2,8 +2,8 @@
 /*
 Plugin Name: Newsletter Sign-Up
 Plugin URI: http://DannyvanKooten.com/wordpress-plugins/newsletter-sign-up/
-Description: Adds a checkbox to your comment form to turn your comments into subscribers
-Version: 1.0.6
+Description: Adds a checkbox to your comment form to turn your commenters into subscribers
+Version: 1.1
 Author: Danny van Kooten
 Author URI: http://DannyvanKooten.com
 License: GPL2
@@ -24,6 +24,19 @@ License: GPL2
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
+/* 
+	TO DO
+	
+	* Implement ConstantContact API
+	* Implement Widget
+	* Add %%NAME%% to use in additional data
+	* Add %%IP%% to use in additional data
+	* Add additional data for YMLP API
+	
+*/
+
+
 
 require_once('php/frontend.php');
 $Newsletter_SignUp = new Newsletter_SignUp();

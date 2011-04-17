@@ -22,15 +22,24 @@ if(!class_exists('DvK_Plugin_Admin')) {
 		{
 			add_filter("plugin_action_links_{$this->filename}", array(&$this,'add_settings_link'));
 			add_action('admin_menu', array(&$this,'add_option_page'));
-			add_action("admin_print_styles-settings_page_{$this->hook}",array(&$this,'add_admin_styles'));
-			add_action("admin_print_scripts-settings_page_{$this->hook}",array(&$this,'add_admin_scripts'));
+			register_deactivation_hook($this->filename, array(&$this,'remove_options'));
+			
+			if(isset($_GET['page']) && strpos($_GET['page'],$this->hook) !== false) {
+				add_action("admin_print_styles",array(&$this,'add_admin_styles'));
+				add_action("admin_print_scripts",array(&$this,'add_admin_scripts'));
+			}
 			
 			add_action('wp_dashboard_setup', array(&$this,'widget_setup'));	
 		}
 		
+		function remove_options()
+		{
+			delete_option($this->optionname);
+		}
+		
 		function add_admin_styles()
 		{
-			wp_enqueue_style('dvk_plugin_admin_css', WP_CONTENT_URL . '/plugins/' . plugin_basename(dirname($this->filename)). '/css/backend.css');
+			wp_enqueue_style('dvk_plugin_admin_css', plugins_url('/css/backend.css',dirname(__FILE__)));
 		}
 		
 		function add_admin_scripts()
