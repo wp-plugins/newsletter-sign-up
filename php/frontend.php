@@ -95,7 +95,7 @@ class Newsletter_SignUp {
 	*/
 	function send_post_data($email,$naam)
 	{
-		if(empty($this->options['form_action'])) return;
+		if(empty($this->options['use_api']) && empty($this->options['form_action'])) return;
 		
 		$post_data = array();
 		
@@ -121,11 +121,14 @@ class Newsletter_SignUp {
 					  'id' => $this->options['list_id'],
 					  'email_address' => $email,
 					  'double_optin' => true,
+					  'merge_vars' => array(
+							'OPTIN_TIME' => date('Y-M-D H:i:s')
+					  )
 					);
 					
 					/* Subscribe with name? If so, add name to merge_vars array */
 					if(isset($this->options['subscribe_with_name']) && $this->options['subscribe_with_name'] == 1) {
-						$request['merge_vars'] = array( $this->options['name_id'] => $naam );
+						$request['merge_vars'][$this->options['name_id']] = $naam;
 					}
 					
 					// Add any set additional data to merge_vars array
