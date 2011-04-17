@@ -28,11 +28,9 @@ License: GPL2
 /* 
 	TO DO
 	
-	* Implement ConstantContact API
 	* Implement Widget
 	* Add %%NAME%% to use in additional data
 	* Add %%IP%% to use in additional data
-	* Add additional data for YMLP API
 	
 */
 

@@ -56,7 +56,7 @@ class Newsletter_SignUp {
 	{ 	
 		global $ns_checkbox;
 
-		if(isset($this->options['cookie_hide']) && $this->options['cookie_hide'] == 1 && isset($_COOKIE['ns_subscriber'])) $ns_checkbox = true;
+		if(isset($this->options['cookie_hide']) && $this->options['cookie_hide'] == 1 && isset($_COOKIE['ns_subscriber'])) $ns_checkbox = TRUE;
 		
 		if(!$ns_checkbox) {
 		?>
@@ -94,7 +94,8 @@ class Newsletter_SignUp {
 	* Send the post data to the newsletter service, mimic form request
 	*/
 	function send_post_data($email,$naam)
-	{
+	{	
+		// when not using api and no form action has been given, abandon.
 		if(empty($this->options['use_api']) && empty($this->options['form_action'])) return;
 		
 		$post_data = array();
@@ -121,7 +122,7 @@ class Newsletter_SignUp {
 					  'apikey' => $this->options['api_key'],
 					  'id' => $this->options['list_id'],
 					  'email_address' => $email,
-					  'double_optin' => true,
+					  'double_optin' => TRUE,
 					  'merge_vars' => array(
 							'OPTIN_TIME' => date('Y-M-D H:i:s')
 					  )
@@ -183,7 +184,7 @@ class Newsletter_SignUp {
 		}
 		
 		// store a cookie, if preferred by site owner
-		if(isset($this->options['cookie_hide']) && $this->options['cookie_hide'] == 1) @setcookie('ns_subscriber',true,time()+9999999);	
+		if(isset($this->options['cookie_hide']) && $this->options['cookie_hide'] == 1) @setcookie('ns_subscriber',TRUE,time()+9999999);	
 	
 	}
 	
@@ -195,7 +196,7 @@ class Newsletter_SignUp {
 	{
 		$defaults = array(
 			'format' => 'array',
-			'api' => null
+			'api' => NULL
 		);
 		
 		$args = wp_parse_args( $args, $defaults );

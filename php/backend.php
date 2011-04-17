@@ -11,30 +11,24 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 		var $optionname = 'ns_options';
 		var $filename	= 'newsletter-sign-up/newsletter-sign-up.php';
 		var $icon_url 	= '';
-		var $bp_active = false;
+		var $bp_active = FALSE;
 		var $options;
 		
 		function __construct()
 		{
 			parent::__construct();			
 			add_action('admin_init', array(&$this,'settings_init'));
-			
-			$this->icon_url = plugins_url('/img/icon.png',dirname(__FILE__));
-			
-			// if buddypress is loaded, set buddypress_active to true
-			add_action( 'bp_include', array(&$this,'set_bp_active') );
+			add_action( 'bp_include', array(&$this,'set_bp_active') );	
 		}
 		
+		/**
+		* If buddypress is loaded, set buddypress_active to TRUE
+		*/
 		function set_bp_active()
 		{
-			$this->bp_active = true;
+			$this->bp_active = TRUE;
 		}
 		
-		function add_option_page()
-		{
-			add_options_page($this->longname,$this->shortname, $this->accesslvl, $this->hook, array(&$this,'option_page'));
-		}
-
 		function settings_init()
 		{
 			register_setting('ns_options_group', 'ns_options',array(&$this,'validate_options'));
@@ -46,6 +40,9 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 			wp_enqueue_script('ns_admin_js', plugins_url('/js/backend.js',dirname(__FILE__)));
 		}
 		
+		/**
+		* Validate the submitted options
+		*/
 		function validate_options($options)
 		{
 
@@ -57,7 +54,10 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 			
 			return $options;
 		}
-				
+		
+		/**
+		* Create the option page
+		*/
 		function option_page()
 		{
 			$this->setup_admin_page("Newsletter Sign-Up Settings","Newsletter Sign-Up Configuration Settings");
@@ -166,7 +166,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 							<input type="checkbox" id="add_to_comment_form" name="ns_options[add_to_comment_form]" value="1"<?php if(isset($this->options['add_to_comment_form']) && $this->options['add_to_comment_form'] == '1') { echo ' checked="checked"'; } ?> /> <label for="add_to_comment_form">WordPress comment form</label><br />
 							<input type="checkbox" id="add_to_reg_form" name="ns_options[add_to_reg_form]" value="1"<?php if(isset($this->options['add_to_reg_form']) && $this->options['add_to_reg_form'] == '1') { echo ' checked="checked"'; } ?> /> <label for="add_to_reg_form">WordPress registration form</label><br />
 							<?php 
-							if($this->bp_active == true) { ?>
+							if($this->bp_active == TRUE) { ?>
 								<input type="checkbox" id="add_to_bp_form" name="ns_options[add_to_bp_form]" value="1"<?php if(isset($this->options['add_to_bp_form']) && $this->options['add_to_bp_form'] == '1') { echo ' checked="checked"'; } ?> /> <label for="add_to_bp_form">BuddyPress registration form</label><br />
 							<?php 
 							}
@@ -225,6 +225,10 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 			$this->close_admin_page();
 		}
 		
+		/**
+		* Show the rows that are unique for some mailinglist providers (i.e. MC API or YMLP API)
+		* @param mailinglist: the mailinglist provider that is being viewed
+		*/
 		function mailinglist_specific_rows($mailinglist)
 		{
 
