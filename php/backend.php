@@ -87,10 +87,26 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 					if(!in_array($viewed_mp,array('mailchimp','icontact','aweber','phplist','ymlp','other'))) $viewed_mp = NULL;
 					
 					// Fill in some predefined values if options not set or set for other newsletter service
-					if(empty($this->options['email_id']) || $this->options['email_service'] != $viewed_mp) {
+					if($this->options['email_service'] != $viewed_mp) {
 						switch($viewed_mp) {
-							case 'mailchimp': $this->options['email_id'] = 'EMAIL'; break;
-							case 'ymlp': $this->options['email_id'] = 'YMP0'; break;
+						
+							case 'mailchimp': 
+								if(empty($this->options['email_id'])) $this->options['email_id'] = 'EMAIL';
+								if(empty($this->options['name_id'])) $this->options['name_id'] = 'NAME';
+							break;
+							
+							case 'ymlp': 
+								if(empty($this->options['email_id'])) $this->options['email_id'] = 'YMP0'; 
+							break;
+							
+							case 'aweber':
+								if(empty($this->options['form_action'])) $this->options['form_action'] = 'http://www.aweber.com/scripts/addlead.pl';
+								if(empty($this->options['email_id'])) $this->options['email_id'] = 'email'; 
+							break;
+							
+							case 'icontact':
+								if(empty($this->options['email_id'])) $this->options['email_id'] = 'fields_email'; 
+							break;
 						}
 					}
 				?>

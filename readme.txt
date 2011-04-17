@@ -79,6 +79,7 @@ Yes, you can. This option was added in v1.0.1.
 
 == Changelog ==
 = 1.1.2 =
+* Re-added the predefined form values for Aweber, iContact and MailChimp
 * Fixed PHPList fatal error
 * Added additional data support when using YMLP API
 
