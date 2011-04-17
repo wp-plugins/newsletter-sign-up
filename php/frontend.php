@@ -165,7 +165,7 @@ class Newsletter_SignUp {
 				break;
 				
 				case 'phplist':
-					$post_data['list['.$$this->options['phplist_list_id'].']'] = 'signup';
+					$post_data['list['.$this->options['phplist_list_id'].']'] = 'signup';
 					$post_data['subscribe'] = "Subscribe";
 					$post_data["htmlemail"] = "1"; 
 					$post_data['emailconfirm'] = $emailadres;
