@@ -111,6 +111,7 @@ class Newsletter_SignUp {
 					$request_uri .= "&Username=" . $this->options['ymlp_username'];
 					$request_uri .= "&Email=" . $email;
 					$request_uri .= "&GroupID=" . $this->options['ymlp_groupid'];
+					$request_uri .= $this->add_additional_data(array('format' => 'query_string', 'api' => 'ymlp'));
 					$result = wp_remote_get($request_uri);
 				break;
 				
@@ -132,7 +133,7 @@ class Newsletter_SignUp {
 					}
 					
 					// Add any set additional data to merge_vars array
-					$request['merge_vars'] = $this->add_additional_data($request['merge_vars']);
+					$request['merge_vars'] = array_merge($request['merge_vars'],$this->add_additional_data());
 					
 					$result = wp_remote_post(
 						'http://'.substr($this->options['api_key'],-3).'.api.mailchimp.com/1.3/?output=php&method=listSubscribe', 
@@ -190,8 +191,27 @@ class Newsletter_SignUp {
 	* Returns array with additional data names as key, values as value. 
 	* @param data, the normal form data (name, email, list variables)
 	*/
-	function add_additional_data($data)
+	function add_additional_data($args = array())
 	{
+		$defaults = array(
+			'format' => 'array',
+			'api' => null
+		);
+		
+		$args = wp_parse_args( $args, $defaults );
+		
+		if($args['format'] == 'query_string') {
+		
+			$add_data = "";
+			if(isset($this->options['extra_data']) && is_array($this->options['extra_data'])) {
+				foreach($this->options['extra_data'] as $key => $value) {
+					if($args['api'] == 'ymlp') $value['name'] = str_replace('YMP','Field',$value['name']);
+					$add_data .= "&".$value['name']."=".$value['value'];
+				}		
+			}
+			return $add_data;
+		} 
+		
 		$add_data = array();
 		if(isset($this->options['extra_data']) && is_array($this->options['extra_data'])) {
 			foreach($this->options['extra_data'] as $key => $value) {
@@ -199,7 +219,7 @@ class Newsletter_SignUp {
 			}		
 		}
 			
-		return array_merge($data,$add_data);
+		return $add_data;
 	}
 	
 	/**
