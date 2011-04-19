@@ -80,6 +80,7 @@ Yes, you can. This option was added in v1.0.1.
 == Changelog ==
 = 1.2 =
 * Fixed critical bug causing all custom form requests to fail (iow no sign-up request was made). Sorry!
+* Fixed bug in backend: empty aweber list id field
 
 = 1.1.2 =
 * Re-added the predefined form values for Aweber, iContact and MailChimp
