@@ -102,6 +102,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 							case 'aweber':
 								if(empty($this->options['form_action'])) $this->options['form_action'] = 'http://www.aweber.com/scripts/addlead.pl';
 								if(empty($this->options['email_id'])) $this->options['email_id'] = 'email'; 
+								if(empty($this->options['name_id'])) $this->options['name_id'] = 'name';
 							break;
 							
 							case 'icontact':
@@ -280,7 +281,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 				case 'aweber': ?>
 					<tr valign="top">
 						<th scope="row">Aweber List name</th>
-						<td><input size="25%" type="text" name="ns_options[aweber_list_name]" value="<?php if(isset($options['aweber_list_name'])) echo $options['aweber_list_name']; ?>" /></td>
+						<td><input size="25%" type="text" name="ns_options[aweber_list_name]" value="<?php if(isset($this->options['aweber_list_name'])) echo $this->options['aweber_list_name']; ?>" /></td>
 					</tr>
 				<?php
 				break;

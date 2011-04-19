@@ -175,8 +175,8 @@ class Newsletter_SignUp {
 			
 			}
 			
-			$post_data = $this->add_additional_data($post_data);
-			
+			$post_data = array_merge($post_data,$this->add_additional_data($post_data));
+
 			wp_remote_post($this->options['form_action'],
 				array( 'body' => $post_data ) 
 			);	
