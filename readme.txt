@@ -12,6 +12,8 @@ Adds a checkbox to your comment form that allows people to subscribe to your new
 
 = Newsletter Sign-Up =
 
+**PLEASE UPDATE TO V1.2 -  NO SIGN-UP REQUESTS ARE MADE FOR CUSTOM NEWSLETTERS IN V1.1.x**
+
 Want to turn your commenters into subscribers? This plugins makes it easy for your visitors to subscribe to your newsletter by adding a checkbox
 to your comment form that allows them to automatically be added to your mailinglist of choice.
 
