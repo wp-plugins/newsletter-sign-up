@@ -1,12 +1,12 @@
 === Plugin Name ===
 Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
-Tags: newsletter,sign-up,comment,subscribers,mailchimp,aweber,phplist,icontact,mailinglist
+Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist
 Requires at least: 2.0
 Tested up to: 3.1
 Stable tag: 1.2
 
-Adds a checkbox to your comment form that allows people to subscribe to your newsletter. Turn your commenters into subscribers!
+Add a checkbox to various forms that allows people to subscribe to your newsletter. Turn your commenters / users into subscribers!
 
 == Description ==
 
