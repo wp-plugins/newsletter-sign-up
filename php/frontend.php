@@ -6,7 +6,11 @@ class Newsletter_SignUp {
 	public function __construct()
 	{
 		$this->options = get_option('ns_options');
-		$this->add_hooks();		
+		$this->add_hooks();	
+		
+		add_action('widgets_init',function(){
+			 return register_widget('Newsletter_SignUp_Widget');
+		});
 	}
 	
 	/**
@@ -14,10 +18,18 @@ class Newsletter_SignUp {
 	*/
 	function add_hooks()
 	{
+		add_action('init',array(&$this,'check_for_widget_submit'));
+		
+		$stylesheet_opts = '?';
 		// If add to comment form, add actions for normal comment form (including Thesis)
 		if(isset($this->options['do_css_reset']) && $this->options['do_css_reset'] == 1) {
-			wp_enqueue_style('ns_checkbox_style',plugins_url('/css/ns-checkbox-style.css',dirname(__FILE__)));
+			$stylesheet_opts .= 'checkbox_reset=1';
+		} 
+		if(isset($this->options['load_widget_styles']) && $this->options['load_widget_styles'] == 1) {
+			$stylesheet_opts .= '&widget_styles=1';
 		}
+		
+		wp_enqueue_style('ns_checkbox_style',plugins_url("/css/newsletter-sign-up.php$stylesheet_opts",dirname(__FILE__)));
 		
 		if(isset($this->options['add_to_comment_form']) && $this->options['add_to_comment_form'] == 1) {
 			add_action('thesis_hook_after_comment_box',array(&$this,'add_checkbox'),20);
@@ -45,6 +57,17 @@ class Newsletter_SignUp {
 			add_filter('add_signup_meta',array(&$this,'add_checkbox_to_usermeta'));
 			add_action('wpmu_activate_blog',array(&$this,'grab_email_from_ms_blog_signup'),20,5);
 			add_action('wpmu_activate_user',array(&$this,'grab_email_from_ms_user_signup'),20,3);
+		}
+	}
+	
+	function check_for_widget_submit()
+	{
+		/* Has widget been submitted? */
+		if(isset($_POST['ns-widget-submit']))
+		{
+			$email = $_POST['email'];
+			$naam = (isset($_POST['name'])) ? $_POST['name'] : '';
+			$this->send_post_data($email,$naam);
 		}
 	}
 	
@@ -93,7 +116,7 @@ class Newsletter_SignUp {
 	/**
 	* Send the post data to the newsletter service, mimic form request
 	*/
-	function send_post_data($email,$naam)
+	function send_post_data($email,$naam = '')
 	{	
 		// when not using api and no form action has been given, abandon.
 		if(empty($this->options['use_api']) && empty($this->options['form_action'])) return;
@@ -177,7 +200,7 @@ class Newsletter_SignUp {
 			
 			$post_data = array_merge($post_data,$this->add_additional_data($post_data));
 
-			wp_remote_post($this->options['form_action'],
+			$result = wp_remote_post($this->options['form_action'],
 				array( 'body' => $post_data ) 
 			);	
 			

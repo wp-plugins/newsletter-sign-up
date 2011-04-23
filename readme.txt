@@ -1,18 +1,18 @@
 === Plugin Name ===
 Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
-Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist
+Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget
 Requires at least: 2.0
 Tested up to: 3.1
-Stable tag: 1.2
+Stable tag: 1.3
 
-Add a checkbox to various forms that allows people to subscribe to your newsletter. Turn your commenters / users into subscribers!
+Adds a newsletter sign-up checkbox to various forms, can also be used as newsletter widget.
 
 == Description ==
 
 = Newsletter Sign-Up =
 
-**PLEASE UPDATE TO V1.2 -  NO SIGN-UP REQUESTS ARE MADE FOR CUSTOM NEWSLETTERS IN V1.1.x**
+**PLEASE UPDATE TO V1.2+ -  NO SIGN-UP REQUESTS ARE MADE FOR CUSTOM NEWSLETTERS IN V1.1.x**
 
 Want to turn your commenters into subscribers? This plugins makes it easy for your visitors to subscribe to your newsletter by adding a checkbox
 to your comment form that allows them to automatically be added to your mailinglist of choice.
@@ -23,6 +23,7 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 **Features:**
 
 * Add a "sign-up to our newsletter" checkbox to your comment form, register form (including BuddyPress or MultiSite forms)
+* Add a customizable newsletter widget to your widget areas.
 * Use the MailChimp or YMLP API
 * Specify additional data to be sent to your newsletter service along with the sign-up request
 * Subscribe the commenter with their name
@@ -80,6 +81,9 @@ Yes, you can. This option was added in v1.0.1.
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+= 1.3 =
+* Added a widget: adds a sign-up form to your widget areas
+
 = 1.2 =
 * Fixed critical bug causing all custom form requests to fail (iow no sign-up request was made). Sorry!
 * Fixed bug in backend: empty aweber list id field

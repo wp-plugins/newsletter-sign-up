@@ -70,6 +70,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 				<h3 class="hndle"><span>Newsletter specific data</span></span></h3>
 					<div class="inside">
 					<form method="post" action="options.php" id="ns_settings_page">
+						<input type="hidden" name="ns_options[load_widget_styles]" value="<?php if(isset($this->options['load_widget_styles']) && $this->options['load_widget_styles'] == 1) echo '1'; ?>" />
 				<?php 
 					settings_fields('ns_options_group');
 
@@ -161,7 +162,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 					<tr valign="top">
 						<th scope="row"><label for="do_css_reset">Do a CSS 'reset' on the checkbox.</label> <span class="ns_small">(check this if checkbox appears in a weird place)</span></th>
 						<td><input type="checkbox" id="do_css_reset" name="ns_options[do_css_reset]" value="1"<?php if(isset($this->options['do_css_reset']) && $this->options['do_css_reset']=='1') { echo ' checked="checked"'; } ?>  /> </td>
-				</tr>
+					</tr>
 					<tr valign="top"><th scope="row">Where to show the sign-up checkbox?</th>
 						<td>
 							<input type="checkbox" id="add_to_comment_form" name="ns_options[add_to_comment_form]" value="1"<?php if(isset($this->options['add_to_comment_form']) && $this->options['add_to_comment_form'] == '1') { echo ' checked="checked"'; } ?> /> <label for="add_to_comment_form">WordPress comment form</label><br />
@@ -182,6 +183,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 					</tr>
 					
 				</table>
+				
 				<p class="submit">
 					<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
 				</p>
