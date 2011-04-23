@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget
 Requires at least: 2.0
 Tested up to: 3.1
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 Adds a newsletter sign-up checkbox to various forms, can also be used as newsletter widget.
 
@@ -81,6 +81,9 @@ Yes, you can. This option was added in v1.0.1.
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+= 1.3.1 =
+* Fixed parse error, unexpected T_FUNCTION for older versions of PHP which do not support anonymous functions.
+
 = 1.3 =
 * Added a widget: adds a sign-up form to your widget areas
 

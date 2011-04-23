@@ -7,10 +7,11 @@ class Newsletter_SignUp {
 	{
 		$this->options = get_option('ns_options');
 		$this->add_hooks();	
-		
-		add_action('widgets_init',function(){
-			 return register_widget('Newsletter_SignUp_Widget');
-		});
+	}
+	
+	function add_widget()
+	{
+		return register_widget('Newsletter_SignUp_Widget');
 	}
 	
 	/**
@@ -18,6 +19,8 @@ class Newsletter_SignUp {
 	*/
 	function add_hooks()
 	{
+		// widget initalization
+		add_action('widgets_init',array(&$this,'add_widget'));
 		add_action('init',array(&$this,'check_for_widget_submit'));
 		
 		$stylesheet_opts = '?';
