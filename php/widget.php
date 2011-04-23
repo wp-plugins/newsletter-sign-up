@@ -60,19 +60,19 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 							
 							<?php if(isset($options['subscribe_with_name']) && $options['subscribe_with_name'] == 1) { ?>
 								<p>
-									<label for="ns-widget-name">Name</label>
+									<label for="ns-widget-name"><?php _e('Name'); ?></label>
 									<input type="text" name="<?php echo $name_id; ?>" />
 								</p>
 							<?php } ?>
 							
 							<p>
-								<label for="ns-widget-email">Emailadress</label>
+								<label for="ns-widget-email"><?php _e('Emailadress'); ?></label>
 								<input type="text" name="<?php echo $email_id; ?>" />
 							</p>
 							
 							<?php echo $additional_fields; ?>
 							<p>
-								<input type="submit" name="ns-widget-submit" value="Signup" />
+								<input type="submit" name="ns-widget-submit" value="<?php _e('Sign up!'); ?>" />
 							</p>
 						  </form>
 					  <?php } else { // form has been submitted?>
