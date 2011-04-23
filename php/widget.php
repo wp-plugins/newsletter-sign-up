@@ -72,7 +72,7 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 							
 							<?php echo $additional_fields; ?>
 							<p>
-								<input type="submit" name="ns-widget-submit" value="<?php _e('Sign up!'); ?>" />
+								<input type="submit" name="ns-widget-submit" value="<?php _e('Sign up'); ?>" />
 							</p>
 						  </form>
 					  <?php } else { // form has been submitted?>
