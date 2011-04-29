@@ -82,8 +82,9 @@ Yes, you can. This option was added in v1.0.1.
 
 == Changelog ==
 = 1.3.2 =
-* Fixed 404 error after submitting the widget using API and 'subscribe with name'.
-* Added id's to the input fields in the widget.
+* Fixed bug: not loading the widget's default CSS after submitting option page.
+* Fixed bug: 404 error after submitting the widget using API and 'subscribe with name'.
+* Improvement: Added id's to the input fields in the widget.
 
 = 1.3.1 =
 * Fixed parse error, unexpected T_FUNCTION for older versions of PHP which do not support anonymous functions.

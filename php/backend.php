@@ -70,7 +70,6 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 				<h3 class="hndle"><span>Newsletter specific data</span></span></h3>
 					<div class="inside">
 					<form method="post" action="options.php" id="ns_settings_page">
-						<input type="hidden" name="ns_options[load_widget_styles]" value="<?php if(isset($this->options['load_widget_styles']) && $this->options['load_widget_styles'] == 1) echo '1'; ?>" />
 				<?php 
 					settings_fields('ns_options_group');
 
@@ -112,6 +111,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 						}
 					}
 				?>
+					<input type="hidden" name="ns_options[load_widget_styles]" value="<?php if(isset($this->options['load_widget_styles'])) echo $this->options['load_widget_styles']; ?>" />
 					<table class="form-table">			
 						<tr valign="top">
 							<th scope="row">Select your mailinglist provider: </th>

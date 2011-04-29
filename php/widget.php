@@ -91,9 +91,9 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 			$instance['text_before_form'] = strip_tags($new_instance['text_before_form']);
 			$instance['load_widget_styles'] = strip_tags($new_instance['load_widget_styles']);
 			
-			if(isset($instance['load_widget_styles']) && $instance['load_widget_styles'] == 1) {
+			if(isset($instance['load_widget_styles'])) {
 				$ns_options = get_option('ns_options');
-				$ns_options['load_widget_styles'] = 1;
+				$ns_options['load_widget_styles'] = $instance['load_widget_styles'];
 				update_option('ns_options',$ns_options);
 			}
 			
