@@ -66,12 +66,13 @@ class Newsletter_SignUp {
 	function check_for_widget_submit()
 	{
 		/* Has widget been submitted? */
-		if(isset($_POST['ns-widget-submit']))
+		if(isset($_POST['ns_widget_submit']))
 		{
-			$email = $_POST['email'];
-			$naam = (isset($_POST['name'])) ? $_POST['name'] : '';
+			$email = $_POST['ns_email'];
+			$naam = (isset($_POST['name'])) ? $_POST['ns_name'] : null;
 			$this->send_post_data($email,$naam);
 		}
+		return;
 	}
 	
 	

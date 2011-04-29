@@ -26,8 +26,8 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 			
 				/* Using API, send form request to widget-signup.php */
 				$form_action = "";
-				$email_id = 'email';
-				$name_id = 'name';
+				$email_id = 'ns_email';
+				$name_id = 'ns_name';
 				
 			} else {
 				
@@ -51,7 +51,7 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 			?>
 				  <?php echo $before_widget; ?>
 					  <?php echo $before_title . $title . $after_title; ?>
-					  <?php if(!isset($_POST['ns-widget-submit'])) { //form has not been submitted yet ?>
+					  <?php if(!isset($_POST['ns_widget_submit'])) { //form has not been submitted yet ?>
 						  <form class="nsu-widget-form" action="<?php echo $form_action; ?>" method="post">
 						  
 							<p>
@@ -61,18 +61,18 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 							<?php if(isset($options['subscribe_with_name']) && $options['subscribe_with_name'] == 1) { ?>
 								<p>
 									<label for="ns-widget-name"><?php _e('Name'); ?></label>
-									<input type="text" name="<?php echo $name_id; ?>" />
+									<input id="ns-widget-name" type="text" name="<?php echo $name_id; ?>" />
 								</p>
 							<?php } ?>
 							
 							<p>
 								<label for="ns-widget-email"><?php _e('Emailadress'); ?></label>
-								<input type="text" name="<?php echo $email_id; ?>" />
+								<input id="ns-widget-email" type="text" name="<?php echo $email_id; ?>" />
 							</p>
 							
 							<?php echo $additional_fields; ?>
 							<p>
-								<input type="submit" name="ns-widget-submit" value="<?php _e('Sign up'); ?>" />
+								<input type="submit" name="ns_widget_submit" value="<?php _e('Sign up'); ?>" />
 							</p>
 						  </form>
 					  <?php } else { // form has been submitted?>
