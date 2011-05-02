@@ -4,22 +4,27 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 
 	class Newsletter_SignUp_Widget extends WP_Widget {
 		
+		var $options;
+		
 		function __construct() {
-			parent::__construct(false, $name = 'Newsletter Sign-Up Widget');	
+			parent::__construct(false, $name = 'Newsletter Sign-Up Widget');
+			$this->options = get_option('ns_options');
 		}
 
 		function widget($args, $instance) {	
 			/* Get Newsletter Sign-up options */
-			$options = get_option('ns_options');
+			$options = $this->options;
 			$additional_fields = '';
 			
 			/* Provide some defaults */
-			$defaults = array( 'title' => 'Sign up for our newsletter!', 'text_after_signup' => 'Thanks for signing up to our newsletter!', 'text_before_form' => '', 'load_widget_styles' => 1);
+			$defaults = array( 'title' => 'Sign up for our newsletter!', 'name_label' => 'Name', 'email_label' => 'Email Address', 'text_after_signup' => 'Thanks for signing up to our newsletter!', 'text_before_form' => '', 'load_widget_styles' => 1);
 			$instance = wp_parse_args( (array) $instance, $defaults );	
 			
 			extract( $args );
 			extract($instance);
 			$title = apply_filters('widget_title', $title);
+			$text_before_form = nl2br($text_before_form);
+			$text_after_signup = nl2br($text_after_signup);
 			
 			/* Set up form variables for API usage or normal form */
 			if(isset($options['use_api']) && $options['use_api'] == 1) {
@@ -60,13 +65,13 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 							
 							<?php if(isset($options['subscribe_with_name']) && $options['subscribe_with_name'] == 1) { ?>
 								<p>
-									<label for="ns-widget-name"><?php _e('Name'); ?></label>
+									<label for="ns-widget-name"><?php echo $name_label; ?></label>
 									<input id="ns-widget-name" type="text" name="<?php echo $name_id; ?>" />
 								</p>
 							<?php } ?>
 							
 							<p>
-								<label for="ns-widget-email"><?php _e('Emailadress'); ?></label>
+								<label for="ns-widget-email"><?php echo $email_label; ?></label>
 								<input id="ns-widget-email" type="text" name="<?php echo $email_id; ?>" />
 							</p>
 							
@@ -84,15 +89,16 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 			<?php
 		}
 
-		function update($new_instance, $old_instance) {				
-			$instance = $old_instance;
+		function update($new_instance, $old_instance) {
+			$instance = $new_instance;
 			$instance['title'] = strip_tags($new_instance['title']);
-			$instance['text_after_signup'] = strip_tags($new_instance['text_after_signup']);
-			$instance['text_before_form'] = strip_tags($new_instance['text_before_form']);
-			$instance['load_widget_styles'] = strip_tags($new_instance['load_widget_styles']);
+			$instance['email_label'] = strip_tags($new_instance['email_label']);
+			$instance['name_label'] = strip_tags($new_instance['name_label']);
+			$instance['text_before_form'] = strip_tags($new_instance['text_before_form'],'<a><b><strong><i><img><em><br>');
+			$instance['text_after_signup'] = strip_tags($new_instance['text_after_signup'],'<a><b><strong><i><img><em><br>');
 			
 			if(isset($instance['load_widget_styles'])) {
-				$ns_options = get_option('ns_options');
+				$ns_options = $this->options;
 				$ns_options['load_widget_styles'] = $instance['load_widget_styles'];
 				update_option('ns_options',$ns_options);
 			}
@@ -101,25 +107,37 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 		}
 
 		function form($instance) {	
-			$defaults = array( 'title' => 'Sign up for our newsletter!', 'text_after_signup' => 'Thanks for signing up to our newsletter!', 'text_before_form' => '', 'load_widget_styles' => 1);
+			$defaults = array( 'title' => 'Sign up for our newsletter!', 'email_label' => 'Email Address', 'name_label' => 'Name', 'text_after_signup' => 'Thanks for signing up to our newsletter!', 'text_before_form' => '', 'load_widget_styles' => 1);
 			$instance = wp_parse_args( (array) $instance, $defaults );		
 			
-			$title = esc_attr($instance['title']);
-			$text_after_signup = esc_attr($instance['text_after_signup']);
-			$text_before_form = esc_attr($instance['text_before_form']);
-			$load_widget_styles = esc_attr($instance['load_widget_styles']);
+			extract($instance);
+
 			?>
 			 <p>
 			  <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label> 
 			  <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 			</p>
+			
 			 <p>
-			  <label for="<?php echo $this->get_field_id('text_before_form'); ?>"><?php _e('Text to show before form:'); ?></label> 
+			  <label title="You can use the following HTML-codes:  &lt;a&gt;, &lt;strong&gt;, &lt;br /&gt;,&lt;em&gt; &lt;img ..&gt;" for="<?php echo $this->get_field_id('text_before_form'); ?>"><?php _e('Text to show before form:'); ?></label> 
 			  <textarea class="widefat" id="<?php echo $this->get_field_id('text_before_form'); ?>" name="<?php echo $this->get_field_name('text_before_form'); ?>"><?php echo $text_before_form; ?></textarea>
 			</p>
+			
+			<?php if(isset($this->options['subscribe_with_name']) && $this->options['subscribe_with_name'] == 1) { ?>
+				 <p>
+				  <label for="<?php echo $this->get_field_id('name_label'); ?>"><?php _e('Name label:'); ?></label> 
+				  <input class="widefat" id="<?php echo $this->get_field_id('name_label'); ?>" name="<?php echo $this->get_field_name('name_label'); ?>" type="text" value="<?php echo $name_label; ?>" />
+				</p>
+			<?php } ?>
+			
 			 <p>
-			  <label for="<?php echo $this->get_field_id('text_after_signup'); ?>"><?php _e('Text after sign-up:'); ?></label> 
-			  <input class="widefat" id="<?php echo $this->get_field_id('text_after_signup'); ?>" name="<?php echo $this->get_field_name('text_after_signup'); ?>" type="text" value="<?php echo $text_after_signup; ?>" />
+			  <label for="<?php echo $this->get_field_id('email_label'); ?>"><?php _e('Email label:'); ?></label> 
+			  <input class="widefat" id="<?php echo $this->get_field_id('email_label'); ?>" name="<?php echo $this->get_field_name('email_label'); ?>" type="text" value="<?php echo $email_label; ?>" />
+			</p>
+			
+			 <p>
+			  <label title="You can use the following HTML-codes:  &lt;a&gt;, &lt;strong&gt;, &lt;br /&gt;,&lt;em&gt; &lt;img ..&gt;" for="<?php echo $this->get_field_id('text_after_signup'); ?>"><?php _e('Text after sign-up:'); ?></label> 
+			   <textarea class="widefat" id="<?php echo $this->get_field_id('text_after_signup'); ?>" name="<?php echo $this->get_field_name('text_after_signup'); ?>"><?php echo $text_after_signup; ?></textarea>
 			</p>
 			 <p>
 			  <label for="<?php echo $this->get_field_id('load_widget_styles'); ?>"><?php _e('Load some default CSS?'); ?></label> 

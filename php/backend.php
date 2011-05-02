@@ -8,15 +8,56 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 		var $hook 		= 'newsletter-sign-up';
 		var $longname	= 'Newsletter Sign-Up Configuration';
 		var $shortname	= 'Newsletter Sign-Up';
+		var $plugin_url = 'http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/';
 		var $optionname = 'ns_options';
 		var $filename	= 'newsletter-sign-up/newsletter-sign-up.php';
 		var $icon_url 	= '';
 		var $bp_active = FALSE;
 		var $options;
+		var $actions;
 		
 		function __construct()
 		{
-			parent::__construct();			
+			parent::__construct();	
+			
+			$this->add_hooks();
+			
+			// Only do stuff on Newsletter Sign-up admin page.
+			if(isset($_GET['page']) && $_GET['page'] == $this->hook) {
+				// Load settings, predefine some variables
+				$this->options = get_option('ns_options',array(
+					'email_service' => '',
+					'add_to_comment_form' => 1,
+					'checkbox_text' => 'Sign me up to your newsletter!',
+					'do_css_reset' => 1,
+				));
+				
+				 $this->check_usage_time();
+			}
+			
+		}
+		
+		function check_usage_time()
+		{
+			if(isset($_GET['dontshowpopup']) && $_GET['dontshowpopup'] == 1) {
+				$this->options['dontshowpopup'] = 1;
+				update_option('ns_options',$this->options);
+			}			
+			if(!isset($this->options['date_installed'])) {
+				// set installed_time to now, so we can show pop-up in 30 days
+				$this->options['date_installed'] = strtotime('now');
+				update_option('ns_options',$this->options);
+				
+			} elseif(!isset($this->options['dontshowpopup']) && $this->options['dontshowpopup'] != 1 && $this->options['date_installed'] < strtotime('-30 days')) {
+				// plugin has been installed for over 30 days
+				$this->actions['show_donate_box'] = true;
+				wp_enqueue_style('dvk_donate', plugins_url('/css/donate.css',dirname(__FILE__)));
+				wp_enqueue_script('dvk_donate', plugins_url('/js/donate.js',dirname(__FILE__)));
+			}
+		}
+		
+		function add_hooks()
+		{
 			add_action('admin_init', array(&$this,'settings_init'));
 			add_action( 'bp_include', array(&$this,'set_bp_active') );	
 		}
@@ -72,14 +113,6 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 					<form method="post" action="options.php" id="ns_settings_page">
 				<?php 
 					settings_fields('ns_options_group');
-
-					// Load settings, predefine some variables
-					$this->options = get_option('ns_options',array(
-						'email_service' => '',
-						'add_to_comment_form' => 1,
-						'checkbox_text' => 'Sign me up to your newsletter!',
-						'do_css_reset' => 1,
-					));
 					
 					$viewed_mp = NULL;
 					if(!empty($_GET['mp'])) $viewed_mp = $_GET['mp'];
@@ -87,7 +120,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 					if(!in_array($viewed_mp,array('mailchimp','icontact','aweber','phplist','ymlp','other'))) $viewed_mp = NULL;
 					
 					// Fill in some predefined values if options not set or set for other newsletter service
-					if($this->options['email_service'] != $viewed_mp) {
+					if(!isset($this->options['email_service']) || $this->options['email_service'] != $viewed_mp) {
 						switch($viewed_mp) {
 						
 							case 'mailchimp': 
@@ -111,6 +144,8 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 						}
 					}
 				?>
+					<input type="hidden" name="ns_options[date_installed]" value="<?php if(isset($this->options['date_installed'])) echo $this->options['date_installed']; ?>" />
+					<input type="hidden" name="ns_options[dontshowpopup]" value="<?php if(isset($this->options['dontshowpopup'])) echo $this->options['dontshowpopup']; ?>" />
 					<input type="hidden" name="ns_options[load_widget_styles]" value="<?php if(isset($this->options['load_widget_styles'])) echo $this->options['load_widget_styles']; ?>" />
 					<table class="form-table">			
 						<tr valign="top">
@@ -224,8 +259,8 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 					<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
 				</p>
 					</form>
-			<?php
-			$this->close_admin_page();
+				
+			<?php $this->close_admin_page();
 		}
 		
 		/**
