@@ -1,5 +1,7 @@
 <?php header('Content-type: text/css'); ?>
 
+#nsu-signed-up{ font-weight:bold; }
+
 <?php if(isset($_GET['checkbox_reset']) && $_GET['checkbox_reset'] == 1) { ?>
 	p#ns-checkbox{
 		clear:both; display:block;
@@ -14,21 +16,21 @@
 	}
 <?php } ?>
 
-<?php if(isset($_GET['widget_styles']) && $_GET['widget_styles'] == 1) { ?>
-	.nsu-widget-form {
+<?php if(isset($_GET['form_css']) && $_GET['form_css'] == 1) { ?>
+	.nsu-form {
 		margin:5px 0;
 	}
 	
-	.nsu-widget-form p{
+	.nsu-form p{
 		clear:both;
 		display:block;
 		margin:5px 0;
 	}
-	.nsu-widget-form label{
+	.nsu-form label{
 		display:block;
 		font-weight:bold;
 	}
-	.nsu-widget-form input{
+	.nsu-form input{
 		padding:2px;
 		display:block;
 	}

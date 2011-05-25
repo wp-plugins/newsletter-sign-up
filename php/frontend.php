@@ -1,11 +1,19 @@
 <?php
 class Newsletter_SignUp {
 	
-	var $options = array(), $ns_checkbox = FALSE;
+	var $options = array();
+	var $defaults = array(
+		'form' => array(
+			'email_label' => 'E-mail:',
+			'name_label' => 'Name:',
+			'submit_button' => 'Sign-Up'
+		)
+	);
+	var $ns_checkbox = FALSE;
 	
 	public function __construct()
 	{
-		$this->options = get_option('ns_options');
+		$this->options = get_option('ns_options',$this->defaults);
 		$this->add_hooks();	
 	}
 	
@@ -23,13 +31,16 @@ class Newsletter_SignUp {
 		add_action('widgets_init',array(&$this,'add_widget'));
 		add_action('init',array(&$this,'check_for_widget_submit'));
 		
+		add_shortcode('newsletter-sign-up-form',array(&$this,'form_shortcode'));
+		
 		$stylesheet_opts = '?';
 		// If add to comment form, add actions for normal comment form (including Thesis)
 		if(isset($this->options['do_css_reset']) && $this->options['do_css_reset'] == 1) {
 			$stylesheet_opts .= 'checkbox_reset=1';
 		} 
-		if(isset($this->options['load_widget_styles']) && $this->options['load_widget_styles'] == 1) {
-			$stylesheet_opts .= '&widget_styles=1';
+		
+		if(isset($this->options['form']['load_form_css']) && $this->options['form']['load_form_css'] == 1) {
+			$stylesheet_opts .= '&form_css=1';
 		}
 		
 		wp_enqueue_style('ns_checkbox_style',plugins_url("/css/newsletter-sign-up.php$stylesheet_opts",dirname(__FILE__)));
@@ -66,10 +77,10 @@ class Newsletter_SignUp {
 	function check_for_widget_submit()
 	{
 		/* Has widget been submitted? */
-		if(isset($_POST['ns_widget_submit']))
+		if(isset($_POST['nsu_submit']))
 		{
-			$email = $_POST['ns_email'];
-			$naam = (isset($_POST['name'])) ? $_POST['ns_name'] : null;
+			$email = $_POST['nsu_email'];
+			$naam = (isset($_POST['nsu_name'])) ? $_POST['nsu_name'] : null;
 			$this->send_post_data($email,$naam);
 		}
 		return;
@@ -330,6 +341,76 @@ class Newsletter_SignUp {
 		$naam = $comment->comment_author;
 		
 		$this->send_post_data($email,$naam);
+	}
+	
+	function form_shortcode($atts = null,$content = null)
+	{
+		$form = $this->output_form(false);
+		return $form;
+	}
+	
+	public function output_form($echo = true)
+	{
+		$options = $this->options;
+		$additional_fields = '';
+		$output = '';
+		
+		/* Set up form variables for API usage or normal form */
+		if(isset($options['use_api']) && $options['use_api'] == 1) {
+			
+			/* Using API, send form request to widget-signup.php */
+			$form_action = "";
+			$email_id = 'nsu_email';
+			$name_id = 'nsu_name';
+				
+		} else {
+				
+			/* Using normal form request, set-up using configuration settings */
+			$form_action = $options['form_action'];
+			$email_id = $options['email_id'];
+				
+			if(isset($options['name_id'])) {
+				$name_id = $options['name_id'];
+			}
+				
+		}
+			
+			/* Set up additional fields */
+		if(isset($options['extra_data']) && is_array($options['extra_data'])) :
+			foreach($options['extra_data'] as $ed) : 
+				$additional_fields .= "<input type=\"hidden\" name=\"{$ed['name']}\" value=\"{$ed['value']}\" />";
+			endforeach; 
+		endif; 
+		
+		$email_label = (!empty($options['form']['email_label'])) ? $options['form']['email_label'] : 'E-mail:';
+		$name_label = (!empty($options['form']['name_label'])) ? $options['form']['name_label'] : 'Name:';
+		$submit_button = (!empty($options['form']['submit_button'])) ? $options['form']['submit_button'] : __('Sign-Up');
+		$text_after_signup = nl2br($options['form']['text_after_signup']);
+		
+		 if(!isset($_POST['nsu_submit'])) { //form has not been submitted yet 
+			
+			$output .= "<form class=\"nsu-form\" action=\"$form_action\" method=\"post\">";
+				
+			if(isset($options['subscribe_with_name']) && $options['subscribe_with_name'] == 1) {	
+				$output .= "<p><label for=\"nsu-name\">$name_label</label><input id=\"nsu-name\" type=\"text\" name=\"$name_id\" /></p>";		
+			} 
+							
+			$output .= "<p><label for=\"nsu-email\">$email_label</label><input id=\"nsu-email\" type=\"text\" name=\"$email_id\" /></p>";
+			$output .= $additional_fields;
+			$output .= "<p><input type=\"submit\" name=\"nsu_submit\" value=\"$submit_button\" /></p>";
+			$output .= "</form>";
+				
+		} else { // form has been submitted
+		
+			$output = "<p id=\"nsu-signed-up\">$text_after_signup</p>";		
+				
+		 }
+		 
+		 if($echo) {
+			echo $output;
+		 } else {
+			return $output;
+		 }
 	}
 
 }

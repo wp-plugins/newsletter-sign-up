@@ -18,19 +18,26 @@ if(!class_exists('DvK_Plugin_Admin')) {
 		var $homepage	= '';
 		var $accesslvl	= 'manage_options';
 		var $plugin_url;
+		var $options = array();
 		
 		function __construct()
 		{
+			$this->options = get_option($this->optionname);
 			add_filter("plugin_action_links_{$this->filename}", array(&$this,'add_settings_link'));
 			add_action('admin_menu', array(&$this,'add_option_page'));
+			add_action('admin_init', array(&$this,'settings_init'));
+			add_action('wp_dashboard_setup', array(&$this,'widget_setup'));	
 			register_deactivation_hook($this->filename, array(&$this,'remove_options'));
 			
-			if(isset($_GET['page']) && strpos($_GET['page'],$this->hook) !== false) {
+			
+			/* Only do stuff on admin page of this plugin */			
+			if(isset($_GET['page']) && $_GET['page'] == $this->hook) {
 				add_action("admin_print_styles",array(&$this,'add_admin_styles'));
 				add_action("admin_print_scripts",array(&$this,'add_admin_scripts'));
+				$this->check_usage_time();
 			}
 			
-			add_action('wp_dashboard_setup', array(&$this,'widget_setup'));	
+			
 		}
 		
 		function remove_options()
@@ -123,7 +130,8 @@ if(!class_exists('DvK_Plugin_Admin')) {
 		function postbox($id,$title,$content)
 		{
 		?>
-			<div id="<?php echo $id; ?>" class="postbox dvk-box">				
+			<div id="<?php echo $id; ?>" class="postbox dvk-box">		
+				<div class="handlediv" title="<?php _e('Click to toggle'); ?>"><br></div>
 				<h3 class="hndle"><span><?php echo $title; ?></span></h3>
 				<div class="inside">
 					<?php echo $content; ?>			
@@ -135,12 +143,13 @@ if(!class_exists('DvK_Plugin_Admin')) {
 		function setup_admin_page($title,$subtitle)
 		{
 			?>
-			<div class="wrap">
+			<div class="wrap" id="<?php echo $this->hook; ?>">
 			<h2><a href="http://dannyvankooten.com/" target="_blank"><span id="dvk-avatar"></span></a><?php echo $title; ?></h2>
 			<div class="postbox-container" style="width:65%;">
 				<div class="metabox-holder">	
 					<div class="meta-box-sortables">
 						<div class="postbox">
+							<div class="handlediv" title="<?php _e('Click to toggle'); ?>"><br></div>
 							<h3 class="hndle"><span><?php echo $subtitle; ?></span></h3>
 							<div class="inside">
 			<?php
@@ -245,6 +254,35 @@ if(!class_exists('DvK_Plugin_Admin')) {
 				$text .= $finish;
 			}
 			return $text;
+		}
+		
+		function check_usage_time()
+		{
+			if(isset($_GET['dontshowpopup']) && $_GET['dontshowpopup'] == 1) {
+				$this->options['dontshowpopup'] = 1;
+				update_option($this->optionname,$this->options);
+			}			
+			if(!isset($this->options['date_installed'])) {
+				// set installed_time to now, so we can show pop-up in 30 days
+				$this->options['date_installed'] = strtotime('now');
+				update_option($this->optionname,$this->options);
+				
+			} elseif((!isset($this->options['dontshowpopup']) || $this->options['dontshowpopup'] != 1) && $this->options['date_installed'] < strtotime('-30 days')) {
+				// plugin has been installed for over 30 days
+				$this->actions['show_donate_box'] = true;
+				wp_enqueue_style('dvk_donate', plugins_url('/css/donate.css',dirname(__FILE__)));
+				wp_enqueue_script('dvk_donate', plugins_url('/js/donate.js',dirname(__FILE__)));
+			}
+		}
+		
+		function settings_init()
+		{
+			register_setting($this->optionname.'_group',$this->optionname,array(&$this,'validate_options'));
+		}
+		
+		function validate_options($options)
+		{
+			return $options;
 		}
 		
 	}

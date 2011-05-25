@@ -13,7 +13,18 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 		var $filename	= 'newsletter-sign-up/newsletter-sign-up.php';
 		var $icon_url 	= '';
 		var $bp_active = FALSE;
-		var $options;
+		var $options = array();
+		var $defaults = array(
+			'email_service' => '',
+			'add_to_comment_form' => 1,
+			'checkbox_text' => 'Sign me up to your newsletter!',
+			'do_css_reset' => 1,
+			'form' => array(
+				'email_label' => 'E-mail:',
+				'name_label' => 'Name:',
+				'submit_button' => 'Sign-Up'
+			)
+		);
 		var $actions;
 		
 		function __construct()
@@ -24,41 +35,15 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 			
 			// Only do stuff on Newsletter Sign-up admin page.
 			if(isset($_GET['page']) && $_GET['page'] == $this->hook) {
+		
 				// Load settings, predefine some variables
-				$this->options = get_option('ns_options',array(
-					'email_service' => '',
-					'add_to_comment_form' => 1,
-					'checkbox_text' => 'Sign me up to your newsletter!',
-					'do_css_reset' => 1,
-				));
-				
-				 $this->check_usage_time();
+				$this->options = get_option($this->optionname,$this->defaults);
 			}
 			
 		}
 		
-		function check_usage_time()
-		{
-			if(isset($_GET['dontshowpopup']) && $_GET['dontshowpopup'] == 1) {
-				$this->options['dontshowpopup'] = 1;
-				update_option('ns_options',$this->options);
-			}			
-			if(!isset($this->options['date_installed'])) {
-				// set installed_time to now, so we can show pop-up in 30 days
-				$this->options['date_installed'] = strtotime('now');
-				update_option('ns_options',$this->options);
-				
-			} elseif(!isset($this->options['dontshowpopup']) && $this->options['dontshowpopup'] != 1 && $this->options['date_installed'] < strtotime('-30 days')) {
-				// plugin has been installed for over 30 days
-				$this->actions['show_donate_box'] = true;
-				wp_enqueue_style('dvk_donate', plugins_url('/css/donate.css',dirname(__FILE__)));
-				wp_enqueue_script('dvk_donate', plugins_url('/js/donate.js',dirname(__FILE__)));
-			}
-		}
-		
 		function add_hooks()
 		{
-			add_action('admin_init', array(&$this,'settings_init'));
 			add_action( 'bp_include', array(&$this,'set_bp_active') );	
 		}
 		
@@ -68,11 +53,6 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 		function set_bp_active()
 		{
 			$this->bp_active = TRUE;
-		}
-		
-		function settings_init()
-		{
-			register_setting('ns_options_group', 'ns_options',array(&$this,'validate_options'));
 		}
 				
 		function add_admin_scripts()
@@ -93,6 +73,8 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 				endforeach;		
 			endif;
 			
+			$options['form']['text_after_signup'] = strip_tags($options['form']['text_after_signup'],'<a><b><strong><i><img><em><br>');
+			
 			return $options;
 		}
 		
@@ -103,12 +85,13 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 		{
 			$this->setup_admin_page("Newsletter Sign-Up Settings","Newsletter Sign-Up Configuration Settings");
 		?>
-				<p>Here you can configure the plugin. In order for the plugin to work properly you need to atleast provide
-				a form action and an email identifier. For more information on what to fill in check out <a target="_blank" href="http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/">this post on my blog</a>.</p>
+				<p>Here you can configure the plugin. In order for the plugin to work properly you need to at least provide
+				a form action and an e-mail identifier. For more information on what to fill in check out <a target="_blank" href="http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/">this post on my blog</a>.</p>
 				</div>
 			</div>
 			<div class="postbox">
-				<h3 class="hndle"><span>Newsletter specific data</span></span></h3>
+				<div class="handlediv" title="<?php _e('Click to toggle'); ?>"><br></div>
+				<h3 class="hndle"><span>General settings - Newsletter Configuration</span></span></h3>
 					<div class="inside">
 					<form method="post" action="options.php" id="ns_settings_page">
 				<?php 
@@ -166,7 +149,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 							<tr valign="top"><th scope="row">Newsletter form action</th>
 								<td><input size="50%" type="text" id="ns_form_action" name="ns_options[form_action]" value="<?php if(isset($this->options['form_action'])) echo $this->options['form_action']; ?>" /></td>
 							</tr>
-							<tr valign="top"><th scope="row">Email identifier <span class="ns_small">name attribute of input field that holds the emailadress</span></th>
+							<tr valign="top"><th scope="row">E-mail identifier <span class="ns_small">name attribute of input field that holds the emailadress</span></th>
 								<td><input size="50%" type="text" name="ns_options[email_id]" value="<?php if(isset($this->options['email_id'])) echo $this->options['email_id']; ?>"/></td>
 							</tr>
 						</tbody>
@@ -178,14 +161,41 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 								<td><input size="25%" id="ns_name_id" type="text" name="ns_options[name_id]" value="<?php if(isset($this->options['name_id'])) echo $this->options['name_id']; ?>" /></td>
 							</tr>
 						</tbody>
-					</table>
+						</table>
+						<p style="margin:10px;">
+							For some newsletter services you need to specify some static data, like a list ID or your account name. You can specify the name / keys and values here and it will be sent along with the other required fields. Just empty the name field and hit save to delete a name / value pair.
+						</p>
+					<table class="form-table">
+						<tr valign="top">
+							<th scope="column" style="font-weight:bold;">Name</th>
+							<th scope="column" style="font-weight:bold;">Value</th>
+						</tr>
+					<?php 
+					$last_key = 0;
+					
+					if(isset($this->options['extra_data']) && is_array($this->options['extra_data'])) :
+						foreach($this->options['extra_data'] as $key => $value) : ?>
+							<tr valign="top">
+								<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $key; ?>][name]" value="<?php echo $value['name']; ?>" /></td>
+								<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $key; ?>][value]" value="<?php echo $value['value']; ?>" /></td>
+							</tr>					
+						<?php
+						$last_key = $key + 1;
+						endforeach; 
+					endif; ?>
+					<tr valign="top">
+						<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $last_key; ?>][name]" value="" /></td>
+						<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $last_key; ?>][value]" value="" /></td>
+					</tr>
+				</table>
 					<p class="submit">
 						<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
 					</p>
 					</div>
 				</div>
 				<div class="postbox">
-					<h3 class="hndle"><span>General settings</span></h3>
+					<div class="handlediv" title="<?php _e('Click to toggle'); ?>"><br></div>
+					<h3 class="hndle"><span>Sign-up Checkbox settings</span></h3>
 					<div class="inside">
 					<table class="form-table">
 					<tr valign="top"><th scope="row">Text to show after the checkbox</th>
@@ -227,34 +237,26 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 				</div>
 			</div>
 			<div class="postbox">
-				<h3 class="hndle"><span>Additional data</span></h3>
+				<div class="handlediv" title="<?php _e('Click to toggle'); ?>"><br></div>
+				<h3 class="hndle" id="nsu-form-settings"><span>Sign-up form settings</span></h3>
 					<div class="inside">
-					<p style="margin:10px;">
-						Want to send some additional data to your newsletter service? Specify the name / keys and values here and it will be sent along with the other required fields. Just empty the name field and hit save to delete a name / value pair.
-					</p>
-					<table class="form-table">
-						<tr valign="top">
-							<th scope="column">Name</th>
-							<th scope="column">Value</th>
-						</tr>
-					<?php 
-					$last_key = 0;
-					
-					if(isset($this->options['extra_data']) && is_array($this->options['extra_data'])) :
-						foreach($this->options['extra_data'] as $key => $value) : ?>
-							<tr valign="top">
-								<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $key; ?>][name]" value="<?php echo $value['name']; ?>" /></td>
-								<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $key; ?>][value]" value="<?php echo $value['value']; ?>" /></td>
-							</tr>					
-						<?php
-						$last_key = $key + 1;
-						endforeach; 
-					endif; ?>
-					<tr valign="top">
-						<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $last_key; ?>][name]" value="" /></td>
-						<td><input size="50%" type="text" name="ns_options[extra_data][<?php echo $last_key; ?>][value]" value="" /></td>
-					</tr>
-				</table>
+						<table class="form-table">
+							<tr valign="top"><th scope="row">E-mail label</th>
+								<td><input size="50%" type="text" name="ns_options[form][email_label]" value="<?php if(isset($this->options['form']['email_label'])) echo $this->options['form']['email_label']; ?>" /></td>
+							</tr>
+							<tr valign="top"><th scope="row">Name label <span class="ns_small">(if using subscribe with name)</span></th>
+								<td><input size="50%" type="text" name="ns_options[form][name_label]" value="<?php if(isset($this->options['form']['name_label'])) echo $this->options['form']['name_label']; ?>" /></td>
+							</tr>
+							<tr valign="top"><th scope="row">Submit button value</th>
+								<td><input size="50%" type="text" name="ns_options[form][submit_button]" value="<?php if(isset($this->options['form']['submit_button'])) echo $this->options['form']['submit_button']; ?>" /></td>
+							</tr>
+							<tr valign="top"><th scope="row">Text after sign-up</th>
+								<td><textarea rows="5" cols="50" name="ns_options[form][text_after_signup]"><?php if(isset($this->options['form']['text_after_signup'])) echo $this->options['form']['text_after_signup']; ?></textarea></td>
+							</tr>
+							<tr valign="top"><th scope="row"><label for="ns_load_form_styles">Load some default CSS</label><span class="ns_small">(check this for some default styling of the labels and input fields)</span></th>
+								<td><input type="checkbox" id="ns_load_form_styles" name="ns_options[form][load_form_css]" value="1" <?php if(isset($this->options['form']['load_form_css']) && $this->options['form']['load_form_css'] == 1) echo 'CHECKED'; ?> /></td>
+							</tr>
+						</table>
 				<p class="submit">
 					<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
 				</p>
@@ -317,7 +319,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 				
 				case 'aweber': ?>
 					<tr valign="top">
-						<th scope="row">Aweber List name</th>
+						<th scope="row">Aweber list name</th>
 						<td><input size="25%" type="text" name="ns_options[aweber_list_name]" value="<?php if(isset($this->options['aweber_list_name'])) echo $this->options['aweber_list_name']; ?>" /></td>
 					</tr>
 				<?php

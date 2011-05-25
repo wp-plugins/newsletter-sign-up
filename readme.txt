@@ -3,31 +3,28 @@ Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget,subscribe widget
 Requires at least: 2.0
-Tested up to: 3.1.2
-Stable tag: 1.3.3
+Tested up to: 3.1.3
+Stable tag: 1.4
 
-Adds a newsletter sign-up checkbox to various forms, can also be used as newsletter widget.
+Contains a newsletter sign-up checkbox to show at comment forms, a sign-up form widget and a shortcode to embed a sign-up form in your posts.
 
 == Description ==
 
 = Newsletter Sign-Up =
 
-**PLEASE UPDATE TO V1.2+ -  NO SIGN-UP REQUESTS ARE MADE FOR CUSTOM NEWSLETTERS IN V1.1.x**
+Boost your mailinglist size! Adds a checkbox to your comment or registration forms, a widget sign-up form to your widget areas and a shortcode to embed newsletter
+sign-up forms in your posts and pages.
 
-Want to turn your commenters into subscribers? This plugins makes it easy for your visitors to subscribe to your newsletter by adding a checkbox
-to your comment form that allows them to automatically be added to your mailinglist of choice.
-
-This plugin currently supports the following newsletter providers but is not limited to those: YMLP, Aweber, [Mailchimp](http://eepurl.com/c78PM), iContact, PHPList, Feedblitz.
+This plugin currently supports the following newsletter providers but is not limited to those: MailChimp, YMLP, Aweber, iContact, PHPList, Feedblitz.
 You can practically use the plugin for EVERY newsletter provider that's around if you use the right configuration settings.
 
 **Features:**
 
-* Add a "sign-up to our newsletter" checkbox to your comment form, register form (including BuddyPress or MultiSite forms)
-* Add a customizable newsletter widget to your widget areas.
-* Use the MailChimp or YMLP API
-* Specify additional data to be sent to your newsletter service along with the sign-up request
-* Subscribe the commenter with their name
-* Hide the checkbox for users who used it to sign-up to your newsletter before
+* Add a "sign-up to our newsletter" checkbox to your comment form or register form (including BuddyPress or MultiSite forms)
+* Add a customizable newsletter sign-up form to your widget areas.
+* Add a customizable sign-up form to your posts or pages using the shortcode `[newsletter-sign-up-form]`.
+* Use the MailChimp or YMLP API or mimic a normal form request
+* Works with most major mailinglist services because of the form mimicing feature.
 
 **More info:**
 
@@ -51,6 +48,9 @@ Got a great idea on how to improve this plugin, so you can get even more newslet
 This plugins adds a checkbox to various forms troughout your WordPress blog where users have the option to fill in their emailadress. When checked (ie the user agrees
 to sign-up to your newsletter) this plugin mimics a sign-up form POST request to your newsletter service so the user who commented / subscribed at your blog becomes
 a newsletter subscriber.
+
+= What is the shortcode to embed a sign-up form in my posts? =
+Its `[newsletter-sign-up-form]`.
 
 = Why does the checkbox not show up? =
 
@@ -81,6 +81,12 @@ Yes, you can. This option was added in v1.0.1.
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+
+= 1.4 =
+* Improvement: Hide metaboxes in the NSU configuration screen
+* Improvement: Edit all widget labels in NSU configuration screen instead of widget options. (You might have to reconfigure some of your settings, sorry!)
+* Added: Ability to add a sign-up form to your posts or pages using the shortcode `[newsletter-sign-up-form]`
+* Some more restructuring of the code.
 
 = 1.3.3 =
 * Improvement: Users can now edit the widget labels for the email and name input fields.
