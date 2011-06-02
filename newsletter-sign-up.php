@@ -2,8 +2,8 @@
 /*
 Plugin Name: Newsletter Sign-Up
 Plugin URI: http://DannyvanKooten.com/wordpress-plugins/newsletter-sign-up/
-Description: Adds a checkbox to your comment form to turn your commenters into subscribers
-Version: 1.4
+Description: Adds various ways for your visitors to sign-up to your mailinglist (checkbox, widget, form)
+Version: 1.4.1
 Author: Danny van Kooten
 Author URI: http://DannyvanKooten.com
 License: GPL2
@@ -42,8 +42,20 @@ if(is_admin()) {
 	$Newsletter_SignUp_Admin = new Newsletter_SignUp_Admin();
 }
 
+/**
+* Displays the comment checkbox, call this function if your theme does not use the 'comment_form' action in the comments.php template.
+*/
 function ns_comment_checkbox()
 {
 	global $Newsletter_SignUp;
 	$Newsletter_SignUp->add_checkbox();
+}
+
+/**
+* Outputs a sign-up form, for usage in your theme files.
+*/
+function nsu_signup_form()
+{
+	global $Newsletter_SignUp;
+	$Newsletter_SignUp->output_form(true);
 }

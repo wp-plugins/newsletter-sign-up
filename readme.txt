@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget,subscribe widget
 Requires at least: 2.0
 Tested up to: 3.1.3
-Stable tag: 1.4
+Stable tag: 1.4.1
 
 Contains a newsletter sign-up checkbox to show at comment forms, a sign-up form widget and a shortcode to embed a sign-up form in your posts.
 
@@ -22,15 +22,16 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 
 * Add a "sign-up to our newsletter" checkbox to your comment form or register form (including BuddyPress or MultiSite forms)
 * Add a customizable newsletter sign-up form to your widget areas.
-* Add a customizable sign-up form to your posts or pages using the shortcode `[newsletter-sign-up-form]`.
+* Embed a customizable sign-up form in your posts or pages by using the shortcode `[newsletter-sign-up-form]`.
+* Embed a sign-up form in your template files by calling `nsu_signup_form();`
 * Use the MailChimp or YMLP API or mimic a normal form request
 * Works with most major mailinglist services because of the form mimicing feature.
 
 **More info:**
 
 * [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
-* Read more great [WordPress tips](http://dannyvankooten.com/) to get the most out of your website
-* Check out more [WordPress plugins](http://dannyvankooten.com/wordpress/) by the same author
+* Check out more [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/) by the same author
+* [Follow Danny on Twitter](http://twitter.com/DannyvanKooten) for lightning fast support and updates.
 
 Got a great idea on how to improve this plugin, so you can get even more newsletter subscribers? Please, [let me know](http://dannyvankooten.com/contact/)!
 
@@ -76,11 +77,17 @@ Yes, it's possible. Just provide your name identifier (finding it is much like t
 
 Yes, you can. This option was added in v1.0.1.
 
+= Can I show a sign-up form by calling a function in my template files? =
+
+Yes, use the following code snippet to embed a sign-up form in your sidebar for example: `if(function_exists('nsu_signup_form')) nsu_signup_form();`
+
 == Screenshots ==
 
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+= 1.4.1 =
+* Added: the function `nsu_signup_form()` which you can call from your theme files to output a sign-up form, just like the shortcode.
 
 = 1.4 =
 * Improvement: Hide metaboxes in the NSU configuration screen
