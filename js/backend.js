@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
 	
 	var api_rows = jQuery("tbody.api_rows");
 	var form_rows = jQuery("tbody.form_rows");
-	var email_id_row = jQuery('tr#email_id_row');
+	var name_dependent_rows = jQuery('tr.name_dependent');
 	
 	jQuery("#use_api").change(function(){
 		if(jQuery(this).attr('checked')) {
@@ -16,9 +16,9 @@ jQuery(document).ready(function(){
 	
 	jQuery("#subscribe_with_name").change(function(){
 		if(jQuery(this).attr('checked')) {
-			email_id_row.show();	
+			name_dependent_rows.show();	
 		} else {
-			email_id_row.hide();
+			name_dependent_rows.hide();
 		}
 	});
 	

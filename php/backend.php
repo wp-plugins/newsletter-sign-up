@@ -30,7 +30,6 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 		function __construct()
 		{
 			parent::__construct();	
-			
 			$this->add_hooks();
 			
 			// Only do stuff on Newsletter Sign-up admin page.
@@ -157,7 +156,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 							<tr valign="top"><th scope="row"><label for="subscribe_with_name">Subscribe with name?</label></th>
 								<td><input type="checkbox" id="subscribe_with_name" name="ns_options[subscribe_with_name]" value="1"<?php if(isset($this->options['subscribe_with_name']) && $this->options['subscribe_with_name']=='1') { echo ' checked="checked"'; } ?> /></td>
 							</tr>
-							<tr id="email_id_row" valign="top"<?php if(!isset($this->options['subscribe_with_name']) || $this->options['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>><th scope="row">Name identifier <span class="ns_small">name attribute of input field that holds the name</span></th>
+							<tr class="name_dependent" valign="top"<?php if(!isset($this->options['subscribe_with_name']) || $this->options['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>><th scope="row">Name identifier <span class="ns_small">name attribute of input field that holds the name</span></th>
 								<td><input size="25%" id="ns_name_id" type="text" name="ns_options[name_id]" value="<?php if(isset($this->options['name_id'])) echo $this->options['name_id']; ?>" /></td>
 							</tr>
 						</tbody>
@@ -219,7 +218,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 							}
 							if(defined('MULTISITE') && MULTISITE == TRUE) {
 							?>
-							<input type="checkbox" id="add_to_ms_form" name="ns_options[add_to_ms_form]" value="1"<?php if(isset($this->options['add_to_ms_form']) && $this->options['add_to_ms_form'] == '1') { echo ' checked="checked"'; } ?> /> <label for="add_to_ms_form">MultiSite registration form</label><br />
+								<input type="checkbox" id="add_to_ms_form" name="ns_options[add_to_ms_form]" value="1"<?php if(isset($this->options['add_to_ms_form']) && $this->options['add_to_ms_form'] == '1') { echo ' checked="checked"'; } ?> /> <label for="add_to_ms_form">MultiSite registration form</label><br />
 							<?php } ?>
 						</td>
 					</tr>
@@ -244,8 +243,13 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 							<tr valign="top"><th scope="row">E-mail label</th>
 								<td><input size="50%" type="text" name="ns_options[form][email_label]" value="<?php if(isset($this->options['form']['email_label'])) echo $this->options['form']['email_label']; ?>" /></td>
 							</tr>
-							<tr valign="top"><th scope="row">Name label <span class="ns_small">(if using subscribe with name)</span></th>
-								<td><input size="50%" type="text" name="ns_options[form][name_label]" value="<?php if(isset($this->options['form']['name_label'])) echo $this->options['form']['name_label']; ?>" /></td>
+							<tr valign="top" class="name_dependent" <?php if(!isset($this->options['subscribe_with_name']) || $this->options['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>><th scope="row">Name label <span class="ns_small">(if using subscribe with name)</span></th>
+								<td>
+									<input size="50%" type="text" name="ns_options[form][name_label]" value="<?php if(isset($this->options['form']['name_label'])) echo $this->options['form']['name_label']; ?>" /><br />
+									<input type="checkbox" id="name_required" name="ns_options[form][name_required]" value="1"<?php if(isset($this->options['form']['name_required']) && $this->options['form']['name_required'] == '1') { echo ' checked="checked"'; } ?> />
+									<label for="name_required">Name is a required field?</label>
+								</td>
+							
 							</tr>
 							<tr valign="top"><th scope="row">Submit button value</th>
 								<td><input size="50%" type="text" name="ns_options[form][submit_button]" value="<?php if(isset($this->options['form']['submit_button'])) echo $this->options['form']['submit_button']; ?>" /></td>

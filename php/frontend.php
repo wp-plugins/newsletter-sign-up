@@ -29,7 +29,7 @@ class Newsletter_SignUp {
 	{
 		// widget initalization
 		add_action('widgets_init',array(&$this,'add_widget'));
-		add_action('init',array(&$this,'check_for_widget_submit'));
+		add_action('init',array(&$this,'check_for_form_submit'));
 		
 		add_shortcode('newsletter-sign-up-form',array(&$this,'form_shortcode'));
 		
@@ -74,13 +74,22 @@ class Newsletter_SignUp {
 		}
 	}
 	
-	function check_for_widget_submit()
+	function check_for_form_submit()
 	{
-		/* Has widget been submitted? */
+		/* Has a newsletter sign-up form been submitted? */
 		if(isset($_POST['nsu_submit']))
 		{
 			$email = $_POST['nsu_email'];
 			$naam = (isset($_POST['nsu_name'])) ? $_POST['nsu_name'] : null;
+			
+			if(6 > strlen($email) || (isset($this->options['subscribe_with_name']) && $this->options['subscribe_with_name'] == 1 && isset($this->options['form']['name_required']) && $this->options['form']['name_required'] == 1 && empty($naam))) {
+				wp_die( __('Error: please fill the required fields (name, email).') );
+			}
+			
+			if(!is_email($email)) {
+				 wp_die( __('Error: please enter a valid email address.') );
+			}
+			
 			$this->send_post_data($email,$naam);
 		}
 		return;
@@ -99,8 +108,8 @@ class Newsletter_SignUp {
 		if(!$ns_checkbox) {
 		?>
 		<p id="ns-checkbox">
-			<input value="1" type="checkbox" name="newsletter-signup-do" <?php if(isset($this->options['precheck_checkbox']) && $this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
-			<label for="ns_checkbox">
+			<input value="1" id="nsu_checkbox" type="checkbox" name="newsletter-signup-do" <?php if(isset($this->options['precheck_checkbox']) && $this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
+			<label for="nsu_checkbox">
 				<?php if(!empty($this->options['checkbox_text'])) { echo $this->options['checkbox_text']; } else { echo "Sign me up for the newsletter!"; } ?>
 			</label>
 		</p>

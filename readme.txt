@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget,subscribe widget
 Requires at least: 2.0
 Tested up to: 3.1.3
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 
 Contains a newsletter sign-up checkbox to show at comment forms, a sign-up form widget and a shortcode to embed a sign-up form in your posts.
 
@@ -86,6 +86,11 @@ Yes, use the following code snippet to embed a sign-up form in your sidebar for 
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+= 1.4.2 =
+* Improvement: Made the label at comment form and registration forms clickable so it checks the checkbox.
+* Improvement: Made 'email' a required field when submitting the sign-up form.
+* Improvement: Made 'name' an optionally required field when submitting the sign-up form.
+
 = 1.4.1 =
 * Added: the function `nsu_signup_form()` which you can call from your theme files to output a sign-up form, just like the shortcode.
 
