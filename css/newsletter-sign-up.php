@@ -21,11 +21,16 @@
 		margin:5px 0;
 	}
 	
-	.nsu-form p{
+	.nsu-form p,.nsu-text-before-form,.nsu-text-after-form{
 		clear:both;
 		display:block;
 		margin:5px 0;
 	}
+	
+	.nsu-text-before-form ul,nsu-text-after-form ul,.nsu-text-before-form ol,nsu-text-after-form ol{
+		margin-left:15px;
+	}
+	
 	.nsu-form label{
 		display:block;
 		font-weight:bold;
