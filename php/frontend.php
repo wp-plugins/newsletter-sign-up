@@ -9,6 +9,7 @@ class Newsletter_SignUp {
 			'submit_button' => 'Sign-Up'
 		)
 	);
+	var $no_of_forms = 0;
 	var $ns_checkbox = FALSE;
 	
 	public function __construct()
@@ -17,6 +18,7 @@ class Newsletter_SignUp {
 		$this->add_hooks();	
 	}
 	
+	/* Register the widget */
 	function add_widget()
 	{
 		return register_widget('Newsletter_SignUp_Widget');
@@ -31,20 +33,23 @@ class Newsletter_SignUp {
 		add_action('widgets_init',array(&$this,'add_widget'));
 		add_action('init',array(&$this,'check_for_form_submit'));
 		
+		// register the shortcode which can be used to output sign-up form
 		add_shortcode('newsletter-sign-up-form',array(&$this,'form_shortcode'));
 		
 		$stylesheet_opts = '?';
-		// If add to comment form, add actions for normal comment form (including Thesis)
+		// Load CSS to reset the checkbox' position?
 		if(isset($this->options['do_css_reset']) && $this->options['do_css_reset'] == 1) {
 			$stylesheet_opts .= 'checkbox_reset=1';
 		} 
 		
+		// Load CSS to reset label and input fields for the sign-up form?
 		if(isset($this->options['form']['load_form_css']) && $this->options['form']['load_form_css'] == 1) {
 			$stylesheet_opts .= '&form_css=1';
 		}
 		
 		wp_enqueue_style('ns_checkbox_style',plugins_url("/css/newsletter-sign-up.php$stylesheet_opts",dirname(__FILE__)));
 		
+		// Add to comment form? If so, add necessary actions. Try to add automatically.
 		if(isset($this->options['add_to_comment_form']) && $this->options['add_to_comment_form'] == 1) {
 			add_action('thesis_hook_after_comment_box',array(&$this,'add_checkbox'),20);
 			add_action('comment_form',array(&$this,'add_checkbox'),20);
@@ -74,9 +79,11 @@ class Newsletter_SignUp {
 		}
 	}
 	
+	/**
+	* Has a newsletter sign-up form been submitted? 
+	*/
 	function check_for_form_submit()
 	{
-		/* Has a newsletter sign-up form been submitted? */
 		if(isset($_POST['nsu_submit']))
 		{
 			$email = $_POST['nsu_email'];
@@ -364,6 +371,9 @@ class Newsletter_SignUp {
 		$additional_fields = '';
 		$output = '';
 		
+		$this->no_of_forms++;
+		$formno = $this->no_of_forms;
+		
 		/* Set up form variables for API usage or normal form */
 		if(isset($options['use_api']) && $options['use_api'] == 1) {
 			
@@ -398,20 +408,20 @@ class Newsletter_SignUp {
 		
 		 if(!isset($_POST['nsu_submit'])) { //form has not been submitted yet 
 			
-			$output .= "<form class=\"nsu-form\" action=\"$form_action\" method=\"post\">";
+			$output .= "<form class=\"nsu-form\" id=\"nsu-form-$formno\" action=\"$form_action\" method=\"post\">";
 				
 			if(isset($options['subscribe_with_name']) && $options['subscribe_with_name'] == 1) {	
-				$output .= "<p><label for=\"nsu-name\">$name_label</label><input id=\"nsu-name\" type=\"text\" name=\"$name_id\" /></p>";		
+				$output .= "<p><label for=\"nsu-name-$formno\">$name_label</label><input class=\"nsu-field\" id=\"nsu-name-$formno\" type=\"text\" name=\"$name_id\" /></p>";		
 			} 
 							
-			$output .= "<p><label for=\"nsu-email\">$email_label</label><input id=\"nsu-email\" type=\"text\" name=\"$email_id\" /></p>";
+			$output .= "<p><label for=\"nsu-email-$formno\">$email_label</label><input class=\"nsu-field\" id=\"nsu-email-$formno\" type=\"text\" name=\"$email_id\" /></p>";
 			$output .= $additional_fields;
-			$output .= "<p><input type=\"submit\" name=\"nsu_submit\" value=\"$submit_button\" /></p>";
+			$output .= "<p><input type=\"submit\" id=\"nsu-submit-$formno\" class=\"nsu-submit\" name=\"nsu_submit\" value=\"$submit_button\" /></p>";
 			$output .= "</form>";
 				
 		} else { // form has been submitted
 		
-			$output = "<p id=\"nsu-signed-up\">$text_after_signup</p>";		
+			$output = "<p id=\"nsu-signed-up-$formno\">$text_after_signup</p>";		
 				
 		 }
 		 

@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget,subscribe widget
 Requires at least: 2.0
 Tested up to: 3.1.3
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 
 Contains a newsletter sign-up checkbox to show at comment forms, a sign-up form widget and a shortcode to embed a sign-up form in your posts.
 
@@ -26,6 +26,7 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 * Embed a sign-up form in your template files by calling `nsu_signup_form();`
 * Use the MailChimp or YMLP API or mimic a normal form request
 * Works with most major mailinglist services because of the form mimicing feature.
+* Compatible with [WYSIWYG Widgets](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) to allow easy widget text editing.
 
 **More info:**
 
@@ -41,6 +42,7 @@ Got a great idea on how to improve this plugin, so you can get even more newslet
 1. Activate the plugin
 1. Specify your newsletter service settings. For more info head over to: [How to configure Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 1. That's all. Watch your list grow!
+1. Optional: Install [WYSIWYG Widgets](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) if you want to be able to easily edit the widget's form text.
 
 == Frequently Asked Questions ==
 
@@ -81,11 +83,21 @@ Yes, you can. This option was added in v1.0.1.
 
 Yes, use the following code snippet to embed a sign-up form in your sidebar for example: `if(function_exists('nsu_signup_form')) nsu_signup_form();`
 
+= Is there a way for me to easily insert an image into the widget form, or easy HTML codes? =
+
+Yes, there is. Just install [WYSIWYG Widgets](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) and you're good to go!
+
 == Screenshots ==
 
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+= 1.4.3 =
+* Improvement: Added CSS classes to the form's label's and input fields.
+* Improvement: Added unique ID's to each form and input field
+* Added: Compatibilty with [WYSIWYG Widgets Plugin](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) . Install that plugin if you want to be able 
+to easily edit the widget's text. :)
+
 = 1.4.2 =
 * Improvement: Made the label at comment form and registration forms clickable so it checks the checkbox.
 * Improvement: Made 'email' a required field when submitting the sign-up form.

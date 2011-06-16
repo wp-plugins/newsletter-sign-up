@@ -29,7 +29,8 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 		
 		function __construct()
 		{
-			parent::__construct();	
+			parent::__construct();
+			
 			$this->add_hooks();
 			
 			// Only do stuff on Newsletter Sign-up admin page.
@@ -254,7 +255,7 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 							<tr valign="top"><th scope="row">Submit button value</th>
 								<td><input size="50%" type="text" name="ns_options[form][submit_button]" value="<?php if(isset($this->options['form']['submit_button'])) echo $this->options['form']['submit_button']; ?>" /></td>
 							</tr>
-							<tr valign="top"><th scope="row">Text after sign-up</th>
+							<tr valign="top"><th scope="row">Text after submitting the sign-up form</th>
 								<td><textarea rows="5" cols="50" name="ns_options[form][text_after_signup]"><?php if(isset($this->options['form']['text_after_signup'])) echo $this->options['form']['text_after_signup']; ?></textarea></td>
 							</tr>
 							<tr valign="top"><th scope="row"><label for="ns_load_form_styles">Load some default CSS</label><span class="ns_small">(check this for some default styling of the labels and input fields)</span></th>
@@ -263,6 +264,9 @@ if(!class_exists('Newsletter_SignUp_Admin')) {
 						</table>
 				<p class="submit">
 					<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
+				</p>
+				<p class="nsu-tip">
+					Did you know that you can easily edit your widget's sign-up form text by installing the <a href="http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/" target="_blank">WYSIWYG Widgets plugin</a> alongside this plugin?
 				</p>
 					</form>
 				

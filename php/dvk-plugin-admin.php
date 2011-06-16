@@ -48,6 +48,7 @@ if(!class_exists('DvK_Plugin_Admin')) {
 		function add_admin_styles()
 		{
 			wp_enqueue_style('dvk_plugin_admin_css', plugins_url('/css/backend.css',dirname(__FILE__)));
+			wp_enqueue_style( $this->hook . '_css', plugins_url('css/'.$this->hook.'-backend.css',dirname(__FILE__)));
 		}
 		
 		function add_admin_scripts()

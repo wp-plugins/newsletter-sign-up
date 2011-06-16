@@ -59,12 +59,12 @@ if(!class_exists('Newsletter_SignUp_Widget')) {
 			
 			 <p>
 			  <label title="You can use the following HTML-codes:  &lt;a&gt;, &lt;strong&gt;, &lt;br /&gt;,&lt;em&gt; &lt;img ..&gt;" for="<?php echo $this->get_field_id('text_before_form'); ?>"><?php _e('Text to show before the form:'); ?></label> 
-			  <textarea class="widefat" id="<?php echo $this->get_field_id('text_before_form'); ?>" name="<?php echo $this->get_field_name('text_before_form'); ?>"><?php echo $text_before_form; ?></textarea>
+			  <textarea class="widefat wysiwyg-overlay-toggle" id="<?php echo $this->get_field_id('text_before_form'); ?>" name="<?php echo $this->get_field_name('text_before_form'); ?>"><?php echo $text_before_form; ?></textarea>
 			</p>
 			
 			 <p>
 			  <label title="You can use the following HTML-codes:  &lt;a&gt;, &lt;strong&gt;, &lt;br /&gt;,&lt;em&gt; &lt;img ..&gt;" for="<?php echo $this->get_field_id('text_after_form'); ?>"><?php _e('Text to show after the form:'); ?></label> 
-			  <textarea class="widefat" id="<?php echo $this->get_field_id('text_after_form'); ?>" name="<?php echo $this->get_field_name('text_after_form'); ?>"><?php echo $text_after_form; ?></textarea>
+			  <textarea class="widefat wysiwyg-overlay-toggle" id="<?php echo $this->get_field_id('text_after_form'); ?>" name="<?php echo $this->get_field_name('text_after_form'); ?>"><?php echo $text_after_form; ?></textarea>
 			</p>
 			
 			<p>
