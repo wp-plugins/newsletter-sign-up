@@ -3,7 +3,7 @@ Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget,subscribe widget
 Requires at least: 2.0
-Tested up to: 3.1.3
+Tested up to: 3.2.1
 Stable tag: 1.4.3
 
 Contains a newsletter sign-up checkbox to show at comment forms, a sign-up form widget and a shortcode to embed a sign-up form in your posts.
