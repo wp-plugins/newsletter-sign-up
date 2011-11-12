@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,newsletter signup,checkbox,ymlp,email,subscribe,subscribers,mailchimp,aweber,phplist,icontact,mailinglist,widget,newsletter widget,subscribe widget
 Requires at least: 2.0
 Tested up to: 3.2.1
-Stable tag: 1.4.3
+Stable tag: 1.5.0
 
 Contains a newsletter sign-up checkbox to show at comment forms, a sign-up form widget and a shortcode to embed a sign-up form in your posts.
 
@@ -48,11 +48,10 @@ Got a great idea on how to improve this plugin, so you can get even more newslet
 
 = What does this plugin do? =
 
-This plugins adds a checkbox to various forms troughout your WordPress blog where users have the option to fill in their emailadress. When checked (ie the user agrees
-to sign-up to your newsletter) this plugin mimics a sign-up form POST request to your newsletter service so the user who commented / subscribed at your blog becomes
-a newsletter subscriber.
+This plugins adds a checkbox to various forms troughout your WordPress blog where users have the option to fill in their emailadress. When checked (ie the user agrees to sign-up to your newsletter) this plugin mimics a sign-up form POST request to your newsletter service so the user who commented / subscribed at your blog becomes a newsletter subscriber.
 
 = What is the shortcode to embed a sign-up form in my posts? =
+
 Its `[newsletter-sign-up-form]`.
 
 = Why does the checkbox not show up? =
@@ -69,8 +68,6 @@ The action attribute is what you need here.
 
 Take a look at the source code of your sign-up form and look for the input field that holds the emailadress. You'll need the NAME attribute of this input field, eg: `<input type="text" name="emailid"....` (thus in this case emailid is what you need)
 
-For more questions and answers go have a look at my website regarding [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
-
 = Can I let my users subscribe with their name too? =
 
 Yes, it's possible. Just provide your name identifier (finding it is much like the email identifier) and the plugin will try to submit the user's name along with the request.
@@ -83,15 +80,18 @@ Yes, you can. This option was added in v1.0.1.
 
 Yes, use the following code snippet to embed a sign-up form in your sidebar for example: `if(function_exists('nsu_signup_form')) nsu_signup_form();`
 
-= Is there a way for me to easily insert an image into the widget form, or easy HTML codes? =
-
-Yes, there is. Just install [WYSIWYG Widgets](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) and you're good to go!
+For more questions and answers go have a look at my website regarding [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 
 == Screenshots ==
 
 1. The configuration page of Newsletter Sign-Up in the WordPress admin panel.
 
 == Changelog ==
+
+= 1.5.0 =
+* Added: Config Extractor, a tool that helps you extract the right configuration settings when manually configuring.
+* Improvement: Some code refactoring, more to come..
+
 = 1.4.3 =
 * Improvement: Added CSS classes to the form's label's and input fields.
 * Improvement: Added unique ID's to each form and input field
