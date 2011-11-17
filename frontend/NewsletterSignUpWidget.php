@@ -1,8 +1,8 @@
 <?php
 
-if(!class_exists('Newsletter_SignUp_Widget')) {
+if(!class_exists('NewsletterSignUpWidget')) {
 
-	class Newsletter_SignUp_Widget extends WP_Widget {
+	class NewsletterSignUpWidget extends WP_Widget {
 		
 		var $options;
 		

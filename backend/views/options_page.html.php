@@ -80,6 +80,9 @@
 					<p class="submit">
 						<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
 					</p>
+					<p class="nsu-tip">
+					Having trouble finding the right configuration settings? Try the <a href="admin.php?page=newsletter-sign-up/config-helper">configuration extractor</a>, it's there to help you!
+				</p>
 					</div>
 				</div>
 				<div class="postbox">
@@ -154,9 +157,7 @@
 				<p class="submit">
 					<input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
 				</p>
-				<p class="nsu-tip">
-					Did you know that you can easily edit your widget's sign-up form text by installing the <a href="http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/" target="_blank">WYSIWYG Widgets plugin</a> alongside this plugin?
-				</p>
+				
 					</form>
 				<br style="clear:both;" />
             </div></div></div></div></div></div>
@@ -168,9 +169,7 @@
 						$this->donate_box();
 						$this->latest_posts();
 						$this->support_box();
-						$content = '<p>Looking for more neat plugins or random tips on how to improve your WordPress website? Look around
-							on my blog: <a href="http://DannyvanKooten.com" target="_blank">DannyvanKooten.com</a>.</p>';
-						$this->postbox($this->hook.'-bloglink-box',"Looking for more tools and tips?",$content);
+						
 					?>				
 				</div>
 			</div>
@@ -179,7 +178,7 @@
    <?php if(isset($this->actions['show_donate_box']) && $this->actions['show_donate_box']) { ?>
 				<div id="dvk-donate-box">
 					<div id="dvk-donate-box-content">
-						<img width="16" height="16" class="dvk-close" src="<?php echo plugins_url('/img/close.png',dirname(__FILE__)); ?>" alt="X">
+						<img width="16" height="16" class="dvk-close" src="<?php echo plugins_url('/backend/img/close.png',dirname(__FILE__)); ?>" alt="X">
 						<h3>Support me</h3>
 						<p>I noticed you've been using <?php echo $this->shortname; ?> for at least 30 days, would you like to show me a token of your appreciation by buying me a beer or tweet about <?php echo $this->shortname; ?>?</p>
 						
@@ -194,7 +193,7 @@
 								</form>
 								</td>
 								<td>
-									<a href="http://twitter.com/share" class="twitter-share-button" data-url="<?php echo $this->plugin_url; ?>" data-text="Showing my appreciation to @DannyVKI for his awsome #WordPress plugin: <?php echo $this->shortname; ?>" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+									<a href="http://twitter.com/share" class="twitter-share-button" data-url="<?php echo $this->plugin_url; ?>" data-text="Showing my appreciation to @DannyvanKooten for his awsome #WordPress plugin: <?php echo $this->shortname; ?>" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 								</td>
 							</tr>
 						</table>

@@ -1,16 +1,18 @@
 <?php
-class Newsletter_SignUp {
+if(!class_exists('NewsletterSignUp')) {
+class NewsletterSignUp {
 	
-	var $options = array();
-	var $defaults = array(
+	private $options = array();
+	private $defaults = array(
 		'form' => array(
 			'email_label' => 'E-mail:',
 			'name_label' => 'Name:',
 			'submit_button' => 'Sign-Up'
 		)
 	);
-	var $no_of_forms = 0;
-	var $ns_checkbox = FALSE;
+	private $no_of_forms = 0;
+	private $showed_checkbox = FALSE;
+	private static $instance;
 	
 	public function __construct()
 	{
@@ -21,7 +23,14 @@ class Newsletter_SignUp {
 	/* Register the widget */
 	function add_widget()
 	{
-		return register_widget('Newsletter_SignUp_Widget');
+		return register_widget('NewsletterSignUpWidget');
+	}
+	
+	public static function getInstance() {
+		if(isset(self::$instance)) return self::$instance;
+		
+		self::$instance = new NewsletterSignUp();
+		return self::$instance;
 	}
 	
 	/**
@@ -47,7 +56,7 @@ class Newsletter_SignUp {
 			$stylesheet_opts .= '&form_css=1';
 		}
 		
-		wp_enqueue_style('ns_checkbox_style',plugins_url("/css/newsletter-sign-up.php$stylesheet_opts",dirname(__FILE__)));
+		wp_enqueue_style('ns_checkbox_style',plugins_url("/frontend/css/newsletter-sign-up.php$stylesheet_opts",dirname(__FILE__)));
 		
 		// Add to comment form? If so, add necessary actions. Try to add automatically.
 		if(isset($this->options['add_to_comment_form']) && $this->options['add_to_comment_form'] == 1) {
@@ -108,11 +117,10 @@ class Newsletter_SignUp {
 	*/
 	public function add_checkbox() 
 	{ 	
-		global $ns_checkbox;
 
 		if(isset($this->options['cookie_hide']) && $this->options['cookie_hide'] == 1 && isset($_COOKIE['ns_subscriber'])) $ns_checkbox = TRUE;
 		
-		if(!$ns_checkbox) {
+		if(!$this->showed_checkbox) {
 		?>
 		<p id="ns-checkbox">
 			<input value="1" id="nsu_checkbox" type="checkbox" name="newsletter-signup-do" <?php if(isset($this->options['precheck_checkbox']) && $this->options['precheck_checkbox'] == 1) echo 'checked="checked" '; ?>/>
@@ -122,7 +130,8 @@ class Newsletter_SignUp {
 		</p>
 		<?php 
 		}
-		$ns_checkbox = TRUE;
+		
+		$this->showed_checkbox = true;
 	}
 	
 	/**
@@ -280,9 +289,9 @@ class Newsletter_SignUp {
 	/**
 	* Perform the sign-up for users that registered trough a MultiSite register form
 	* This function differs because of the need to grab the emailadress from the user using get_userdata
-	* @param user_id : the ID of the new user
-	* @param password : the password, we don't actually use this
-	* @param meta : the meta values that belong to this user, holds the value of our 'newsletter-sign-up' checkbox.
+	* @param int $user_id : the ID of the new user
+	* @param string $password : the password, we don't actually use this
+	* @param array $meta : the meta values that belong to this user, holds the value of our 'newsletter-sign-up' checkbox.
 	*/
 	function grab_email_from_ms_user_signup($user_id, $password = NULL,$meta = NULL){
 		if(!isset($meta['newsletter-signup-do']) || $meta['newsletter-signup-do'] != 1) return;
@@ -360,9 +369,8 @@ class Newsletter_SignUp {
 	}
 	
 	function form_shortcode($atts = null,$content = null)
-	{
-		$form = $this->output_form(false);
-		return $form;
+	{ 
+		return $this->output_form(false);
 	}
 	
 	public function output_form($echo = true)
@@ -431,5 +439,5 @@ class Newsletter_SignUp {
 			return $output;
 		 }
 	}
-
+}
 }

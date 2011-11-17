@@ -3,7 +3,7 @@
 Plugin Name: Newsletter Sign-Up
 Plugin URI: http://DannyvanKooten.com/wordpress-plugins/newsletter-sign-up/
 Description: Adds various ways for your visitors to sign-up to your mailinglist (checkbox, widget, form)
-Version: 1.5.0
+Version: 1.5.1
 Author: Danny van Kooten
 Author URI: http://DannyvanKooten.com
 License: GPL2
@@ -33,13 +33,14 @@ License: GPL2
 	
 */
 
-require_once('php/widget.php');
-require_once('php/frontend.php');
-$Newsletter_SignUp = new Newsletter_SignUp();
+require_once('frontend/NewsletterSignUpWidget.php');
+require_once('frontend/NewsletterSignUp.php');
+
+$NewsletterSignUp = NewsletterSignUp::getInstance();
 
 if(is_admin()) {
-	require_once('php/backend.php');
-	$Newsletter_SignUp_Admin = new Newsletter_SignUp_Admin();
+	require_once('backend/NewsletterSignUpAdmin.php');
+	$NewsletterSignUpAdmin = new NewsletterSignUpAdmin();
 }
 
 /**
@@ -47,8 +48,8 @@ if(is_admin()) {
 */
 function ns_comment_checkbox()
 {
-	global $Newsletter_SignUp;
-	$Newsletter_SignUp->add_checkbox();
+	$NewsletterSignUp = NewsletterSignUp::getInstance();
+	$NewsletterSignUp->add_checkbox();
 }
 
 /**
@@ -56,6 +57,6 @@ function ns_comment_checkbox()
 */
 function nsu_signup_form()
 {
-	global $Newsletter_SignUp;
-	$Newsletter_SignUp->output_form(true);
+	$NewsletterSignUp = NewsletterSignUp::getInstance();
+	$NewsletterSignUp->output_form(true);
 }
