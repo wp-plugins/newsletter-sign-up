@@ -14,7 +14,7 @@ if(!class_exists('NewsletterSignUpWidget')) {
 		}
 
 		function widget($args, $instance) {	
-			global $Newsletter_SignUp;
+			$NewsletterSignUp = NewsletterSignUp::getInstance();
 			/* Get Newsletter Sign-up options */
 			$options = $this->options;
 			
@@ -34,7 +34,7 @@ if(!class_exists('NewsletterSignUpWidget')) {
 							$instance['filter'] ? _e(wpautop($text_before_form),'nsu-widget') : _e($text_before_form,'nsu-widget'); 
 						?></div><?php
 					}
-					$Newsletter_SignUp->output_form(true);
+					$NewsletterSignUp->output_form(true);
 					if(!empty($text_after_form)) {
 						?><div class="nsu-text-after-form"><?php
 							$instance['filter'] ? _e(wpautop($text_after_form),'nsu-widget') : _e($text_after_form,'nsu-widget'); 
@@ -82,7 +82,7 @@ if(!class_exists('NewsletterSignUpWidget')) {
 			<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
 			
 			<p>
-				You can further configure the sign-up form at the <a href="options-general.php?page=newsletter-sign-up#nsu-form-settings">Newsletter Sign-Up configuration page</a>.
+				You can further configure the sign-up form at the <a href="admin.php?page=newsletter-sign-up#nsu-form-settings">Newsletter Sign-Up configuration page</a>.
 			</p>
 			<?php 
 		}
