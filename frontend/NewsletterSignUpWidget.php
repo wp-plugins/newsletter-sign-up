@@ -3,20 +3,17 @@
 if(!class_exists('NewsletterSignUpWidget')) {
 
 	class NewsletterSignUpWidget extends WP_Widget {
-		
-		var $options;
-		
+				
 		function __construct() {
 			$widget_ops = array('classname' => 'nsu_widget', 'description' => __('Adds a newsletter sign-up form.'));
 			$control_ops = array('width' => 400, 'height' => 350);
 			parent::__construct(false, 'Newsletter Sign-Up Widget', $widget_ops, $control_ops);
-			$this->options = get_option('ns_options');
 		}
 
 		function widget($args, $instance) {	
 			$NewsletterSignUp = NewsletterSignUp::getInstance();
 			/* Get Newsletter Sign-up options */
-			$options = $this->options;
+			$options = get_option('nsu_form');
 			
 			/* Provide some defaults */
 			$defaults = array( 'title' => 'Sign up for our newsletter!', 'text_before_form' => '', 'text_after_form' => '');
@@ -82,7 +79,7 @@ if(!class_exists('NewsletterSignUpWidget')) {
 			<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
 			
 			<p>
-				You can further configure the sign-up form at the <a href="admin.php?page=newsletter-sign-up#nsu-form-settings">Newsletter Sign-Up configuration page</a>.
+				You can further configure the sign-up form at the <a href="admin.php?page=newsletter-sign-up/form-settings">Newsletter Sign-Up configuration page</a>.
 			</p>
 			<?php 
 		}
