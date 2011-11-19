@@ -15,7 +15,7 @@ if (isset($_GET['form_css']) && $_GET['form_css'] == 1) { ?>
 
     .nsu-form label{display:block; font-weight:bold; }
     .nsu-form input{ padding:2px; display:block; color:#999; }
-    .nsu-form input:active{ color:#000; }
+    .nsu-form input:focus, .nsu-form input:active{ color:#000; }
     
     .nsu-field{ background:white; }
     input.nsu-submit{ color:#000; }
