@@ -70,9 +70,6 @@
 						$this->donate_box();
 						$this->latest_posts();
 						$this->support_box();
-						$content = '<p>Looking for more neat plugins or random tips on how to improve your WordPress website? Look around
-							on my blog: <a href="http://DannyvanKooten.com" target="_blank">DannyvanKooten.com</a>.</p>';
-						$this->postbox($this->hook.'-bloglink-box',"Looking for more tools and tips?",$content);
 					?>				
 				</div>
 			</div>
