@@ -83,7 +83,7 @@ if (isset($opts['cookie_hide']) && $opts['cookie_hide'] == '1') {
                                 <input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
                             </p>
 
-
+                        </form>
                     </div>
                 </div>
             </div></div></div></div>
