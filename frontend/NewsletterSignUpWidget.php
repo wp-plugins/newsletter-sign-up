@@ -65,6 +65,8 @@ if(!class_exists('NewsletterSignUpWidget')) {
 			$title = strip_tags($title);
 
 			?>
+                        
+
 			 <p>
 			  <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label> 
 			  <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
@@ -81,6 +83,8 @@ if(!class_exists('NewsletterSignUpWidget')) {
 			<p>
 				You can further configure the sign-up form at the <a href="admin.php?page=newsletter-sign-up/form-settings">Newsletter Sign-Up configuration page</a>.
 			</p>
+                        
+                        <p style="font-size:11px; font-style:italic;">Tip: You can also use <a href="http://wordpress.org/extend/plugins/wysiwyg-widgets/" target="_blank">WYSIWYG Widgets</a> in combination with the shortcode <strong>[nsu-form]</strong> to render a sign-up form in your widget area's.</p>
 			<?php 
 		}
 

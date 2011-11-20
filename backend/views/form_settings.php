@@ -73,6 +73,9 @@
                         <p class="submit">
                             <input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
                         </p>
+                        
+                        <p class="nsu-tip">Tip: Using Newsletter Sign-Up Widget? You can alternatively install <a target="_blank" href="http://wordpress.org/extend/plugins/wysiwyg-widgets/">WYSIWYG Widgets</a> and use the NSU form shortcode <strong>[nsu-form]</strong> to render a sign-up form in your widget area's. This allows
+                            easier customizing.</p>
 
                         </form>
                         <br style="clear:both;" />
