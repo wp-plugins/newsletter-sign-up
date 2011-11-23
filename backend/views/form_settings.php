@@ -12,8 +12,7 @@
                             <?php settings_fields('nsu_form_group'); ?>
                         <table class="form-table">
                             <tr valign="top">
-                                <td colspan="2">Custome your Sign-up form by providing your own values for the different labels, input fields and buttons. You can embed a sign-up form in your posts and pages by 
-                                using the shortcode <b><em>[nsu-form]</em></b> or by calling <b><em>if(function_exists('nsu_signup_form')) nsu_signup_form();</em></b> from your template files.</td>
+                                <td colspan="2"><p>Custome your Sign-up form by providing your own values for the different labels, input fields and buttons of the sign-up form. </p></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row">E-mail label</th>
@@ -74,8 +73,16 @@
                             <input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
                         </p>
                         
-                        <p class="nsu-tip">Tip: Using Newsletter Sign-Up Widget? You can alternatively install <a target="_blank" href="http://wordpress.org/extend/plugins/wysiwyg-widgets/">WYSIWYG Widgets</a> and use the NSU form shortcode <strong>[nsu-form]</strong> to render a sign-up form in your widget area's. This allows
-                            easier customizing.</p>
+                        <?php 
+                        $tips = array(
+                            'You can embed a sign-up form in your posts and pages by 
+                                using the shortcode <b><em>[nsu-form]</em></b> or by calling <b><em>&lt;?php if(function_exists(\'nsu_signup_form\')) nsu_signup_form(); ?&gt;</em></b> from your template files.',
+                            'Using Newsletter Sign-Up Widget? You can alternatively install <a target="_blank" href="http://wordpress.org/extend/plugins/wysiwyg-widgets/">WYSIWYG Widgets</a> and use the NSU form shortcode <strong>[nsu-form]</strong> to render a sign-up form in your widget area\'s. This allows
+                            easier customizing'
+                        ); 
+                        $random_key = array_rand($tips); 
+                        ?>
+                        <p class="nsu-tip">Tip: <?php echo $tips[$random_key]; ?></p>
 
                         </form>
                         <br style="clear:both;" />

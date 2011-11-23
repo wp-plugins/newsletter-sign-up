@@ -3,16 +3,15 @@ if (!class_exists('NewsletterSignUpAdmin')) {
 
     class NewsletterSignUpAdmin {
 
-        var $hook = 'newsletter-sign-up';
-        var $longname = 'Newsletter Sign-Up Configuration';
-        var $shortname = 'Newsletter Sign-Up';
-        var $plugin_url = 'http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/';
-        var $filename = 'newsletter-sign-up/newsletter-sign-up.php';
-        var $accesslvl = 'manage_options';
-        var $icon_url = '';
-        var $bp_active = FALSE;
-        var $options = array();
-        var $actions;
+        private $hook = 'newsletter-sign-up';
+        private $longname = 'Newsletter Sign-Up';
+        private $shortname = 'Newsletter Sign-Up';
+        private $plugin_url = 'http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/';
+        private $filename = 'newsletter-sign-up/newsletter-sign-up.php';
+        private $accesslvl = 'manage_options';
+        private $icon_url = '';
+        private $bp_active = FALSE;
+        private $actions = array();
 
         function __construct() {
             

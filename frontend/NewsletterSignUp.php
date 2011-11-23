@@ -35,9 +35,8 @@ class NewsletterSignUp {
          * @return NewsletterSignUp Instance of Newsletter Sign-Up class 
          */
 	public static function getInstance() {
-		if(isset(self::$instance)) return self::$instance;
+		if(!isset(self::$instance)) self::$instance = new NewsletterSignUp();
 		
-		self::$instance = new NewsletterSignUp();
 		return self::$instance;
 	}
 	
@@ -109,10 +108,12 @@ class NewsletterSignUp {
                 $opts = $this->options['form'];
                 $errors = array();
                 
+                
+                
 		if(isset($_POST['nsu_submit']))
 		{
-			$email = $_POST['nsu_email'];
-			$naam = (isset($_POST['nsu_name'])) ? $_POST['nsu_name'] : null;
+			$email = (isset($_POST['nsu_email'])) ? $_POST['nsu_email'] : '';
+			$naam = (isset($_POST['nsu_name'])) ? $_POST['nsu_name'] : '';
 			
 			if(isset($this->options['mailinglist']['subscribe_with_name']) && $this->options['mailinglist']['subscribe_with_name'] == 1 && isset($opts['name_required']) && $opts['name_required'] == 1 && empty($naam)) {
 				$errors['name-field'] = 'Please fill in the name field.';
@@ -125,6 +126,7 @@ class NewsletterSignUp {
 			}
 			
                         $this->validation_errors = $errors;
+                        
                         
                         if(count($this->validation_errors) == 0) 
                             $this->send_post_data($email,$naam,'form');
@@ -219,16 +221,20 @@ class NewsletterSignUp {
 					
 					/* Subscribe with name? If so, add name to merge_vars array */
 					if(isset($opts['subscribe_with_name']) && $opts['subscribe_with_name'] == 1) {
+                                                // Try to provide values for First and Lastname fields
+                                                // These can be overridden, of just ignored by mailchimp.
+                                                $request['merge_vars']['FNAME'] = substr($naam,0,strpos($naam,' '));
+                                                $request['merge_vars']['LNAME'] = substr($naam,strpos($naam,' '));
 						$request['merge_vars'][$opts['name_id']] = $naam;
 					}
-					
 					// Add any set additional data to merge_vars array
 					$request['merge_vars'] = array_merge($request['merge_vars'],$this->add_additional_data());
 					
 					$result = wp_remote_post(
 						'http://'.substr($opts['mc_api_key'],-3).'.api.mailchimp.com/1.3/?output=php&method=listSubscribe', 
 						array( 'body' => json_encode($request))
-					);		
+					);
+                                        
 					
 				break;
 			
@@ -273,7 +279,7 @@ class NewsletterSignUp {
 		}
 		
 		// store a cookie, if preferred by site owner
-		if(isset($opts['cookie_hide']) && $opts['cookie_hide'] == 1) @setcookie('ns_subscriber',TRUE,time()+9999999);
+		if(isset($opts['cookie_hide']) && $opts['cookie_hide'] == 1) @setcookie('ns_subscriber',TRUE,time() + 9999999);
                 
                 // Check if we should redirect to a given page
                if($type == 'form' && isset($this->options['form']['redirect_to']) && strlen($this->options['form']['redirect_to']) > 6) {
@@ -467,14 +473,15 @@ class NewsletterSignUp {
                 $name_value = (!empty($opts['form']['name_default_value'])) ? $opts['form']['name_default_value'] : '';
                 
 		$submit_button = (!empty($opts['form']['submit_button'])) ? $opts['form']['submit_button'] : __('Sign-Up');
-		$text_after_signup = (isset($opts['form']['wpautop']) && $opts['form']['wpautop'] == 1) ? wpautop(wptexturize($opts['form']['text_after_signup'])) : $opts['form']['text_after_signup'];
+                
+                $text_after_signup = (!empty($opts['form']['text_after_signup'])) ? $opts['form']['text_after_signup'] : 'Thanks for signing up to our newsletter. Please check your inbox to confirm your email address.';
+		$text_after_signup = (isset($opts['form']['wpautop']) && $opts['form']['wpautop'] == 1) ? wpautop(wptexturize($text_after_signup)) : $text_after_signup;
                 
                 
 		
 		 if(!isset($_POST['nsu_submit']) || count($errors) > 0) { //form has not been submitted yet 
-                     
-			$output .= "<form class=\"nsu-form\" id=\"nsu-form-$formno\" action=\"$form_action\" method=\"post\">";
-				
+  
+			$output .= "<form class=\"nsu-form\" id=\"nsu-form-$formno\" action=\"$form_action\" method=\"post\">";	
 			if(isset($opts['mailinglist']['subscribe_with_name']) && $opts['mailinglist']['subscribe_with_name'] == 1) {	
 				$output .= "<p><label for=\"nsu-name-$formno\">$name_label</label><input class=\"nsu-field\" id=\"nsu-name-$formno\" type=\"text\" name=\"$name_id\" value=\"$name_value\" onfocus=\"if(this.value == '$name_value') this.value=''\" />";
                                 if(isset($errors['name-field'])) $output .= '<span class="nsu-error error notice">'.$errors['name-field'].'</span>';
