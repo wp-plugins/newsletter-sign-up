@@ -34,7 +34,8 @@
                                         </select>
                                     </td>
                                 </tr>
-<?php $this->mailinglist_specific_rows($viewed_mp); ?>
+                                <?php if(file_exists(__DIR__ . '/rows-' . $viewed_mp . '.php')) require __DIR__ . '/rows-' . $viewed_mp . '.php'; ?>
+                                
                                 <tbody class="form_rows"<?php if (isset($viewed_mp) && in_array($viewed_mp, array('mailchimp', 'ymlp')) && isset($opts['use_api']) && $opts['use_api'] == 1)
     echo ' style="display:none" '; ?>>
                                     <tr valign="top"><th scope="row">Newsletter form action</th>

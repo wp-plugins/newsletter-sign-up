@@ -3,8 +3,8 @@ Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,email address,subscribe,subscribers,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget
 Requires at least: 2.7
-Tested up to: 3.2.1
-Stable tag: 1.6.1
+Tested up to: 3.4
+Stable tag: 1.7
 
 Boost your mailinglist size by adding various ways for your visitors to subscribe: A newsletter sign-up checkbox for your comment forms, a sign-up form widget and a shortcode to embed a sign-up form in your posts.
 
@@ -107,6 +107,9 @@ For more questions and answers go have a look at my website regarding [Newslette
 3. The "sign-up" checkbox in action @ Twenty Eleven
 
 == Changelog ==
+= 1.7 =
+* Added: add subscribers to certain interest group(s) (limited to 1 grouping at the moment). (MailChimp API users only)
+* Improvement: Slightly better code readability
 
 = 1.6.1 =
 * Fixed notice on frontend when e-mail field not filled in
