@@ -34,7 +34,8 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <?php if(file_exists(__DIR__ . '/rows-' . $viewed_mp . '.php')) require __DIR__ . '/rows-' . $viewed_mp . '.php'; ?>
+                                
+                                <?php if(isset($viewed_mp) && file_exists(dirname(__FILE__).'/rows-' . $viewed_mp . '.php')) require __DIR__ . '/rows-' . $viewed_mp . '.php'; ?>
                                 
                                 <tbody class="form_rows"<?php if (isset($viewed_mp) && in_array($viewed_mp, array('mailchimp', 'ymlp')) && isset($opts['use_api']) && $opts['use_api'] == 1)
     echo ' style="display:none" '; ?>>
