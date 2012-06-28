@@ -239,10 +239,7 @@ class NewsletterSignUp {
 					$result = wp_remote_post(
 						'http://'.substr($opts['mc_api_key'],-3).'.api.mailchimp.com/1.3/?output=php&method=listSubscribe', 
 						array( 'body' => json_encode($request))
-					);
-
-					var_dump($result); die();
-                                        
+					);                                        
 					
 				break;
 			
