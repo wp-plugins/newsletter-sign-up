@@ -438,7 +438,7 @@ class NewsletterSignUp {
 	{
                 $errors = $this->validation_errors;
 		$opts = $this->options;
-		$additional_fields = '';
+		$additional_fields = '<div class="hidden">';
 		$output = '';
 		
 		$this->no_of_forms++;
@@ -470,6 +470,7 @@ class NewsletterSignUp {
 				$additional_fields .= "<input type=\"hidden\" name=\"{$ed['name']}\" value=\"{$ed['value']}\" />";
 			endforeach; 
 		endif; 
+		$additional_fields .= "</div>";
 		
 		$email_label = (!empty($opts['form']['email_label'])) ? $opts['form']['email_label'] : 'E-mail:';
 		$name_label = (!empty($opts['form']['name_label'])) ? $opts['form']['name_label'] : 'Name:';
