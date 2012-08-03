@@ -107,7 +107,7 @@ For more questions and answers go have a look at my website regarding [Newslette
 
 == Changelog ==
 = 1.7.4 =
-* Added: Ability to turn off double opt-in.
+* Added: Ability to turn off double opt-in (MailChimp API users only).
 * Improved: Various CSS improvements
 
 = 1.7.3 =
