@@ -213,7 +213,7 @@ class NewsletterSignUp {
 					  'apikey' => $opts['mc_api_key'],
 					  'id' => $opts['mc_list_id'],
 					  'email_address' => $email,
-					  'double_optin' => TRUE,
+					  'double_optin' => (isset($opts['mc_no_double_optin']) && $opts['mc_no_double_optin'] == 1) ? FALSE : TRUE,
 					  'merge_vars' => array(
 							'OPTIN_TIME' => date('Y-M-D H:i:s')
 					  )
@@ -239,7 +239,7 @@ class NewsletterSignUp {
 					$result = wp_remote_post(
 						'http://'.substr($opts['mc_api_key'],-3).'.api.mailchimp.com/1.3/?output=php&method=listSubscribe', 
 						array( 'body' => json_encode($request))
-					);                                        
+					);                                       
 					
 				break;
 			

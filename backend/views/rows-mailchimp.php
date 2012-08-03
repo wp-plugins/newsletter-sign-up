@@ -12,6 +12,10 @@
         <td><input size="50%" type="text" name="nsu_mailinglist[mc_list_id]" value="<?php if (isset($opts['mc_list_id'])) echo $opts['mc_list_id']; ?>"; /></td>
     </tr>
     <tr valign="top">
+        <th scope="row"><label title="Prevents your users from having to confirm their emailaddress. Make sure you comply with the CAN SPAM act." for="mc_prevent_double_optin">Prevent double opt-in?</label></th>
+        <td><input type="checkbox" id="mc_prevent_double_optin" name="nsu_mailinglist[mc_no_double_optin]" value="1"<?php if (isset($opts['mc_no_double_optin']) && $opts['mc_no_double_optin'] == '1') { echo ' checked="checked"'; } ?> /></td>
+    </tr>
+    <tr valign="top">
         <th scope="row"><label for="mc_use_groupings">Add to group(s)? </label></th>
         <td><input type="checkbox" id="mc_use_groupings" name="nsu_mailinglist[mc_use_groupings]" value="1"<?php if (isset($opts['mc_use_groupings']) && $opts['mc_use_groupings'] == '1') { echo ' checked="checked"'; } ?> /></td>
     </tr>
