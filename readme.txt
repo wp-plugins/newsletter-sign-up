@@ -107,6 +107,9 @@ For more questions and answers go have a look at my website regarding [Newslette
 
 == Changelog ==
 
+= 1.7.9 =
+* Improved CSS Reset for comment checkbox
+
 = 1.7.8 =
 * Improved enqueue call to load stylesheet on frontend
 * Fixed notice after submitting widget form (undefined variable $name)
