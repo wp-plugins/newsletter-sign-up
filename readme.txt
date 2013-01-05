@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 2.7
 Tested up to: 3.4.2
-Stable tag: 1.7.8
+Stable tag: 1.7.9
 
 Boost your mailinglist with this plugins! Provides you with a "sign me up" checkbox for your comment form, a Newsletter widget, shortcodes, template tags and more..
 
