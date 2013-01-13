@@ -6,7 +6,7 @@ Requires at least: 2.7
 Tested up to: 3.4.2
 Stable tag: 1.7.9
 
-Boost your mailinglist with this plugins! Provides you with a "sign me up" checkbox for your comment form, a Newsletter widget, shortcodes, template tags and more..
+The ultimate Newsletter plugin! Works with third-party newsletter services like MailChimp. Sign-up checkboxes, widget forms, shortcodes, it's all in there.
 
 == Description ==
 
