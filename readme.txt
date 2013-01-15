@@ -3,7 +3,7 @@ Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 2.7
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: 1.7.9
 
 The ultimate Newsletter plugin! Works with third-party newsletter services like MailChimp. Sign-up checkboxes, widget forms, shortcodes, it's all in there.
