@@ -14,6 +14,8 @@ The ultimate Newsletter plugin! Works with third-party newsletter services like 
 
 Boost your mailinglist size with this newsletter plugin! This plugin adds various ways for your visitors to subscribe to your third-party newsletter. Newsletter Sign-Up is most known for it's "Sign-up to our newsletter" checkbox at the WordPress comment form. 
 
+**Notice for MailChimp users**: consider using [MailChimp for WordPress](http://wordpress.org/plugins/mailchimp-for-wp/), my newer plugin.
+
 This plugin currently supports the following newsletter providers but is not limited to those: MailChimp, YMLP, Aweber, iContact, PHPList, Feedblitz.
 You can practically use the plugin for EVERY newsletter provider that's around if you use the right configuration settings.
 
