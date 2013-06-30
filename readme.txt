@@ -112,6 +112,7 @@ For more questions and answers go have a look at my website regarding [Newslette
 = 1.8 =
 * Fixed W3C error because of empty "action" attribute on form tag.
 * Added notice for MailChimp users to switch to my newer plugin, [MailChimp for WordPress](http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/).
+* Further improved the CSS reset for the comment form checkbox
 
 = 1.7.9 =
 * Improved CSS Reset for comment checkbox
