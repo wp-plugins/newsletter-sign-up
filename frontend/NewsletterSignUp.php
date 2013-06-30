@@ -483,7 +483,7 @@ class NewsletterSignUp {
 		if(isset($opts['mailinglist']['use_api']) && $opts['mailinglist']['use_api'] == 1) {
 			
 			/* Using API, send form request to ANY page */
-			$form_action = "";
+			$form_action = get_site_url();
 			$email_id = 'nsu_email';
 			$name_id = 'nsu_name';
 				

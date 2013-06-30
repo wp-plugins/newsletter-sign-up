@@ -76,9 +76,11 @@
                         <?php 
                         $tips = array(
                             'You can embed a sign-up form in your posts and pages by 
-                                using the shortcode <b><em>[nsu-form]</em></b> or by calling <b><em>&lt;?php if(function_exists(\'nsu_signup_form\')) nsu_signup_form(); ?&gt;</em></b> from your template files.',
+                                using the shortcode <b><em>[newsletter-sign-up-form]</em></b> or by calling <b><em>&lt;?php if(function_exists(\'nsu_signup_form\')) nsu_signup_form(); ?&gt;</em></b> from your template files.',
                             'Using Newsletter Sign-Up Widget? You can alternatively install <a target="_blank" href="http://wordpress.org/extend/plugins/wysiwyg-widgets/">WYSIWYG Widgets</a> and use the NSU form shortcode <strong>[nsu-form]</strong> to render a sign-up form in your widget area\'s. This allows
-                            easier customizing'
+                            easier customizing',
+                            'When testing, make sure to test with an email address that is not already on your e-mail list.',
+                            'Using Newsletter Sign-Up with MailChimp? Consider switching to <a href="http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/">MailChimp for WordPress</a>'
                         ); 
                         $random_key = array_rand($tips); 
                         ?>
