@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.1
 Tested up to: 3.6
-Stable tag: 1.8.1
+Stable tag: 1.9
 
 The ultimate Newsletter plugin! Works with third-party newsletter services like MailChimp. Sign-up checkboxes, widget forms, shortcodes, it's all in there.
 
@@ -35,7 +35,7 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 * Check out more [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/) by Danny van Kooten
 * You should follow [Danny on Twitter](http://twitter.com/DannyvanKooten) for lightning fast support and updates.
 
-= "Sign me up" checkbox =
+= "Sign-up to to the newsletter" checkbox =
 One of the things NSU does is adding a "Sign me up to your newsletter checkbox" to your comment and registration forms. Most visitors who care to comment are willing to subscribe to your newsletter too.
 Signing up to your newsletter is as easy as ticking a checkbox! 
 
@@ -108,6 +108,15 @@ For more questions and answers go have a look at my website regarding [Newslette
 3. The "sign-up" checkbox in action @ Twenty Eleven
 
 == Changelog ==
+
+= 1.9 = 
+* Improved: Code refactoring, less memory usage
+* Improved: Admin panel clean-up
+* Fixed: YMLP API
+* Added: Translation filters to form shortcode output
+* Added: Translation filters to checkbox label
+* Added: SPAM Honeypot to sign-up form to prevent bot subscribers
+* Removed: paragraph tags around hidden fields
 
 = 1.8.1 =
 * Improved: automatic guessing of first and last names.
