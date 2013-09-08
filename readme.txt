@@ -35,7 +35,7 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 * Check out more [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/) by Danny van Kooten
 * You should follow [Danny on Twitter](http://twitter.com/DannyvanKooten) for lightning fast support and updates.
 
-= "Sign-up to to the newsletter" checkbox =
+= Sign-up checkboxes =
 One of the things NSU does is adding a "Sign me up to your newsletter checkbox" to your comment and registration forms. Most visitors who care to comment are willing to subscribe to your newsletter too.
 Signing up to your newsletter is as easy as ticking a checkbox! 
 
