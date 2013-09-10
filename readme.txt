@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.1
 Tested up to: 3.6
-Stable tag: 1.9
+Stable tag: 2.0
 
 The ultimate Newsletter plugin! Works with third-party newsletter services like MailChimp. Sign-up checkboxes, widget forms, shortcodes, it's all in there.
 
@@ -97,7 +97,7 @@ Yes.
 
 = Can I show a sign-up form by calling a function in my template files? =
 
-Yes, use the following code snippet in your theme files to embed a sign-up form: `if(function_exists('nsu_signup_form')) nsu_signup_form();`
+Yes, use the following code snippet in your theme files to embed a sign-up form: `if(function_exists('nsu_form')) nsu_form();`
 
 For more questions and answers go have a look at my website regarding [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 
@@ -108,6 +108,14 @@ For more questions and answers go have a look at my website regarding [Newslette
 3. The "sign-up" checkbox in action @ Twenty Eleven
 
 == Changelog ==
+
+
+= 2.0 =
+* Fixed: spam comments not being filtered
+* Added: HTML 5 form fields (option)
+* Added: Validation texts (option)
+* Fixed: last update broke template functions
+* Added: navigation tabs in back-end
 
 = 1.9 = 
 * Improved: Code refactoring, less memory usage

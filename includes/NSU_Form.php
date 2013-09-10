@@ -9,7 +9,7 @@ class NSU_Form {
 	public function __construct()
 	{
 		// add hooks
-		$options = NewsletterSignUp::instance()->get_options();
+		$options = NSU::instance()->get_options();
 		$this->options = $options;
 
 		// register the shortcode which can be used to output sign-up form
@@ -37,19 +37,19 @@ class NSU_Form {
 		if(!empty($_POST['nsu_robocop'])) { return false; }
 
 		if($this->options['mailinglist']['subscribe_with_name'] == 1 && $opts['name_required'] == 1 && empty($name)) {
-			$errors['name-field'] = 'Please fill in the name field.';
+			$errors['name-field'] = __($opts['text_empty_name']);
 		}
 
 		if(empty($email)) { 
-			$errors['email-field'] = 'Please fill in the email address field.';
+			$errors['email-field'] = __($opts['text_empty_email']);
 		} elseif(!is_email($email)) {
-			$errors['email-field'] = 'Please enter a valid email address.';
+			$errors['email-field'] = __($opts['text_invalid_email']);
 		}
 
 		$this->validation_errors = $errors;
 
 		if(count($this->validation_errors) == 0) {
-			NewsletterSignUp::instance()->send_post_data($email, $name, 'form');
+			NSU::instance()->send_post_data($email, $name, 'form');
 		}
 
 		
@@ -76,13 +76,15 @@ class NSU_Form {
         public function output_form($echo = true)
         {
         	$errors = $this->validation_errors;
-        	$opts = NewsletterSignUp::instance()->get_options();
+        	$opts = NSU::instance()->get_options();
         	
         	$additional_fields = '';
         	$output = '';
 
         	$formno = $this->number_of_forms++;
 
+        	
+        	
         	/* Set up form variables for API usage or normal form */
         	if($opts['mailinglist']['use_api'] == 1) {
 
@@ -116,8 +118,19 @@ class NSU_Form {
         	$email_label = __($opts['form']['email_label'], 'nsu');
         	$name_label = __($opts['form']['name_label'], 'nsu');
 
-        	$email_value = __($opts['form']['email_default_value'], 'nsu');
-        	$name_value = __($opts['form']['name_default_value'], 'nsu');
+        	if($opts['form']['use_html5']) { 
+        		$email_type = 'email';
+        		$email_atts = 'placeholder="'. __($opts['form']['email_default_value'], 'nsu') .'" required';
+        		$name_atts = 'placeholder="'. __($opts['form']['name_default_value'], 'nsu') .'" ';
+        		if($opts['form']['name_required']) { $name_atts .= 'required '; }
+        	} else {
+        		$email_type = 'text';
+        		$email_value = __($opts['form']['email_default_value'], 'nsu');
+        		$email_atts = 'value="'. $email_value .'"';
+        		$name_value = __($opts['form']['name_default_value'], 'nsu');
+        		$name_atts = 'value="'. $name_value .'"';
+        	}
+
         	$submit_button = __($opts['form']['submit_button'], 'nsu');      
 
         	$text_after_signup =  __($opts['form']['text_after_signup'], 'nsu');
@@ -129,15 +142,15 @@ class NSU_Form {
 
 		 	$output .= "<form class=\"nsu-form\" id=\"nsu-form-$formno\" action=\"$form_action\" method=\"post\">";	
 		 	if($opts['mailinglist']['subscribe_with_name'] == 1) {	
-		 		$output .= "<p><label for=\"nsu-name-$formno\">$name_label</label><input class=\"nsu-field\" id=\"nsu-name-$formno\" type=\"text\" name=\"$name_id\" value=\"$name_value\" ";
-		 		if($name_value) $output .= "onblur=\"if(!this.value) this.value = '$name_value';\" onfocus=\"if(this.value == '$name_value') this.value=''\" ";
+		 		$output .= "<p><label for=\"nsu-name-$formno\">$name_label</label><input class=\"nsu-field\" id=\"nsu-name-$formno\" type=\"text\" name=\"$name_id\" $name_atts ";
+		 		if(!$opts['form']['use_html5']) $output .= "onblur=\"if(!this.value) this.value = '$name_value';\" onfocus=\"if(this.value == '$name_value') this.value=''\" ";
 		 		$output .= "/>";
 		 		if(isset($errors['name-field'])) $output .= '<span class="nsu-error error notice">'.$errors['name-field'].'</span>';
 		 		$output .= "</p>";		
 		 	} 
 
-		 	$output .= "<p><label for=\"nsu-email-$formno\">$email_label</label><input class=\"nsu-field\" id=\"nsu-email-$formno\" type=\"text\" name=\"$email_id\" value=\"$email_value\" ";
-		 	if($email_value) $output .= "onblur=\"if(!this.value) this.value = '$email_value';\" onfocus=\"if(this.value == '$email_value') this.value = ''\" ";
+		 	$output .= "<p><label for=\"nsu-email-$formno\">$email_label</label><input class=\"nsu-field\" id=\"nsu-email-$formno\" type=\"$email_type\" name=\"$email_id\" $email_atts ";
+		 	if(!$opts['form']['use_html5']) $output .= "onblur=\"if(!this.value) this.value = '$email_value';\" onfocus=\"if(this.value == '$email_value') this.value = ''\" ";
 		 	$output .= "/>";
 		 	if(isset($errors['email-field'])) $output .= '<span class="nsu-error error notice">'.$errors['email-field'].'</span>';
 		 	$output .= "</p>";
@@ -148,13 +161,11 @@ class NSU_Form {
 
 		} else { // form has been submitted
 
-			$output = "<p id=\"nsu-signed-up-$formno\" class=\"nsu-signed-up\">$text_after_signup</p>";		
+			$output = "<p id=\"nsu-signed-up-$formno\" class=\"nsu-signed-up\">". ($text_after_signup) . "</p>";		
 
 		}
 
-		if($echo) {
-			echo $output;
-		} 
+		if($echo) { echo $output; } 
 		
 		return $output;
 

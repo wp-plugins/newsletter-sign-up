@@ -1,58 +1,89 @@
 <div class="wrap" id="nsu-admin">
 
+    <?php include_once 'parts/navigation.php'; ?>
+
     <div id="nsu-main">
 
         <h2>Newsletter Sign-Up :: Form Settings</h2>
+        <?php settings_errors(); ?>  
+
+        <p>Customize your newsletter sign-up form by customizing the labels, input fields, buttons and validation texts using the settings below. </p>
 
         <form method="post" action="options.php">
             <?php settings_fields('nsu_form_group'); ?>
             <table class="form-table">
                 <tr valign="top">
-                    <td colspan="2"><p>Customize your Sign-up form by providing your own values for the different labels, input fields and buttons of the sign-up form. </p></td>
-                </tr>
-                <tr valign="top">
                     <th scope="row">E-mail label</th>
-                    <td><input class="widefat" type="text" name="nsu_form[email_label]" value="<?php echo esc_attr($opts['email_label']); ?>" /></td>
+                    <td colspan="2"><input class="widefat" type="text" name="nsu_form[email_label]" value="<?php echo esc_attr($opts['email_label']); ?>" /></td>
                 </tr>
                 <tr valign="top">
                    <th scope="row">E-mail default value</th>
-                   <td><input class="widefat" type="text" name="nsu_form[email_default_value]" value="<?php echo esc_attr($opts['email_default_value']); ?>" /></td>
+                   <td colspan="2"><input class="widefat" type="text" name="nsu_form[email_default_value]" value="<?php echo esc_attr($opts['email_default_value']); ?>" /></td>
                </tr>
-               <tr valign="top" class="name_dependent" <?php if($opts['mailinglist']['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>><th scope="row">Name label <span class="ns_small">(if using subscribe with name)</span></th>
-                <td>
+               <tr valign="top" class="name_dependent" <?php if($opts['mailinglist']['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>>
+                <th scope="row">Name label</th>
+                <td colspan="2">
                     <input class="widefat" type="text" name="nsu_form[name_label]" value="<?php echo esc_attr($opts['name_label']); ?>" /><br />
-                    <input type="checkbox" id="name_required" name="nsu_form[name_required]" value="1"<?php if($opts['name_required'] == '1') { echo ' checked'; } ?> />
-                    <label for="name_required">Name is a required field?</label>
+                    <p><input type="checkbox" id="name_required" name="nsu_form[name_required]" value="1" <?php checked($opts['name_required'], 1); ?> />
+                    <label for="name_required">Name is a required field?</label></p>
                 </td>
-
             </tr>
             <tr valign="top" class="name_dependent" <?php if($opts['mailinglist']['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>>
                 <th scope="row">Name default value</th>
-                <td><input class="widefat" type="text" name="nsu_form[name_default_value]" value="<?php echo esc_attr($opts['name_default_value']); ?>" /></td>
+                <td colspan="2"><input class="widefat" type="text" name="nsu_form[name_default_value]" value="<?php echo esc_attr($opts['name_default_value']); ?>" /></td>
 
             </tr>
-            <tr valign="top"><th scope="row">Submit button value</th>
-                <td><input class="widefat" type="text" name="nsu_form[submit_button]" value="<?php echo esc_attr($opts['submit_button']); ?>" /></td>
+            <tr valign="top">
+                <th scope="row">Submit button text</th>
+                <td colspan="2"><input class="widefat" type="text" name="nsu_form[submit_button]" value="<?php echo esc_attr($opts['submit_button']); ?>" /></td>
             </tr>
-            <tr valign="top"><th scope="row">Text to replace the form with after a successful sign-up</th>
-                <td>
+            <tr valign="top">
+                <th scope="row">Text to replace the form with after a successful sign-up</th>
+                <td colspan="2">
                     <textarea class="widefat" rows="5" cols="50" name="nsu_form[text_after_signup]"><?php echo esc_textarea($opts['text_after_signup']); ?></textarea>
                     <p><input id="nsu_form_wpautop" name="nsu_form[wpautop]" type="checkbox" value="1" <?php if($opts['wpautop'] == 1) echo 'checked'; ?> />&nbsp;<label for="nsu_form_wpautop"><?php _e('Automatically add paragraphs'); ?></label></p>
                 </td>
             </tr>
 
             <?php if($opts['mailinglist']['use_api'] == 1) { ?>
-            <tr valign="top"><th scope="row">Redirect to this url after signing up <small>(leave empty for no redirect)</small></th>
-                <td><input class="widefat" type="text" name="nsu_form[redirect_to]" value="<?php echo $opts['redirect_to']; ?>" /></td>
+            <tr valign="top">
+                <th scope="row">Redirect to this url after signing up <small>(leave empty for no redirect)</small></th>
+                <td colspan="2"><input class="widefat" type="text" name="nsu_form[redirect_to]" value="<?php echo $opts['redirect_to']; ?>" /></td>
             </tr>
             <?php } ?>
 
-            <tr valign="top"><th scope="row"><label for="ns_load_form_styles">Load some default CSS</label> <small>(check this for some default styling of the labels and input fields)</small></th>
+            <tr valign="top">
+                <th scope="row"><label for="ns_load_form_styles">Load some default CSS</label></th>
                 <td><input type="checkbox" id="ns_load_form_styles" name="nsu_form[load_form_css]" value="1" <?php if($opts['load_form_css'] == 1) echo 'checked'; ?> /></td>
+                <td><small>Check this to load some default form CSS styles.</small></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="nsu_use_html_5">Use HTML 5?</label></th>
+                <td><input type="checkbox" id="nsu_use_html_5" name="nsu_form[use_html5]" value="1" <?php checked($opts['use_html5'], 1); ?> /></td>
+                <td><small>Use HTML5 fields and attributes? (recommended)</small></td>
             </tr>
         </table>
         
         <?php submit_button(); ?>
+
+
+        <h3>Form text messages</h3>
+         <table class="form-table">
+            <?php if($opts['mailinglist']['subscribe_with_name']) { ?>
+            <tr valign="top">
+                <th scope="row">Empty name field message</th>
+                <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_empty_name]" value="<?php echo esc_attr($opts['text_empty_name']); ?>" /></td>
+            </tr>
+            <?php } ?>
+            <tr valign="top">
+                <th scope="row">Empty email address field message</th>
+                <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_empty_email]" value="<?php echo esc_attr($opts['text_empty_email']); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Invalid email address message</th>
+                <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_invalid_email]" value="<?php echo esc_attr($opts['text_invalid_email']); ?>" /></td>
+            </tr>
+        </table>
 
     </form>
 </div>

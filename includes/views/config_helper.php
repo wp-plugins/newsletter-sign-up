@@ -1,5 +1,8 @@
 <div class="wrap" id="nsu-admin">
 
+
+  <?php include_once 'parts/navigation.php'; ?>
+  
    <h2>Newsletter Sign-Up :: Config Extractor</h2>
 
    

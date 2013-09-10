@@ -1,7 +1,7 @@
 <?php
-if (!class_exists('NewsletterSignUpAdmin')) {
+if (!class_exists('NSU_Admin')) {
 
-    class NewsletterSignUpAdmin {
+    class NSU_Admin {
 
         private $hook = 'newsletter-sign-up';
         private $longname = 'Newsletter Sign-Up';
@@ -13,7 +13,7 @@ if (!class_exists('NewsletterSignUpAdmin')) {
         private $options = array();
 
        public function __construct() {
-            $this->options = NewsletterSignUp::instance()->get_options();
+            $this->options = NSU::instance()->get_options();
           
             add_filter("plugin_action_links_{$this->filename}", array($this, 'add_settings_link'));
             add_action('admin_menu', array($this, 'add_option_page'));
@@ -60,6 +60,7 @@ if (!class_exists('NewsletterSignUpAdmin')) {
          * The default settings page
          */
         public function options_page_default() {
+            $tab = 'mailinglist-settings';
             $opts = $this->options['mailinglist'];
 
             $viewed_mp = NULL;
@@ -109,6 +110,7 @@ if (!class_exists('NewsletterSignUpAdmin')) {
          * The admin page for managing checkbox settings
          */
         public function options_page_checkbox_settings() {
+            $tab = 'checkbox-settings';
             $opts = $this->options['checkbox'];
             require 'views/checkbox_settings.php';
         }
@@ -117,6 +119,7 @@ if (!class_exists('NewsletterSignUpAdmin')) {
          * The admin page for managing form settings
          */
         public function options_page_form_settings() {
+            $tab = 'form-settings';
             $opts = $this->options['form'];
             $opts['mailinglist'] = $this->options['mailinglist'];
             require 'views/form_settings.php';
@@ -126,7 +129,7 @@ if (!class_exists('NewsletterSignUpAdmin')) {
          * The page for the configuration extractor
          */
         public function options_page_config_helper() {
-
+            $tab = 'config-helper';
             if (isset($_POST['form'])) {
                 $error = true;
 
@@ -198,10 +201,10 @@ if (!class_exists('NewsletterSignUpAdmin')) {
          */
         public function add_option_page() {
             add_menu_page($this->longname, "Newsl. Sign-up", $this->accesslvl, $this->hook, array($this, 'options_page_default'), plugins_url('newsletter-sign-up/assets/img/icon.png'));
-            add_submenu_page($this->hook, "Newsletter Sign-Up :: Mailinglist Settings", "List Settings", $this->accesslvl, $this->hook, array($this, 'options_page_default'));
-            add_submenu_page($this->hook, "Newsletter Sign-Up :: Checkbox Settings", "Checkbox Settings", $this->accesslvl, $this->hook . '/checkbox-settings', array($this, 'options_page_checkbox_settings'));
-            add_submenu_page($this->hook, "Newsletter Sign-Up :: Form Settings", "Form Settings", $this->accesslvl, $this->hook . '/form-settings', array($this, 'options_page_form_settings'));
-            add_submenu_page($this->hook, "Newsletter Sign-Up :: Configuration Extractor", "Config Extractor", $this->accesslvl, $this->hook . '/config-helper', array($this, 'options_page_config_helper'));
+            add_submenu_page($this->hook, "Newsletter Sign-Up :: Mailinglist Settings", "List Settings", $this->accesslvl, $this->hook, array($this, 'options_page_default'));       
+            add_submenu_page($this->hook, "Newsletter Sign-Up :: Checkbox Settings", "Checkbox Settings", $this->accesslvl, $this->hook . '-checkbox-settings', array($this, 'options_page_checkbox_settings'));
+            add_submenu_page($this->hook, "Newsletter Sign-Up :: Form Settings", "Form Settings", $this->accesslvl, $this->hook . '-form-settings', array($this, 'options_page_form_settings'));
+            add_submenu_page($this->hook, "Newsletter Sign-Up :: Configuration Extractor", "Config Extractor", $this->accesslvl, $this->hook . '-config-helper', array($this, 'options_page_config_helper'));
         }
 
         /**

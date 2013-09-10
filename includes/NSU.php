@@ -1,6 +1,6 @@
 <?php
 
-class NewsletterSignUp {
+class NSU {
 	
 	private $options = array();
 	private static $instance = null;
@@ -31,8 +31,8 @@ class NewsletterSignUp {
 			if(is_admin()) {
 
 				// backend only
-				require 'NewsletterSignUpAdmin.php';
-				new NewsletterSignUpAdmin;
+				require 'NSU_Admin.php';
+				new NSU_Admin();
 			} else {
 				// frontend only
 				require 'functions.php';
@@ -70,7 +70,11 @@ class NewsletterSignUp {
 		if(empty($this->options)) {
 			$keys = array('form', 'mailinglist', 'checkbox');
 			$defaults = array(
-    			'form' => array('load_form_css' => 0, 'submit_button' => 'Sign up', 'name_label' => 'Name:', 'email_label' => "Email:", 'email_default_value' => 'Your emailaddress..', 'name_required' => 0, 'name_default_value' => 'Your name..', 'wpautop' => 0, 'text_after_signup' => 'Thanks for signing up to our newsletter. Please check your inbox to confirm your email address.', 'redirect_to' => ''),
+    			'form' => array('load_form_css' => 0, 'use_html5' => 1, 'submit_button' => 'Sign up', 
+    				'name_label' => 'Name:', 'email_label' => "Email:", 'email_default_value' => 'Your emailaddress..', 'name_required' => 0, 'name_default_value' => 'Your name..', 'wpautop' => 0, 
+    				'text_after_signup' => 'Thanks for signing up to our newsletter. Please check your inbox to confirm your email address.', 'redirect_to' => '',
+    				'text_empty_name' => 'Please fill in the name field.', 'text_empty_email' => 'Please fill in the email field.', 'text_invalid_email' => 'Please enter a valid email address.'
+    			),
     			'mailinglist' => array('provider' => '', 'use_api' => 0, 'subscribe_with_name' => 0, 'email_id' => '', 'name_id' => '', 'form_action' => ''),
     			'checkbox' => array('text' => 'Sign me up for the newsletter', 'redirect_to' => '', 'precheck' => 0, 'cookie_hide' => 0, 'css_reset' => 0, 'add_to_registration_form' => 0, 'add_to_comment_form' => 1, 'add_to_buddypress_form' => 0, 'add_to_multisite_form' => 0)
 	    	);
@@ -103,7 +107,7 @@ class NewsletterSignUp {
          * @return NewsletterSignUp Instance of Newsletter Sign-Up class 
          */
 	public static function instance() {
-		if(!self::$instance) self::$instance = new NewsletterSignUp();
+		if(!self::$instance) self::$instance = new NSU();
 		
 		return self::$instance;
 	}
@@ -264,7 +268,7 @@ class NewsletterSignUp {
 		}
 		
 		// store a cookie, if preferred by site owner
-		if($type == 'checkbox' && $opts['cookie_hide'] == 1) @setcookie('ns_subscriber',TRUE,time() + 9999999);
+		if($type == 'checkbox' && $this->options['checkbox']['cookie_hide'] == 1) @setcookie('ns_subscriber',TRUE,time() + 9999999);
                 
         // Check if we should redirect to a given page
         if($type == 'form' && strlen($this->options['form']['redirect_to']) > 6) {

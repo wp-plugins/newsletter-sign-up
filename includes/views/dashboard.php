@@ -1,7 +1,10 @@
 <div class="wrap" id="nsu-admin">
 
-   <h2>Newsletter Sign-Up :: Mailinglist Settings</h2>
+<?php include_once 'parts/navigation.php'; ?>
 
+   <h2>Newsletter Sign-Up :: Mailinglist Settings</h2>
+   <?php settings_errors(); ?>  
+   
 <div id="nsu-main">
 
     <form method="post" action="options.php">

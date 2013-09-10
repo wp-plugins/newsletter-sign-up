@@ -1,4 +1,8 @@
 <tr valign="top">
+    <td colspan="3" style="font-weight:bold; font-style:italic;">I highly recommend switching to my newer plugin: <a href="http://wordpress.org/plugins/mailchimp-for-wp/">MailChimp for WordPress</a>. There is an awesome Lite version available for free from the WP repository, and an even more awesome <a href="http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/">Pro version from my website</a>.</td>
+</tr>
+
+<tr valign="top">
     <th scope="row"><label for="use_api">Use MailChimp API? <span class="ns_small">(recommended)</span></label></th>
         <td><input type="checkbox" id="use_api" name="nsu_mailinglist[use_api]" value="1"<?php if (isset($opts['use_api']) && $opts['use_api'] == '1') { echo ' checked="checked"'; } ?> /></td>
 </tr>

@@ -7,7 +7,7 @@ class NSU_Checkbox {
 	public function __construct()
 	{
 
-		$options = NewsletterSignUp::instance()->get_options();
+		$options = NSU::instance()->get_options();
 		$opts = $this->options = $options['checkbox'];
 
 		// add hooks
@@ -15,8 +15,7 @@ class NSU_Checkbox {
 		if($opts['add_to_comment_form'] == 1) {
 			add_action('thesis_hook_after_comment_box', array($this, 'output_checkbox'), 20);
 			add_action('comment_form', array($this, 'output_checkbox'), 20);
-			add_action('comment_approved_', array($this, 'grab_email_from_comment'), 10, 1);
-			add_action('comment_post', array($this, 'grab_email_from_comment'), 50, 2);
+			add_action('comment_post', array($this, 'grab_email_from_comment'), 20, 2);
 		}
 		
 		if($opts['add_to_registration_form'] == 1) {
@@ -103,7 +102,7 @@ class NSU_Checkbox {
 		$email = $user_info->user_email;
 		$name = $user_info->first_name;
 		
-		NewsletterSignUp::instance()->send_post_data($email, $name);
+		NSU::instance()->send_post_data($email, $name);
 	}
 	
 	/**
@@ -123,7 +122,7 @@ class NSU_Checkbox {
 		$email = $user_info->user_email;
 		$name = $user_info->first_name;
 		
-		NewsletterSignUp::instance()->send_post_data($email, $name);
+		NSU::instance()->send_post_data($email, $name);
 	}
 	
 	/**
@@ -147,7 +146,7 @@ class NSU_Checkbox {
 
 		} else { return; }
 		
-		NewsletterSignUp::instance()->send_post_data($email, $name);
+		NSU::instance()->send_post_data($email, $name);
 	}
 	
 	/**
@@ -155,22 +154,18 @@ class NSU_Checkbox {
 	* @param int $cid : the ID of the comment
 	* @param object $comment : the comment object, optionally
 	*/
-	public function grab_email_from_comment($cid,$comment = NULL)
+	public function grab_email_from_comment($cid, $comment_approved = '')
 	{
-		if($_POST['newsletter-signup-do'] != 1) return;
-		
-		$cid = (int) $cid;
+		if(!isset($_POST['newsletter-signup-do']) || $_POST['newsletter-signup-do'] != 1) { return false; }
+		if($comment_approved === 'spam') { return false; }		
 		
 		// get comment data
-		if(!is_object($comment)) $comment = get_comment($cid);
-
-		// if spam, abandon function
-		if($comment->comment_karma != 0) return;
+		$comment = get_comment($cid);
 		
 		$email = $comment->comment_author_email;
 		$name = $comment->comment_author;
 		
-		NewsletterSignUp::instance()->send_post_data($email, $name);
+		NSU::instance()->send_post_data($email, $name);
 	}
 
 }

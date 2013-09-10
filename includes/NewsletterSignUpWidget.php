@@ -31,7 +31,9 @@ if(!class_exists('NewsletterSignUpWidget')) {
 							$instance['filter'] ? _e(wpautop($text_before_form),'nsu-widget') : _e($text_before_form,'nsu-widget'); 
 						?></div><?php
 					}
-					NewsletterSignUp::form()->output_form(true);
+					
+					NSU::form()->output_form(true);
+
 					if(!empty($text_after_form)) {
 						?><div class="nsu-text-after-form"><?php
 							$instance['filter'] ? _e(wpautop($text_after_form),'nsu-widget') : _e($text_after_form,'nsu-widget'); 
