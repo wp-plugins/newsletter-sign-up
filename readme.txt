@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.1
 Tested up to: 3.6
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 The ultimate Newsletter plugin! Works with third-party newsletter services like MailChimp. Sign-up checkboxes, widget forms, shortcodes, it's all in there.
 
@@ -21,12 +21,13 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 
 **Features:**
 
-* Add a "sign-up to our newsletter" checkbox to your comment form or register form (including BP and MS)
+* Add a "sign-up to our newsletter" checkbox to your comment form or registration form
 * Easy customizable Newsletter Sign-Up Widget
-* Embed a sign-up form in your posts with a simple shortcode `[newsletter-sign-up-form]`.
-* Embed a sign-up form in your template files by calling `nsu_signup_form();`
-* Use the MailChimp or YMLP API or any other third party newsletter provider.
-* Works with most major mailinglist services because of the form mimicing feature.
+* Embed a sign-up form in your posts with a simple shortcode `[nsu-form]`.
+* Embed a sign-up form in your template files by calling `nsu_form();`
+* Use the MailChimp or YMLP API or any other third-party newsletter service.
+* Works with most major mailinglist services like Aweber, Constant Contact, iContact, etc.
+* Compatible with BuddyPress, MultiSite and bbPress.
 * Compatible with [WYSIWYG Widgets](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) to allow easy widget text editing.
 
 **More info:**
@@ -39,9 +40,10 @@ You can practically use the plugin for EVERY newsletter provider that's around i
 One of the things NSU does is adding a "Sign me up to your newsletter checkbox" to your comment and registration forms. Most visitors who care to comment are willing to subscribe to your newsletter too.
 Signing up to your newsletter is as easy as ticking a checkbox! 
 
+You can also add the sign-up checkbox to your BuddyPress registration form, your MultiSite sign-up forms or your bbPress new topic and new reply forms.
+
 = Sign-up forms =
-Another strength of NSU is the ability to create sign-up forms and easily embed those in multiple places. Newsletter Sign-Up comes with a sign-up form widget, a shortcode to use in your posts and/or pages and a function call
-to use in your template files. You can even choose to redirect the visitor to a certain page after signing-up, offering them exclusive content or a "thank you for signing up" message.
+Another strength of NSU is the ability to create sign-up forms and easily embed those in multiple places. Newsletter Sign-Up comes with a sign-up form widget, a shortcode to use in your posts and/or pages and a function call to use in your template files. You can even choose to redirect the visitor to a certain page after signing-up, offering them exclusive content or a "thank you for signing up" message.
 
 = Using MailChimp or YMLP? Use their API's! =
 If you're using MailChimp or YMLP then you're in luck. Configuring is as easy as providing your API credentials so that Newsletter Sign-Up can work with the API of your newsletter provider.
@@ -109,6 +111,11 @@ For more questions and answers go have a look at my website regarding [Newslette
 
 == Changelog ==
 
+= 2.0.1 =
+* Fixed: not being able to uncheck "Use HTML 5" on form settings page
+* Added: compatibility with bbPress, you can now add a sign-up checkbox to the post new topic and post new reply forms.
+* Fixed: not being able to uncheck "add to comment form" in checkbox settings
+* Fixed: compatibility with other plugins who use a 'functions.php' file (like GDE).
 
 = 2.0 =
 * Fixed: spam comments not being filtered

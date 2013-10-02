@@ -30,6 +30,19 @@ if (!class_exists('NSU_Admin')) {
             
         }
 
+        public function get_checkbox_compatible_plugins()
+        {
+  
+            $checkbox_plugins = array(
+                'comment_form' => "Comment form",
+                "registration_form" => "Registration form"
+            );
+            if(is_multisite()) { $checkbox_plugins['ms_form'] = "MultiSite forms"; }
+            if(class_exists("BuddyPress")) $checkbox_plugins['bp_form'] = "BuddyPress registration";
+            if(class_exists('bbPress')) $checkbox_plugins['bbpress_forms'] = "bbPress";
+            return $checkbox_plugins;
+        }
+
         public function notice_mailchimp_for_wp()
         {
             ?>
@@ -236,12 +249,18 @@ if (!class_exists('NSU_Admin')) {
         }
 
         public function validate_form_options($options) {
+
             $options['text_after_signup'] = strip_tags($options['text_after_signup'], '<a><b><strong><i><img><em><br><p><ul><li><ol>');
             
             // redirect to url should start with http
             if(isset($options['redirect_to']) && substr($options['redirect_to'],0,4) != 'http') {
                 $options['redirect_to'] = '';
             }
+
+            $options['name_required'] = (isset($options['name_required'])) ? 1 : 0;
+            $options['wpautop'] = (isset($options['wpautop'])) ? 1 : 0;
+            $options['use_html5'] = (isset($options['use_html5'])) ? 1 : 0;
+            $options['load_form_css'] = (isset($options['load_form_css'])) ? 1 : 0;
             
             return $options;
         }
@@ -258,6 +277,7 @@ if (!class_exists('NSU_Admin')) {
         }
 
         public function validate_checkbox_options($options) {
+            $options['add_to_comment_form'] = (isset($options['add_to_comment_form'])) ? 1 : 0;
             return $options;
         }
 

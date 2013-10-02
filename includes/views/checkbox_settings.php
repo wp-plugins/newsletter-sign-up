@@ -24,48 +24,17 @@
             </td>
           </tr>
           <tr valign="top"><th scope="row"><label for="ns_precheck_checkbox">Pre-check the checkbox?</label></th>
-            <td><input type="checkbox" id="ns_precheck_checkbox" name="nsu_checkbox[precheck]" value="1"<?php
-            if ($opts['precheck'] == '1') {
-             echo ' checked';
-           }
-           ?> /></td>
+            <td><input type="checkbox" id="ns_precheck_checkbox" name="nsu_checkbox[precheck]" value="1" <?php checked($opts['precheck'], 1); ?> /></td>
          </tr>
          <tr valign="top">
           <th scope="row"><label for="do_css_reset">Do a CSS 'reset' on the checkbox.</label> <small>(check this if checkbox appears in a weird place)</small></th>
-          <td><input type="checkbox" id="do_css_reset" name="nsu_checkbox[css_reset]" value="1"<?php
-          if ($opts['css_reset'] == '1') {
-           echo ' checked="checked"';
-         }
-         ?>  /> </td>
+          <td><input type="checkbox" id="do_css_reset" name="nsu_checkbox[css_reset]" value="1" <?php checked($opts['css_reset'], 1); ?> /> </td>
        </tr>
        <tr valign="top"><th scope="row">Where to show the sign-up checkbox?</th>
         <td>
-          <input type="checkbox" id="add_to_comment_form" name="nsu_checkbox[add_to_comment_form]" value="1"<?php
-          if ($opts['add_to_comment_form'] == '1') {
-           echo ' checked="checked"';
-         }
-         ?> /> <label for="add_to_comment_form">WordPress comment form</label><br />
-         <input type="checkbox" id="add_to_reg_form" name="nsu_checkbox[add_to_registration_form]" value="1"<?php
-         if ($opts['add_to_registration_form'] == '1') {
-           echo ' checked="checked"';
-         }
-         ?> /> <label for="add_to_reg_form">WordPress registration form</label><br />
-         <?php if ($this->bp_active) { ?>
-         <input type="checkbox" id="add_to_bp_form" name="nsu_checkbox[add_to_buddypress_form]" value="1"<?php
-         if ($opts['add_to_buddypress_form'] == '1') {
-          echo ' checked="checked"';
-        }
-        ?> /> <label for="add_to_bp_form">BuddyPress registration form</label><br />
-        <?php
-      }
-      if (defined('MULTISITE') && MULTISITE == TRUE) {
-        ?>
-        <input type="checkbox" id="add_to_ms_form" name="nsu_checkbox[add_to_multisite_form]" value="1"<?php
-        if ($opts['add_to_multisite_form'] == '1') {
-         echo ' checked="checked"';
-       }
-       ?> /> <label for="add_to_ms_form">MultiSite registration form</label><br />
-       <?php } ?>
+        <?php foreach($this->get_checkbox_compatible_plugins() as $code => $name) { ?>
+          <input type="checkbox" id="add_to_<?php echo $code; ?>" name="nsu_checkbox[add_to_<?php echo $code; ?>]" value="1"<?php checked($opts['add_to_'.$code], '1'); ?> /> <label for="add_to_<?php echo $code; ?>"><?php echo $name; ?></label> &nbsp; 
+        <?php } ?>
      </td>
    </tr>
    <tr valign="top"><th scope="row"><label for="ns_cookie_hide">Hide the checkbox for users who used it to subscribe before?</label><small>(uses a cookie)</small></th>

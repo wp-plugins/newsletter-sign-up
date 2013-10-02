@@ -79,13 +79,11 @@ class NSU_Form {
         	$opts = NSU::instance()->get_options();
         	
         	$additional_fields = '';
-        	$output = '';
+        	$output = "\n<!-- Form by Newsletter Sign-Up v". NSU_VERSION_NUMBER ." - http://wordpress.org/plugins/newsletter-sign-up/ -->\n";
 
         	$formno = $this->number_of_forms++;
 
-        	
-        	
-        	/* Set up form variables for API usage or normal form */
+          	/* Set up form variables for API usage or normal form */
         	if($opts['mailinglist']['use_api'] == 1) {
 
         		/* Using API, send form request to ANY page */
@@ -161,9 +159,11 @@ class NSU_Form {
 
 		} else { // form has been submitted
 
-			$output = "<p id=\"nsu-signed-up-$formno\" class=\"nsu-signed-up\">". ($text_after_signup) . "</p>";		
+			$output .= "<p id=\"nsu-signed-up-$formno\" class=\"nsu-signed-up\">". ($text_after_signup) . "</p>";		
 
 		}
+
+		$output .= "\n<!-- / Newsletter Sign-Up -->\n";
 
 		if($echo) { echo $output; } 
 		

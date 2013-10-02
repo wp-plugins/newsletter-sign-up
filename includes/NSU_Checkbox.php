@@ -36,10 +36,17 @@ class NSU_Checkbox {
 			add_action('wpmu_activate_user', array($this, 'grab_email_from_ms_user_signup'), 20, 3);
 		}
 
+		/* bbPress actions */
+		if($opts['add_to_bbpress_forms']) {
+			add_action('bbp_theme_after_topic_form_subscriptions', array($this, 'output_checkbox'), 10);
+			add_action('bbp_theme_after_reply_form_subscription', array($this, 'output_checkbox'), 10);
+			add_action('bbp_theme_anonymous_form_extras_bottom', array($this, 'output_checkbox'), 10);
+			add_action('bbp_new_topic', array($this, 'subscribe_from_bbpress_new_topic'), 10, 4);
+			add_action('bbp_new_reply', array($this, 'subscribe_from_bbpress_new_reply'), 10, 5);
+		}
+
 	}
 
-
-	
 	
 	/**
 	* Output the checkbox
@@ -57,12 +64,14 @@ class NSU_Checkbox {
         if($this->showed_checkbox) return false;
 	
 		?>
+		<!-- Checkbox by Newsletter Sign-Up Checkbox v<?php echo NSU_VERSION_NUMBER; ?> - http://wordpress.org/plugins/newsletter-sign-up/ -->
 		<p id="ns-checkbox">
-			<input value="1" id="nsu_checkbox" type="checkbox" name="newsletter-signup-do" <?php if($opts['precheck'] == 1) echo 'checked="checked" '; ?>/>
+			<input value="1" id="nsu_checkbox" type="checkbox" name="newsletter-signup-do" <?php checked($opts['precheck'], 1); ?> />
 			<label for="nsu_checkbox">
 				<?php _e($opts['text']); ?>
 			</label>
 		</p>
+		<!-- / Newsletter Sign-Up -->
 		<?php 
 		
 		$this->showed_checkbox = true;
@@ -165,7 +174,39 @@ class NSU_Checkbox {
 		$email = $comment->comment_author_email;
 		$name = $comment->comment_author;
 		
-		NSU::instance()->send_post_data($email, $name);
+		return NSU::instance()->send_post_data($email, $name);
+	}
+
+	public function subscribe_from_bbpress($anonymous_data, $user_id)
+	{
+		if(!isset($_POST['newsletter-signup-do']) || $_POST['newsletter-signup-do'] != 1) { return false; }
+
+		if($anonymous_data) {
+
+			$email = $anonymous_data['bbp_anonymous_email'];
+			$name = $anonymous_data['bbp_anonymous_name'];
+
+		} elseif($user_id) {
+
+			$user_info = get_userdata($user_id);	
+			$email = $user_info->user_email;
+			$name = $user_info->first_name . ' ' . $user_info->last_name;
+
+		} else {
+			return false;
+		}
+
+		return NSU::instance()->send_post_data($email, $name);
+	}
+
+	public function subscribe_from_bbpress_new_topic($topic_id, $forum_id, $anonymous_data, $topic_author)
+	{
+		return $this->subscribe_from_bbpress($anonymous_data, $topic_author);
+	}
+
+	public function subscribe_from_bbpress_new_reply($reply_id, $topic_id, $forum_id, $anonymous_data, $reply_author)
+	{
+		return $this->subscribe_from_bbpress($anonymous_data, $reply_author);
 	}
 
 }

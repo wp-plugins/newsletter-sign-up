@@ -24,18 +24,16 @@ class NSU {
 		self::checkbox();	
 		self::form();
 
-		if(defined("DOING_AJAX") && DOING_AJAX) {
-			// doing ajax
-		}	else {
+		if(!defined("DOING_AJAX") || !DOING_AJAX) {
 			// regular request
 			if(is_admin()) {
 
 				// backend only
-				require 'NSU_Admin.php';
+				require_once NSU_PLUGIN_DIR . 'includes/NSU_Admin.php';
 				new NSU_Admin();
 			} else {
 				// frontend only
-				require 'functions.php';
+				require_once NSU_PLUGIN_DIR . 'includes/functions.php';
 			}
 		}
 	}
@@ -43,7 +41,7 @@ class NSU {
 	public static function checkbox()
 	{
 		if(!self::$checkbox) {
-			include_once 'NSU_Checkbox.php';
+			require_once NSU_PLUGIN_DIR .'includes/NSU_Checkbox.php';
 			self::$checkbox = new NSU_Checkbox;
 		}
 
@@ -53,7 +51,7 @@ class NSU {
 	public static function form()
 	{
 		if(!self::$form) {
-			include_once 'NSU_Form.php';
+			require_once NSU_PLUGIN_DIR . 'includes/NSU_Form.php';
 			self::$form = new NSU_Form;
 		}
 
@@ -69,6 +67,7 @@ class NSU {
 	{
 		if(empty($this->options)) {
 			$keys = array('form', 'mailinglist', 'checkbox');
+
 			$defaults = array(
     			'form' => array('load_form_css' => 0, 'use_html5' => 1, 'submit_button' => 'Sign up', 
     				'name_label' => 'Name:', 'email_label' => "Email:", 'email_default_value' => 'Your emailaddress..', 'name_required' => 0, 'name_default_value' => 'Your name..', 'wpautop' => 0, 
@@ -76,7 +75,10 @@ class NSU {
     				'text_empty_name' => 'Please fill in the name field.', 'text_empty_email' => 'Please fill in the email field.', 'text_invalid_email' => 'Please enter a valid email address.'
     			),
     			'mailinglist' => array('provider' => '', 'use_api' => 0, 'subscribe_with_name' => 0, 'email_id' => '', 'name_id' => '', 'form_action' => ''),
-    			'checkbox' => array('text' => 'Sign me up for the newsletter', 'redirect_to' => '', 'precheck' => 0, 'cookie_hide' => 0, 'css_reset' => 0, 'add_to_registration_form' => 0, 'add_to_comment_form' => 1, 'add_to_buddypress_form' => 0, 'add_to_multisite_form' => 0)
+    			'checkbox' => array('text' => 'Sign me up for the newsletter', 'redirect_to' => '', 'precheck' => 0, 'cookie_hide' => 0, 'css_reset' => 0,
+    			 'add_to_registration_form' => 0, 'add_to_comment_form' => 1, 'add_to_buddypress_form' => 0,
+    			 'add_to_multisite_form' => 0, 'add_to_bbpress_forms' => 0
+    			 )
 	    	);
 
 	    	foreach($keys as $key) {
@@ -98,7 +100,7 @@ class NSU {
          */
 	public function register_widget()
 	{
-		require('NewsletterSignUpWidget.php');
+		require_once NSU_PLUGIN_DIR . 'includes/NewsletterSignUpWidget.php';
 		return register_widget('NewsletterSignUpWidget');
 	}
 	
