@@ -2,7 +2,7 @@
 
 	<div id="nsu-donate-box">
 			<h3>Donate $10, $20 or $50</h3>
-			<p>If you like Newsletter Sign-Up and the free time I put into it, please consider donating a token of your appreciation.</p>
+			<p>If you like Newsletter Sign-Up, consider showing me a token of your appreciation.</p>
 					
 			<form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                 <input type="hidden" name="cmd" value="_donations">
@@ -17,22 +17,23 @@
             </form>
 
 			<p>Alternatively, you can: </p>
-            <ul>
-                <li><a href="http://wordpress.org/support/view/plugin-reviews/newsletter-sign-up?rate=5#postform" target="_blank">Give a 5&#9733; rating on WordPress.org</a></li>
+            <ul class="ul-square">
+                <li><a href="http://wordpress.org/support/view/plugin-reviews/newsletter-sign-up?rate=5#postform" target="_blank">Give a &#9733;&#9733;&#9733;&#9733;&#9733; rating on WordPress.org</a></li>
                 <li><a href="http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/" target="_blank">Blog about it and link to the plugin page</a></li>
-                <li><a href="http://twitter.com/?status=I%20manage%20my%20%23WordPress%20sign-up%20forms%20using%20%40DannyvanKooten%20%27s%20Newsletter%20Sign-Up%20plugin%20and%20I%20love%20it%20-%20check%20it%20out!%20http%3A%2F%2Fwordpress.org%2Fplugins%2Fnewsletter-sign-up%2F" target="_blank">Tweet about Newsletter Sign-Up</a></li>
+                <li><a href="http://twitter.com/?status=I%27m%20using%20the%20Newsletter%20Sign-Up%20%23WordPress%20plugin%20by%20%40DannyvanKooten%20on%20my%20website.%20Love%20it!%20http%3A%2F%2Fwordpress.org%2Fplugins%2Fnewsletter-sign-up%2F" target="_blank">Tweet about Newsletter Sign-Up</a></li>
+            	<li><a href="http://wordpress.org/plugins/newsletter-sign-up/#compatibility">Vote "works" on the Wordpress.org plugin page</a>
             </ul>
     </div>
 
 	<div>
 		<h3>Other WordPress plugins by Danny</h3>
-		<ul class="">
-			<li class="mc4wp"><a href="http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/">MailChimp for WordPress</a></li>
+		<ul class="ul-square">
+			<li class="has-icon mc4wp"><a href="http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/">MailChimp for WordPress</a></li>
 			<li><a href="http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/">WYSIWYG Widgets</a></li>
-			<li class="rfb"><a href="http://dannyvankooten.com/wordpress-plugins/recent-facebook-posts/">Recent Facebook Posts</a></li>
+			<li class="has-icon rfb"><a href="http://dannyvankooten.com/wordpress-plugins/recent-facebook-posts/">Recent Facebook Posts</a></li>
 
-			<li class="dvk-email"><a href="http://dannyvankooten.com/newsletter/">Subscribe to Danny's newsletter</a> by e-mail</li>
-			<li class="dvk-twitter">You should follow me on twitter <a href="http://twitter.com/dannyvankooten">here</a></li>
+			<li class="has-icon dvk-email"><a href="http://dannyvankooten.com/newsletter/">Subscribe to Danny's newsletter</a> by e-mail</li>
+			<li class="has-icon dvk-twitter">You should follow me on twitter: <a href="http://twitter.com/dannyvankooten">@Dannyvankooten</a></li>
 		</ul>
 	</div>
 

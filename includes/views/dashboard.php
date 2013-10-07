@@ -1,6 +1,6 @@
 <div class="wrap" id="nsu-admin">
 
-<?php include_once 'parts/navigation.php'; ?>
+<?php include_once NSU_PLUGIN_DIR . 'includes/views/parts/navigation.php'; ?>
 
    <h2>Newsletter Sign-Up :: Mailinglist Settings</h2>
    <?php settings_errors(); ?>  
@@ -10,15 +10,13 @@
     <form method="post" action="options.php">
         <?php settings_fields('nsu_mailinglist_group'); ?>
 
+        <p>These settings are the most important, without them Newsletter Sign-Up can't do its job. Having trouble finding the right configuration settings? Have a look at <a href="http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/">this post on my blog</a> or try the <a href="admin.php?page=newsletter-sign-up/config-helper">configuration extractor</a>.</p>
+
         <table class="form-table">	
             <tr valign="top">
-                <td colspan="2"><p>These settings are the most important since without these Newsletter Sign-Up can't do it's job. Having trouble finding
-                    the right configuration settings? Have a look at <a href="http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/">this post on my blog</a> or try the <a href="admin.php?page=newsletter-sign-up/config-helper">configuration extractor</a>.</p></td>
-                </tr>
-                <tr valign="top">
                     <th scope="row">Select your mailinglist provider: </th>
                     <td>
-                        <select name="nsu_mailinglist[provider]" id="ns_mp_provider" onchange="document.location.href = 'admin.php?page=<?php echo $this->hook; ?>&mp=' + this.value">
+                        <select class="widefat" name="nsu_mailinglist[provider]" id="ns_mp_provider" onchange="document.location.href = 'admin.php?page=<?php echo $this->hook; ?>&mp=' + this.value">
                             <option value="other"<?php if ($viewed_mp == NULL || $viewed_mp == 'other')
                             echo ' SELECTED'; ?>>-- other / advanced</option>
                             <option value="mailchimp"<?php if ($viewed_mp == 'mailchimp')
@@ -33,37 +31,40 @@
                             echo ' SELECTED'; ?> >PHPList</option>
                         </select>
                     </td>
-                </tr>
+            </tr>
 
                 <?php if(isset($viewed_mp) && file_exists(dirname(__FILE__) . '/parts/rows-' . $viewed_mp . '.php')) require 'parts/rows-' . $viewed_mp . '.php'; ?>
 
                 <tbody class="form_rows"<?php if (isset($viewed_mp) && in_array($viewed_mp, array('mailchimp', 'ymlp')) && isset($opts['use_api']) && $opts['use_api'] == 1)
                 echo ' style="display:none" '; ?>>
-                <tr valign="top"><th scope="row">Newsletter form action</th>
-                    <td><input size="50%" type="text" id="ns_form_action" name="nsu_mailinglist[form_action]" value="<?php echo $opts['form_action']; ?>" /></td>
+                <tr valign="top">
+                    <th scope="row">Newsletter form action</th>
+                    <td><input class="widefat" type="text" id="ns_form_action" name="nsu_mailinglist[form_action]" placeholder="Example: http://newsletter-service.com?action=subscribe&id=123" value="<?php echo esc_attr($opts['form_action']); ?>" /></td>
                 </tr>
-                <tr valign="top"><th scope="row">E-mail identifier <span class="ns_small">name attribute of input field that holds the emailadress</span></th>
-                    <td><input size="50%" type="text" name="nsu_mailinglist[email_id]" value="<?php echo $opts['email_id']; ?>"/></td>
+                <tr valign="top">
+                    <th scope="row">E-mail identifier<br /><small>name attribute of input field for the emailadress</small></th>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[email_id]" placeholder="Example: EMAIL" value="<?php echo esc_attr($opts['email_id']); ?>"/></td>
                 </tr>
             </tbody>
             <tbody>
-                <tr valign="top"><th scope="row"><label for="subscribe_with_name">Subscribe with name?</label></th>
-                    <td><input type="checkbox" id="subscribe_with_name" name="nsu_mailinglist[subscribe_with_name]" value="1"<?php if($opts['subscribe_with_name'] == '1') echo ' checked'; ?> /></td>
+                <tr valign="top">
+                    <th scope="row"><label for="subscribe_with_name">Subscribe with name?</label></th>
+                    <td><input type="checkbox" id="subscribe_with_name" name="nsu_mailinglist[subscribe_with_name]" value="1" <?php checked($opts['subscribe_with_name'], 1); ?> /></td>
                 </tr>
-                <tr class="name_dependent" valign="top"<?php if($opts['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>><th scope="row">Name identifier <span class="ns_small">name attribute of input field that holds the name</span></th>
-                    <td><input size="25%" id="ns_name_id" type="text" name="nsu_mailinglist[name_id]" value="<?php echo $opts['name_id']; ?>" /></td>
+                <tr class="name_dependent" valign="top" <?php if($opts['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>>
+                    <th scope="row">Name identifier<br /><small>name attribute of input field that holds the name</small></th>
+                    <td><input class="widefat" id="ns_name_id" type="text" name="nsu_mailinglist[name_id]" placeholder="Example: NAME" value="<?php echo esc_attr($opts['name_id']); ?>" /></td>
                 </tr>
             </tbody>
         </table>
-        <p style="margin:10px;">
-            For some newsletter services you need to specify some additional static data, like a list ID or your account name. These fields are usually found as hidden fields in your sign-up form's HTML code.
-            You can specify these additional fields here using name / value pairs so they will be sent along with every sign-up request.
+        <p>
+            For some newsletter services you need to specify some additional fields, like a list ID or your account name. These fields are usually found as hidden fields in the HTML code of your sign-up forms.
+            You can specify these additional fields here using name / value pairs, they will be included in all sign-up requests made by the plugin.
         </p>
-        <p>If you use <em>%%NAME%%</em> or <em>%%IP%%</em> in the value fields it will be replaced by respectively the actual name or IP address of the subscriber.</p>
         <table class="form-table">
-            <tr valign="top">
-                <th scope="column" style="font-weight:bold;">Name</th>
-                <th scope="column" style="font-weight:bold;">Value</th>
+            <tr valign="top" style="font-weight:bold;">
+                <th scope="column">Name</th>
+                <th scope="column">Value</th>
             </tr>
             <?php
             $last_key = 0;
@@ -72,8 +73,8 @@
                 foreach ($opts['extra_data'] as $key => $value) :
                     ?>
                 <tr valign="top">
-                    <td><input size="50%" type="text" name="nsu_mailinglist[extra_data][<?php echo $key; ?>][name]" value="<?php echo $value['name']; ?>" /></td>
-                    <td><input size="50%" type="text" name="nsu_mailinglist[extra_data][<?php echo $key; ?>][value]" value="<?php echo $value['value']; ?>" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $key; ?>][name]" value="<?php echo $value['name']; ?>" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $key; ?>][value]" value="<?php echo $value['value']; ?>" /></td>
                 </tr>					
                 <?php
                 $last_key = $key + 1;
@@ -81,22 +82,25 @@
                 endif;
                 ?>
                 <tr valign="top">
-                    <td><input size="50%" type="text" name="nsu_mailinglist[extra_data][<?php echo $last_key; ?>][name]" value="" /></td>
-                    <td><input size="50%" type="text" name="nsu_mailinglist[extra_data][<?php echo $last_key; ?>][value]" value="" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $last_key; ?>][name]" placeholder="Hidden field name" value="" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $last_key; ?>][value]" placeholder="Hidden field value" value="" /></td>
                 </tr>
             </table>
-            <p class="submit">
-                <input type="submit" class="button-primary" style="margin:5px;" value="<?php _e('Save Changes') ?>" />
-            </p>
+           
+             <p class="help"><strong>Dynamic values:</strong> <code>{name}</code> and <code>{ip}</code> will be replaced by the name or IP address of the subscriber.</p>
+
+
+            <?php submit_button(); ?>
+
         </form>
-        <p class="nsu-tip">
-            Having trouble finding the right configuration settings? Try the <a href="admin.php?page=newsletter-sign-up/config-helper">configuration extractor</a>, it's there to help you!
+        <p>
+            <em>Having trouble finding the right configuration settings? Try the <a href="admin.php?page=newsletter-sign-up/config-helper">configuration extractor</a>.</em>
         </p>
 
     </div>
 
 
-    <?php require 'parts/sidebar.php'; ?>
+    <?php include_once NSU_PLUGIN_DIR . 'includes/views/parts/sidebar.php'; ?>
 
 </div>
 <br style="clear:both;" />

@@ -41,7 +41,7 @@
                 <th scope="row">Text to replace the form with after a successful sign-up</th>
                 <td colspan="2">
                     <textarea class="widefat" rows="5" cols="50" name="nsu_form[text_after_signup]"><?php echo esc_textarea($opts['text_after_signup']); ?></textarea>
-                    <p><input id="nsu_form_wpautop" name="nsu_form[wpautop]" type="checkbox" value="1" <?php if($opts['wpautop'] == 1) echo 'checked'; ?> />&nbsp;<label for="nsu_form_wpautop"><?php _e('Automatically add paragraphs'); ?></label></p>
+                    <p><label><input id="nsu_form_wpautop" name="nsu_form[wpautop]" type="checkbox" value="1" <?php checked($opts['wpautop'], 1) ?> /> <?php _e('Automatically add paragraphs'); ?></label></p>
                 </td>
             </tr>
 

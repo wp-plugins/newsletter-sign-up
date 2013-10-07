@@ -12,9 +12,9 @@ if (!class_exists('NSU_Admin')) {
         private $bp_active = FALSE;
         private $options = array();
 
-       public function __construct() {
+        public function __construct() {
             $this->options = NSU::instance()->get_options();
-          
+
             add_filter("plugin_action_links_{$this->filename}", array($this, 'add_settings_link'));
             add_action('admin_menu', array($this, 'add_option_page'));
             add_action('admin_init', array($this, 'settings_init'));
@@ -32,11 +32,11 @@ if (!class_exists('NSU_Admin')) {
 
         public function get_checkbox_compatible_plugins()
         {
-  
+
             $checkbox_plugins = array(
                 'comment_form' => "Comment form",
                 "registration_form" => "Registration form"
-            );
+                );
             if(is_multisite()) { $checkbox_plugins['ms_form'] = "MultiSite forms"; }
             if(class_exists("BuddyPress")) $checkbox_plugins['bp_form'] = "BuddyPress registration";
             if(class_exists('bbPress')) $checkbox_plugins['bbpress_forms'] = "bbPress";
@@ -47,7 +47,7 @@ if (!class_exists('NSU_Admin')) {
         {
             ?>
             <div class="updated">
-                 <p><strong>Newsletter Sign-Up Notice:</strong> You are using MailChimp, great! Consider switching to <a href="http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/">MailChimp for WordPress</a>, you will <strong>love</strong> it. 
+             <p><strong>Newsletter Sign-Up Notice:</strong> You are using MailChimp, great! Consider switching to <a href="http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/">MailChimp for WordPress</a>, you will <strong>love</strong> it. 
                 It can be downloaded from the WordPress repository <a href="http://wordpress.org/plugins/mailchimp-for-wp/">here</a>. | <a href="?nsu-hide-mc4wp-notice=1">Hide Notice</a></p>
             </div>
             <?php
@@ -89,34 +89,34 @@ if (!class_exists('NSU_Admin')) {
                 switch ($viewed_mp) {
 
                     case 'mailchimp':
-                        if (empty($opts['email_id']))
-                            $opts['email_id'] = 'EMAIL';
-                        if (empty($opts['name_id']))
-                            $opts['name_id'] = 'NAME';
-                        break;
+                    if (empty($opts['email_id']))
+                        $opts['email_id'] = 'EMAIL';
+                    if (empty($opts['name_id']))
+                        $opts['name_id'] = 'NAME';
+                    break;
 
                     case 'ymlp':
-                        if (empty($opts['email_id']))
-                            $opts['email_id'] = 'YMP0';
-                        break;
+                    if (empty($opts['email_id']))
+                        $opts['email_id'] = 'YMP0';
+                    break;
 
                     case 'aweber':
-                        if (empty($opts['form_action']))
-                            $opts['form_action'] = 'http://www.aweber.com/scripts/addlead.pl';
-                        if (empty($opts['email_id']))
-                            $opts['email_id'] = 'email';
-                        if (empty($opts['name_id']))
-                            $opts['name_id'] = 'name';
-                        break;
+                    if (empty($opts['form_action']))
+                        $opts['form_action'] = 'http://www.aweber.com/scripts/addlead.pl';
+                    if (empty($opts['email_id']))
+                        $opts['email_id'] = 'email';
+                    if (empty($opts['name_id']))
+                        $opts['name_id'] = 'name';
+                    break;
 
                     case 'icontact':
-                        if (empty($opts['email_id']))
-                            $opts['email_id'] = 'fields_email';
-                        break;
+                    if (empty($opts['email_id']))
+                        $opts['email_id'] = 'fields_email';
+                    break;
                 }
             }
 
-            require 'views/dashboard.php';
+            require_once NSU_PLUGIN_DIR . 'includes/views/dashboard.php';
         }
         
         /**
@@ -125,7 +125,7 @@ if (!class_exists('NSU_Admin')) {
         public function options_page_checkbox_settings() {
             $tab = 'checkbox-settings';
             $opts = $this->options['checkbox'];
-            require 'views/checkbox_settings.php';
+            require_once NSU_PLUGIN_DIR . 'includes/views/checkbox_settings.php';
         }
 
         /**
@@ -135,7 +135,7 @@ if (!class_exists('NSU_Admin')) {
             $tab = 'form-settings';
             $opts = $this->options['form'];
             $opts['mailinglist'] = $this->options['mailinglist'];
-            require 'views/form_settings.php';
+            require_once NSU_PLUGIN_DIR . 'includes/views/form_settings.php';
         }
 
         /**
@@ -143,71 +143,103 @@ if (!class_exists('NSU_Admin')) {
          */
         public function options_page_config_helper() {
             $tab = 'config-helper';
-            if (isset($_POST['form'])) {
-                $error = true;
+            
+            if (isset($_POST['form']) && !empty($_POST['form'])) {
 
-                $form = $_POST['form'];
-
-                // strip unneccessary tags
-                $form = strip_tags($form, '<form><input><button>');
-
-
-                preg_match_all("'<(.*?)>'si", $form, $matches);
-
-                if (is_array($matches) && isset($matches[0])) {
-                    $matches = $matches[0];
-                    $html = stripslashes(join('', $matches));
-
-                    $clean_form = htmlspecialchars(str_replace(array('><', '<input'), array(">\n<", "\t<input"), $html), ENT_NOQUOTES);
-
-                    $doc = new DOMDocument();
-                    $doc->strictErrorChecking = FALSE;
-                    $doc->loadHTML($html);
-                    $xml = simplexml_import_dom($doc);
-
-                    if ($xml) {
-                        $result = true;
-                        $form = $xml->body->form;
-
-                        if ($form) {
-                            unset($error);
-                            $form_action = (isset($form['action'])) ? $form['action'] : 'Can\'t help you on this one..';
-
-                            if ($form->input) {
-
-                                $additional_data = array();
-
-                                /* Loop trough input fields */
-                                foreach ($form->input as $input) {
-
-                                    // Check if this is a hidden field
-                                    if ($input['type'] == 'hidden') {
-                                        $additional_data[] = array($input['name'], $input['value']);
-                                        // Check if this is the input field that is supposed to hold the EMAIL data
-                                    } elseif (stripos($input['id'], 'email') !== FALSE || stripos($input['name'], 'email') !== FALSE) {
-                                        $email_identifier = $input['name'];
-
-                                        // Check if this is the input field that is supposed to hold the NAME data
-                                    } elseif (stripos($input['id'], 'name') !== FALSE || stripos($input['name'], 'name') !== FALSE) {
-                                        $name_identifier = $input['name'];
-                                    }
-                                }
-                            }
-                        }
-
-
-
-                        // Correct value's
-                        if (!isset($email_identifier))
-                            $email_identifier = 'Can\'t help you on this one..';
-                        if (!isset($name_identifier))
-                            $name_identifier = 'Can\'t help you on this one. Not using name data?';
-                    }
-                }
+                $result = $this->extract_form_config($_POST['form']);
+                
             }
 
-            require 'views/config_helper.php';
+            require_once NSU_PLUGIN_DIR . 'includes/views/config_helper.php';
         }
+
+        private function extract_form_config($form_html) {
+            // strip unneccessary tags
+            $form = strip_tags($form_html, '<form><label><input><select><textarea><button>');
+
+            // set defaults
+            $form_action = '';
+            $email_name = 'Sorry, can\'t help you with this one.';
+            $name_name = 'Sorry, can\'t help you with this one.';
+            $additional_data = array();
+
+            preg_match_all("'<(.*?)>'si", $form, $matches);
+
+            if (is_array($matches) && isset($matches[0])) {
+                $matches = $matches[0];
+                $html = stripslashes(join('', $matches));
+            } else {
+                $html = $form;
+            }
+
+            $doc = new DOMDocument();
+            $doc->strictErrorChecking = FALSE;
+            $doc->loadHTML($html);
+            $xml = simplexml_import_dom($doc);
+
+            if ($xml) {
+                $form = $xml->body->form;
+
+                if ($form) {
+
+                    $form_action = (isset($form['action'])) ? $form['action'] : 'Can\'t help you on this one..';
+
+
+                    if ($form->input) {
+
+                        /* Loop trough input fields */
+                        foreach ($form->input as $input) {
+
+
+                                    // Check if this is a hidden field
+                            if ($input['type'] == 'hidden') {
+                                $additional_data[] = array($input['name'], $input['value']);
+                                        // Check if this is the input field that is supposed to hold the EMAIL data
+                            } elseif (stripos($input['id'], 'email') !== FALSE || stripos($input['name'], 'email') !== FALSE) {
+                                $email_name = $input['name'];
+
+                                        // Check if this is the input field that is supposed to hold the NAME data
+                            } elseif (stripos($input['id'], 'name') !== FALSE || stripos($input['name'], 'name') !== FALSE) {
+                                $name_name = $input['name'];
+                            }
+
+                                // remove input attributes
+                            unset($input['id']);
+                            unset($input['class']);
+                            unset($input['style']);
+                            unset($input['onfocus']);
+                            unset($input['onblur']);
+                            unset($input['size']);
+                        }
+                    }
+
+                        // remove form attributes
+                    unset($form['target']); 
+                    unset($form['id']); 
+                    unset($form['name']); 
+                    unset($form['class']); 
+                    unset($form['onsubmit']);
+                    unset($form['enctype']);
+                }
+
+            }
+
+            $doc->removeChild($doc->firstChild);    
+            $doc->replaceChild($doc->firstChild->firstChild->firstChild, $doc->firstChild);
+
+            $simpler_form = $doc->saveHTML();
+            $simpler_form = str_replace(array('><', '<input'), array(">\n<", "\t<input"), $simpler_form);
+            
+
+            return array(
+                'simpler_form' => $simpler_form,
+                'form_action' => $form_action,
+                'email_name' => $email_name,
+                'name_name' => $name_name,
+                'additional_data' => $additional_data
+                );
+        }
+
 
         /**
          * Adds the different menu pages

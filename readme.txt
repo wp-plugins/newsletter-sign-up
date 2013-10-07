@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.1
 Tested up to: 3.6
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 The ultimate Newsletter plugin! Works with third-party newsletter services like MailChimp. Sign-up checkboxes, widget forms, shortcodes, it's all in there.
 
@@ -110,6 +110,11 @@ For more questions and answers go have a look at my website regarding [Newslette
 3. The "sign-up" checkbox in action @ Twenty Eleven
 
 == Changelog ==
+
+= 2.0.2 =
+* Improved: UI improvement, added some HTML5 to settings pages
+* Improved: Code improvement
+* Improved: Config extractor
 
 = 2.0.1 =
 * Fixed: not being able to uncheck "Use HTML 5" on form settings page

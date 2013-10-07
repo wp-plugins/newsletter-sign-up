@@ -4,10 +4,10 @@
 
 #nsu-sidebar > div{ margin-bottom:20px; }
 
-#nsu-admin li.dvk-email{ padding-left:25px; background:url("../img/email-icon.png") no-repeat left center; }
-#nsu-admin li.dvk-twitter{ padding-left:25px; background:url("../img/twitter-icon.png") no-repeat left center}
-#nsu-admin li.mc4wp{ padding-left:25px; background:url("../img/mailchimp-for-wp-icon.png") no-repeat left center; }
-#nsu-admin li.rfb{ padding-left:25px; background:url("../img/recent-facebook-posts-icon.png") no-repeat left center; }
+#nsu-admin li.has-icon { list-style:none; padding-left:25px; margin-left:-25px; background-position:left center; background-repeat: no-repeat; }
+#nsu-admin li.dvk-email{ background-image:url("../img/email-icon.png"); }
+#nsu-admin li.dvk-twitter{ background-image:url("../img/twitter-icon.png")}
+#nsu-admin li.mc4wp{ background-image:url("../img/mailchimp-for-wp-icon.png"); }
+#nsu-admin li.rfb{ background-image:url("../img/recent-facebook-posts-icon.png"); }
 
-#nsu-donate-box{ border:2px solid green; background:#CFC; padding:0 20px; }
-#nsu-donate-box h3{ color:green; }
+#nsu-donate-box{ background:#222; color:#eee; padding:20px; }
