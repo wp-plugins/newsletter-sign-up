@@ -29,9 +29,9 @@ This plugin works with *almost all* third-party email marketing services includi
 * Works with most major mailinglist services like Aweber, Constant Contact, iContact, etc.
 * Compatible with BuddyPress, MultiSite and bbPress.
 
-**More info:**
+**More information**
 
-* [MailChimp for WordPress plugin (recommended)[(http://wordpress.org/plugins/mailchimp-for-wp/)]
+* [MailChimp for WordPress plugin](http://wordpress.org/plugins/mailchimp-for-wp/)]
 * [Newsletter Sign-Up for WordPress](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 * Check out more [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/) by Danny van Kooten
 * You should follow [@DannyvanKooten](http://twitter.com/DannyvanKooten) on Twitter
@@ -61,12 +61,7 @@ This plugin adds various sign-up methods to your WordPress website, like a sign-
 
 = What is the shortcode to display a sign-up form in my posts or pages? =
 
-`[nsu-form]`.
-
-= Why does the checkbox not show up? =
-
-You're theme probably does not support the comment hook this plugin uses to add the checkbox to your comment form. You can manually place the checkbox
-by calling `<?php if(function_exists('nsu_checkbox')) nsu_checkbox(); ?>` inside the form tags of your comment form. Usually this file can be found in your theme folder as `comments.php`.
+`[nsu-form]`
 
 = Where can I get the form action of my sign-up form? =
 
@@ -80,10 +75,11 @@ Take a look at the source code of your sign-up form and look for the input field
 
 Yes. Just provide your name identifier (finding it is much like the email identifier) and the plugin will add the users' name to the sign-up request.
 
-
 = Can I show a sign-up form by calling a function in my template files? =
 
-Yes, use the following code snippet in your theme files to embed a sign-up form: `if(function_exists('nsu_form')) nsu_form();`
+Yes, use the following code snippet in your theme files to display a sign-up form.
+
+`if(function_exists('nsu_form')) nsu_form();`
 
 For more questions and answers go have a look at the [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/) page on my website.
 
