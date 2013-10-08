@@ -3,77 +3,65 @@ Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.1
-Tested up to: 3.6
+Tested up to: 3.6.1
 Stable tag: 2.0.2
+License: GPL2
 
-The ultimate Newsletter plugin! Works with third-party newsletter services like MailChimp. Sign-up checkboxes, widget forms, shortcodes, it's all in there.
+Ultimate newsletter plugin. Works with 3rd-party newsletter services like Aweber and YMLP. includes sign-up checkboxes, widget forms and form shortcodes.
 
 == Description ==
 
 = Newsletter Sign-Up =
 
-Boost your mailinglist size with this newsletter plugin! This plugin adds various ways for your visitors to subscribe to your third-party newsletter. Newsletter Sign-Up is most known for it's "Sign-up to our newsletter" checkbox at the WordPress comment form. 
+This plugin adds various sign-up methods to your WordPress website, like sign-up checkboxes in your comment form and a sign-up form to show in posts, pages or widget areas.
 
-**Notice for MailChimp users**: consider using [MailChimp for WordPress](http://wordpress.org/plugins/mailchimp-for-wp/), my newer plugin.
+> MailChimp user? Use my newer plugin instead: [MailChimp for WordPress](http://wordpress.org/plugins/mailchimp-for-wp/).
 
-This plugin currently supports the following newsletter providers but is not limited to those: MailChimp, YMLP, Aweber, iContact, PHPList, Feedblitz.
-You can practically use the plugin for EVERY newsletter provider that's around if you use the right configuration settings.
+This plugin works with *almost all* third-party email marketing services including MailChimp, ConstantContact, YMLP, Aweber, iContact, PHPList and Feedblitz. With the right configuration settings, you can make this plugin work with *any* newsletter service around.
 
 **Features:**
 
 * Add a "sign-up to our newsletter" checkbox to your comment form or registration form
-* Easy customizable Newsletter Sign-Up Widget
+* Easy customizable Newsletter Sign-Up Form Widget
 * Embed a sign-up form in your posts with a simple shortcode `[nsu-form]`.
 * Embed a sign-up form in your template files by calling `nsu_form();`
 * Use the MailChimp or YMLP API or any other third-party newsletter service.
 * Works with most major mailinglist services like Aweber, Constant Contact, iContact, etc.
 * Compatible with BuddyPress, MultiSite and bbPress.
-* Compatible with [WYSIWYG Widgets](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) to allow easy widget text editing.
 
 **More info:**
 
+* [MailChimp for WordPress plugin (recommended)[(http://wordpress.org/plugins/mailchimp-for-wp/)]
 * [Newsletter Sign-Up for WordPress](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 * Check out more [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/) by Danny van Kooten
-* You should follow [Danny on Twitter](http://twitter.com/DannyvanKooten) for lightning fast support and updates.
+* You should follow [@DannyvanKooten](http://twitter.com/DannyvanKooten) on Twitter
 
 = Sign-up checkboxes =
-One of the things NSU does is adding a "Sign me up to your newsletter checkbox" to your comment and registration forms. Most visitors who care to comment are willing to subscribe to your newsletter too.
-Signing up to your newsletter is as easy as ticking a checkbox! 
+Most of your commenters will be interested in your newsletter as well. This plugin makes it extremely easie for them to subscribe to your mailinglist. With the sign-up checkbox, all they have to do is check it and the plugin will subscribe them to your mailinglist.
 
-You can also add the sign-up checkbox to your BuddyPress registration form, your MultiSite sign-up forms or your bbPress new topic and new reply forms.
+You can also add the sign-up checkbox to your WP registration form, your BuddyPress registration form, your MultiSite sign-up forms or your bbPress new topic and new reply forms.
 
 = Sign-up forms =
-Another strength of NSU is the ability to create sign-up forms and easily embed those in multiple places. Newsletter Sign-Up comes with a sign-up form widget, a shortcode to use in your posts and/or pages and a function call to use in your template files. You can even choose to redirect the visitor to a certain page after signing-up, offering them exclusive content or a "thank you for signing up" message.
+Easily configure a sign-up form and show it in various places on your website using the sign-up form widget, the `[nsu-form]` shortcode or the `nsu_form()` template function. 
 
-= Using MailChimp or YMLP? Use their API's! =
-If you're using MailChimp or YMLP then you're in luck. Configuring is as easy as providing your API credentials so that Newsletter Sign-Up can work with the API of your newsletter provider.
-
-= Customizable =
-All generated forms come with common CSS classes and unique CSS identifiers so that you can easily style them to your likings. 
-
-= Easy to setup =
-Configuring Newsletter Sign-Up has been made as easy as possible. With the Configuration Extractor that comes with Newsletter Sign-Up all you have to is provide your sign-up form HTML code, the configuration extractor
-tool will then analyze it and try to extract the right values for you. 
-
+You can set your own messages and even choose to redirect the visitor to a certain page after signing-up. 
 
 == Installation ==
 
 1. Upload the contents of newsletter-sign-up.zip to your plugins directory.
 1. Activate the plugin
 1. Specify your newsletter service settings. For more info head over to: [Newsletter Sign-Up for WordPress](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
-1. That's all. Watch your list grow!
-1. Optional: Install [WYSIWYG Widgets](http://dannyvankooten.com/wordpress-plugins/wysiwyg-widgets/) if you want to be able to easily edit the widget's form text.
+1. That's all. You're done!
 
 == Frequently Asked Questions ==
 
 = What does this plugin do? =
 
-This plugin adds various way to your WP blog for visitors to subscribe to your third party newsletter service. What once started out as a simple 'Sign me up to your newsletter' checkbox at your comment form is now a 
-superb e-mail address gatherer. This plugin respects double opt-in rules, it's all legit.
+This plugin adds various sign-up methods to your WordPress website, like a sign-up checkbox at your comment form and a sign-up form to show in various places like your posts, pages and widget areas.
 
-= What is the shortcode to embed a sign-up form in my posts? =
+= What is the shortcode to display a sign-up form in my posts or pages? =
 
-Its `[nsu-form]`.
+`[nsu-form]`.
 
 = Why does the checkbox not show up? =
 
@@ -82,32 +70,28 @@ by calling `<?php if(function_exists('nsu_checkbox')) nsu_checkbox(); ?>` inside
 
 = Where can I get the form action of my sign-up form? =
 
-Look at the source code of your sign-up form and check for `<form action="http://www.yourmailinglist.com/signup?a=asd123"`....
-The action attribute is what you need here.
+Look at the source code of your sign-up form and check for `<form action="http://www.yourmailinglist.com/signup?a=asd123"...`. The action attribute is what you need here.
 
 = Where can I get the email identifier of my sign-up form? =
 
-Take a look at the source code of your sign-up form and look for the input field that holds the email address. You'll need the NAME attribute of this input field, eg: `<input type="text" name="emailid"....` (in this case emailid is what you need)
+Take a look at the source code of your sign-up form and look for the input field for the email address. You'll need the `name` attribute of this input field, eg: `<input type="text" name="emailid"....`
 
 = Can I let my users subscribe with their name too? =
 
-Yes, it's possible. Just provide your name identifier (finding it is much like the email identifier) and the plugin will try to submit the user's name along with the request.
+Yes. Just provide your name identifier (finding it is much like the email identifier) and the plugin will add the users' name to the sign-up request.
 
-= Can I also show a checkbox at the BuddyPress sign-up form? =
-
-Yes.
 
 = Can I show a sign-up form by calling a function in my template files? =
 
 Yes, use the following code snippet in your theme files to embed a sign-up form: `if(function_exists('nsu_form')) nsu_form();`
 
-For more questions and answers go have a look at my website regarding [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
+For more questions and answers go have a look at the [Newsletter Sign-Up](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/) page on my website.
 
 == Screenshots ==
 
 1. The mailinglist configuration page of Newsletter Sign-Up in the WordPress admin panel.
 2. The form configuration page in the WP Admin panel.
-3. The "sign-up" checkbox in action @ Twenty Eleven
+3. The sign-up checkbox in the Twenty Eleven theme
 
 == Changelog ==
 
