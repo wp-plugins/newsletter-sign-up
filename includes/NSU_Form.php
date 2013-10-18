@@ -15,6 +15,7 @@ class NSU_Form {
 		// register the shortcode which can be used to output sign-up form
 		add_shortcode('newsletter-sign-up-form', array($this,'form_shortcode'));
 		add_shortcode('nsu-form', array($this,'form_shortcode'));
+		add_shortcode('nsu_form', array($this,'form_shortcode'));
 
 		if(isset($_POST['nsu_submit'])) {
 			add_action('init', array($this, 'submit'));

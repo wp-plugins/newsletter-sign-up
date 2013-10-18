@@ -7,14 +7,14 @@
         <h2>Newsletter Sign-Up :: Form Settings</h2>
         <?php settings_errors(); ?>  
 
-        <p>Customize your newsletter sign-up form by customizing the labels, input fields, buttons and validation texts using the settings below. </p>
+        <p>Customize your newsletter sign-up form by customizing the labels, input fields, buttons and validation texts using the settings below. Use <code>[nsu_form]</code> to render a sign-up form in your posts or pages or use the <em>Newsletter Sign-Up</em> widget to display a sign-up form in your widget areas.</p>
 
         <form method="post" action="options.php">
             <?php settings_fields('nsu_form_group'); ?>
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row">E-mail label</th>
-                    <td colspan="2"><input class="widefat" type="text" name="nsu_form[email_label]" value="<?php echo esc_attr($opts['email_label']); ?>" /></td>
+                    <td colspan="2"><input class="widefat" type="text" name="nsu_form[email_label]" value="<?php echo esc_attr($opts['email_label']); ?>" placeholder="Eg: Your email:" required /></td>
                 </tr>
                 <tr valign="top">
                    <th scope="row">E-mail default value</th>
@@ -35,7 +35,7 @@
             </tr>
             <tr valign="top">
                 <th scope="row">Submit button text</th>
-                <td colspan="2"><input class="widefat" type="text" name="nsu_form[submit_button]" value="<?php echo esc_attr($opts['submit_button']); ?>" /></td>
+                <td colspan="2"><input class="widefat" type="text" name="nsu_form[submit_button]" value="<?php echo esc_attr($opts['submit_button']); ?>" placeholder="Eg: Subscribe" required /></td>
             </tr>
             <tr valign="top">
                 <th scope="row">Text to replace the form with after a successful sign-up</th>
@@ -66,25 +66,25 @@
         
         <?php submit_button(); ?>
 
-
-        <h3>Form text messages</h3>
-         <table class="form-table">
-            <?php if($opts['mailinglist']['subscribe_with_name']) { ?>
-            <tr valign="top">
-                <th scope="row">Empty name field message</th>
-                <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_empty_name]" value="<?php echo esc_attr($opts['text_empty_name']); ?>" /></td>
-            </tr>
-            <?php } ?>
-            <tr valign="top">
-                <th scope="row">Empty email address field message</th>
-                <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_empty_email]" value="<?php echo esc_attr($opts['text_empty_email']); ?>" /></td>
-            </tr>
-            <tr valign="top">
-                <th scope="row">Invalid email address message</th>
-                <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_invalid_email]" value="<?php echo esc_attr($opts['text_invalid_email']); ?>" /></td>
-            </tr>
-        </table>
-
+        <?php if($this->options['mailinglist']['use_api'] == 1) { ?>
+            <h3>Form text messages</h3>
+             <table class="form-table">
+                <?php if($opts['mailinglist']['subscribe_with_name']) { ?>
+                <tr valign="top">
+                    <th scope="row">Empty name field message</th>
+                    <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_empty_name]" value="<?php echo esc_attr($opts['text_empty_name']); ?>" /></td>
+                </tr>
+                <?php } ?>
+                <tr valign="top">
+                    <th scope="row">Empty email address field message</th>
+                    <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_empty_email]" value="<?php echo esc_attr($opts['text_empty_email']); ?>" /></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">Invalid email address message</th>
+                    <td colspan="2"><input class="widefat" type="text" name="nsu_form[text_invalid_email]" value="<?php echo esc_attr($opts['text_invalid_email']); ?>" /></td>
+                </tr>
+            </table>
+        <?php } ?>
     </form>
 </div>
 

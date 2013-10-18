@@ -65,10 +65,10 @@ class NSU_Checkbox {
 	
 		?>
 		<!-- Checkbox by Newsletter Sign-Up Checkbox v<?php echo NSU_VERSION_NUMBER; ?> - http://wordpress.org/plugins/newsletter-sign-up/ -->
-		<p id="ns-checkbox">
-			<input value="1" id="nsu_checkbox" type="checkbox" name="newsletter-signup-do" <?php checked($opts['precheck'], 1); ?> />
-			<label for="nsu_checkbox">
-				<?php _e($opts['text']); ?>
+		<p id="nsu-checkbox">
+			<label for="nsu-checkbox-input" id="nsu-checkbox-label">
+				<input value="1" id="nsu-checkbox-input" type="checkbox" name="newsletter-sign-up-do" <?php checked($opts['precheck'], 1); ?> /> 
+				<?php _e($opts['text'], 'newsletter-sign-up'); ?>
 			</label>
 		</p>
 		<!-- / Newsletter Sign-Up -->
@@ -84,7 +84,7 @@ class NSU_Checkbox {
 	function add_hidden_checkbox()
 	{
 		?>
-		<input type="hidden" name="newsletter-signup-do" value="<?php echo (isset($_POST['newsletter-signup-do'])) ? 1 : 0; ?>" />
+		<input type="hidden" name="newsletter-sign-up-do" value="<?php echo (isset($_POST['newsletter-sign-up-do'])) ? 1 : 0; ?>" />
 		<?php
 	}
 	
@@ -93,7 +93,7 @@ class NSU_Checkbox {
 	*/
 	function add_checkbox_to_usermeta($meta)
 	{
-		$meta['newsletter-signup-do'] = (isset($_POST['newsletter-signup-do'])) ? 1 : 0;
+		$meta['newsletter-sign-up-do'] = (isset($_POST['newsletter-sign-up-do'])) ? 1 : 0;
 		return $meta;
 	}
 	
@@ -105,7 +105,7 @@ class NSU_Checkbox {
 	* @param array $meta : the meta values that belong to this user, holds the value of our 'newsletter-sign-up' checkbox.
 	*/
 	public function grab_email_from_ms_user_signup($user_id, $password = NULL,$meta = NULL){
-		if(!isset($meta['newsletter-signup-do']) || $meta['newsletter-signup-do'] != 1) return;
+		if(!isset($meta['newsletter-sign-up-do']) || $meta['newsletter-sign-up-do'] != 1) return;
 		$user_info = get_userdata($user_id);
 		
 		$email = $user_info->user_email;
@@ -125,7 +125,7 @@ class NSU_Checkbox {
 	*/
 	public function grab_email_from_ms_blog_signup($blog_id, $user_id, $a, $b ,$meta){
 		
-		if(!isset($meta['newsletter-signup-do']) || $meta['newsletter-signup-do'] != 1) return;
+		if(!isset($meta['newsletter-sign-up-do']) || $meta['newsletter-sign-up-do'] != 1) return;
 		$user_info = get_userdata($user_id);
 		
 		$email = $user_info->user_email;
@@ -139,7 +139,7 @@ class NSU_Checkbox {
 	*/
 	function grab_email_from_wp_signup()
 	{
-		if($_POST['newsletter-signup-do'] != 1) return;
+		if($_POST['newsletter-sign-up-do'] != 1) return;
 		
 		if(isset($_POST['user_email'])) {
 			
@@ -165,7 +165,7 @@ class NSU_Checkbox {
 	*/
 	public function grab_email_from_comment($cid, $comment_approved = '')
 	{
-		if(!isset($_POST['newsletter-signup-do']) || $_POST['newsletter-signup-do'] != 1) { return false; }
+		if(!isset($_POST['newsletter-sign-up-do']) || $_POST['newsletter-sign-up-do'] != 1) { return false; }
 		if($comment_approved === 'spam') { return false; }		
 		
 		// get comment data
@@ -179,7 +179,7 @@ class NSU_Checkbox {
 
 	public function subscribe_from_bbpress($anonymous_data, $user_id)
 	{
-		if(!isset($_POST['newsletter-signup-do']) || $_POST['newsletter-signup-do'] != 1) { return false; }
+		if(!isset($_POST['newsletter-sign-up-do']) || $_POST['newsletter-sign-up-do'] != 1) { return false; }
 
 		if($anonymous_data) {
 

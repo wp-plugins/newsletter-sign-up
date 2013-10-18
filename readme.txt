@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.1
 Tested up to: 3.6.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPL2
 
 Ultimate newsletter plugin. Works with 3rd-party newsletter services like Aweber and YMLP. includes sign-up checkboxes, widget forms and form shortcodes.
@@ -23,7 +23,7 @@ This plugin works with *almost all* third-party email marketing services includi
 
 * Add a "sign-up to our newsletter" checkbox to your comment form or registration form
 * Easy customizable Newsletter Sign-Up Form Widget
-* Embed a sign-up form in your posts with a simple shortcode `[nsu-form]`.
+* Embed a sign-up form in your posts with a simple shortcode `[nsu_form]`.
 * Embed a sign-up form in your template files by calling `nsu_form();`
 * Use the MailChimp or YMLP API or any other third-party newsletter service.
 * Works with most major mailinglist services like Aweber, Constant Contact, iContact, etc.
@@ -31,7 +31,7 @@ This plugin works with *almost all* third-party email marketing services includi
 
 **More information**
 
-* [MailChimp for WordPress plugin](http://wordpress.org/plugins/mailchimp-for-wp/)]
+* [MailChimp for WordPress plugin](http://wordpress.org/plugins/mailchimp-for-wp/)
 * [Newsletter Sign-Up for WordPress](http://dannyvankooten.com/wordpress-plugins/newsletter-sign-up/)
 * Check out more [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/) by Danny van Kooten
 * You should follow [@DannyvanKooten](http://twitter.com/DannyvanKooten) on Twitter
@@ -42,7 +42,7 @@ Most of your commenters will be interested in your newsletter as well. This plug
 You can also add the sign-up checkbox to your WP registration form, your BuddyPress registration form, your MultiSite sign-up forms or your bbPress new topic and new reply forms.
 
 = Sign-up forms =
-Easily configure a sign-up form and show it in various places on your website using the sign-up form widget, the `[nsu-form]` shortcode or the `nsu_form()` template function. 
+Easily configure a sign-up form and show it in various places on your website using the sign-up form widget, the `[nsu_form]` shortcode or the `nsu_form()` template function. 
 
 You can set your own messages and even choose to redirect the visitor to a certain page after signing-up. 
 
@@ -61,7 +61,7 @@ This plugin adds various sign-up methods to your WordPress website, like a sign-
 
 = What is the shortcode to display a sign-up form in my posts or pages? =
 
-`[nsu-form]`
+`[nsu_form]`
 
 = Where can I get the form action of my sign-up form? =
 
@@ -90,6 +90,13 @@ For more questions and answers go have a look at the [Newsletter Sign-Up](http:/
 3. The sign-up checkbox in the Twenty Eleven theme
 
 == Changelog ==
+
+= 2.0.3 =
+* Fixed broken link to settings pages after widget form
+* Improved: better stylesheet loading, encouraged browser caching
+* Improved: Some UI improvements
+* Improved: better default checkbox CSS
+* Improved: better default form CSS
 
 = 2.0.2 =
 * Improved: UI improvement, added some HTML5 to settings pages
@@ -212,7 +219,7 @@ to easily edit the widget's text. :)
 = 1.4 =
 * Improvement: Hide metaboxes in the NSU configuration screen
 * Improvement: Edit all widget labels in NSU configuration screen instead of widget options. (You might have to reconfigure some of your settings, sorry!)
-* Added: Ability to add a sign-up form to your posts or pages using the shortcode `[newsletter-sign-up-form]`
+* Added: Ability to add a sign-up form to your posts or pages using the shortcode `[nsu_form]`
 * Some more restructuring of the code.
 
 = 1.3.3 =
