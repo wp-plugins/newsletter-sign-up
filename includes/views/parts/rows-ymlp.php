@@ -27,7 +27,7 @@
 </tr>
 <tr valign="top">
 	<th scope="row">YMLP GroupID<br />
-		<small>(starts at 1, check URL when 'viewing all contacts' in certain group)</small>
+		<small class="help">(starts at 1, check URL when 'viewing all contacts' in certain group)</small>
 	</th>
 	<td>
 		<input class="widefat" type="text" id="ymlp_groupid" name="nsu_mailinglist[ymlp_groupid]" value="<?php if ( isset( $opts['ymlp_groupid'] ) ) {

@@ -146,14 +146,15 @@ if (!class_exists('NSU_Admin')) {
             
             if ( isset( $_POST['form'] ) && ! empty( $_POST['form'] ) ) {
 
-                $result = $this->extract_form_config($_POST['form']);
+                $result = $this->extract_form_config( $_POST['form'] );
                 
             }
 
             require_once NSU_PLUGIN_DIR . 'includes/views/config_helper.php';
         }
 
-        private function extract_form_config($form_html) {
+        private function extract_form_config( $form_html ) {
+
             // strip unneccessary tags
             $form = stripslashes( strip_tags($form_html, '<form><label><input><select><textarea><button>') );
 

@@ -43,7 +43,10 @@
                     <td><input class="widefat" type="text" id="ns_form_action" name="nsu_mailinglist[form_action]" placeholder="Example: http://newsletter-service.com?action=subscribe&id=123" value="<?php echo esc_attr($opts['form_action']); ?>" /></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">E-mail identifier<br /><small>name attribute of input field for the emailadress</small></th>
+                    <th scope="row">
+                        E-mail identifier
+                        <small class="help">name attribute of input field for the emailadress</small>
+                    </th>
                     <td><input class="widefat" type="text" name="nsu_mailinglist[email_id]" placeholder="Example: EMAIL" value="<?php echo esc_attr($opts['email_id']); ?>"/></td>
                 </tr>
             </tbody>
@@ -53,7 +56,10 @@
                     <td><input type="checkbox" id="subscribe_with_name" name="nsu_mailinglist[subscribe_with_name]" value="1" <?php checked($opts['subscribe_with_name'], 1); ?> /></td>
                 </tr>
                 <tr class="name_dependent" valign="top" <?php if($opts['subscribe_with_name'] != 1) echo 'style="display:none;"'; ?>>
-                    <th scope="row">Name identifier<br /><small>name attribute of input field that holds the name</small></th>
+                    <th scope="row">
+                        Name identifier
+                        <small class="help">name attribute of input field that holds the name</small>
+                    </th>
                     <td><input class="widefat" id="ns_name_id" type="text" name="nsu_mailinglist[name_id]" placeholder="Example: NAME" value="<?php echo esc_attr($opts['name_id']); ?>" /></td>
                 </tr>
             </tbody>
