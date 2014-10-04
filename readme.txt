@@ -17,7 +17,7 @@ This plugin adds various sign-up methods to your WordPress website, like sign-up
 
 <blockquote>
     <h3>MailChimp user?</h3>
-    <p>Use [MailChimp for WordPress](https://wordpress.org/plugins/mailchimp-for-wp/) instead. It's much better.</p>
+    <p>Use <a href="https://wordpress.org/plugins/mailchimp-for-wp/">MailChimp for WordPress</a> instead. It's much better.</p>
 </blockquote>
 
 This plugin works with *almost all* third-party email marketing services including MailChimp, CampaignMonitor, ConstantContact, YMLP, Aweber, iContact, PHPList and Feedblitz. With the right configuration settings, you can make this plugin work with *any* newsletter service around.
