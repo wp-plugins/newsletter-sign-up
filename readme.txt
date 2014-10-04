@@ -4,7 +4,7 @@ Donate link: https://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 2.0.4
+Stable tag: 2.0.3
 License: GPL2
 
 Integrate your WordPress site with 3rd-party newsletter services like Aweber and YMLP. Adds various sign-up methods to your site.
