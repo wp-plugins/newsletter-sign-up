@@ -1,3 +1,4 @@
+<?php defined( 'ABSPATH' ) or exit; ?>
 <div class="wrap" id="nsu-admin">
 
 <?php include_once NSU_PLUGIN_DIR . 'includes/views/parts/navigation.php'; ?>
@@ -73,8 +74,8 @@
                 foreach ($opts['extra_data'] as $key => $value) :
                     ?>
                 <tr valign="top">
-                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $key; ?>][name]" value="<?php echo $value['name']; ?>" /></td>
-                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $key; ?>][value]" value="<?php echo $value['value']; ?>" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo esc_attr( $key ); ?>][name]" value="<?php echo esc_attr( $value['name'] ); ?>" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo esc_attr( $key ); ?>][value]" value="<?php echo esc_attr( $value['value'] ); ?>" /></td>
                 </tr>					
                 <?php
                 $last_key = $key + 1;
@@ -82,8 +83,8 @@
                 endif;
                 ?>
                 <tr valign="top">
-                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $last_key; ?>][name]" placeholder="Hidden field name" value="" /></td>
-                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo $last_key; ?>][value]" placeholder="Hidden field value" value="" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo esc_attr( $last_key ); ?>][name]" placeholder="Hidden field name" value="" /></td>
+                    <td><input class="widefat" type="text" name="nsu_mailinglist[extra_data][<?php echo esc_attr( $last_key ); ?>][value]" placeholder="Hidden field value" value="" /></td>
                 </tr>
             </table>
            
@@ -94,7 +95,7 @@
 
         </form>
         <p>
-            <em>Having trouble finding the right configuration settings? Try the <a href="admin.php?page=newsletter-sign-up/config-helper">configuration extractor</a>.</em>
+            <em>Having trouble finding the right configuration settings? Try the <a href="<?php echo admin_url( 'admin.php?page=newsletter-sign-up-config-helper'); ?>">configuration extractor</a>.</em>
         </p>
 
     </div>
