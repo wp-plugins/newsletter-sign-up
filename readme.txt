@@ -16,7 +16,7 @@ Integrate your WordPress site with 3rd-party newsletter services like Aweber and
 This plugin adds various sign-up methods to your WordPress website, like sign-up checkboxes in your comment form and a sign-up form to show in posts, pages or widget areas.
 
 <blockquote>
-    <h3>MailChimp user?</h3>
+    <h3 style="margin-top:0;">MailChimp user?</h3>
     <p>Use <a href="https://wordpress.org/plugins/mailchimp-for-wp/">MailChimp for WordPress</a> instead. It's much better.</p>
 </blockquote>
 
