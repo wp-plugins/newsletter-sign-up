@@ -4,7 +4,7 @@ Donate link: https://dannyvankooten.com/donate/
 Tags: newsletter,sign-up,mailchimp,aweber,newsletter signup,checkbox,ymlp,email,phplist,icontact,mailinglist,checkbox,form widget,widget,newsletter widget,subscribe widget,form shortcode,mailchimp api
 Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPL2
 
 Integrate your WordPress site with 3rd-party newsletter services like Aweber and YMLP. Adds various sign-up methods to your site.
@@ -15,9 +15,10 @@ Integrate your WordPress site with 3rd-party newsletter services like Aweber and
 
 This plugin adds various sign-up methods to your WordPress website, like sign-up checkboxes in your comment form and a sign-up form to show in posts, pages or widget areas.
 
-> **MailChimp user?**
->
-> Use [MailChimp for WordPress](https://wordpress.org/plugins/mailchimp-for-wp/) instead. It's much better.
+<blockquote>
+    <h3>MailChimp user?</h3>
+    <p>Use [MailChimp for WordPress](https://wordpress.org/plugins/mailchimp-for-wp/) instead. It's much better.</p>
+</blockquote>
 
 This plugin works with *almost all* third-party email marketing services including MailChimp, CampaignMonitor, ConstantContact, YMLP, Aweber, iContact, PHPList and Feedblitz. With the right configuration settings, you can make this plugin work with *any* newsletter service around.
 

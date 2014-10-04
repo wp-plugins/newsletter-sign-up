@@ -15,12 +15,11 @@ class NSU {
 		self::checkbox();
 		self::form();
 
+		// widget hooks
+		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+
 		// check if this is an AJAX request
 		if ( !defined( "DOING_AJAX" ) || !DOING_AJAX ) {
-
-			// widget hooks
-			add_action( 'widgets_init', array( $this, 'register_widget' ) );
-
 
 			if ( is_admin() ) {
 
