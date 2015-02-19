@@ -13,3 +13,9 @@
 #nsu-admin li.dvk-twitter{ background-image:url("../img/twitter-icon.png")}
 #nsu-admin li.mc4wp{ background-image:url("../img/mailchimp-for-wp-icon.png"); }
 #nsu-admin li.rfb{ background-image:url("../img/recent-facebook-posts-icon.png"); }
+
+#nsu-admin .help {
+    display: block;
+    font-style: italic;
+    font-weight: normal;
+}

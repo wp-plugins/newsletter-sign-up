@@ -55,10 +55,11 @@ class NSU_Form {
 		// send request to service if no errors occured
 		if ( count( $this->validation_errors ) == 0 ) {
 			NSU::instance()->send_post_data( $email, $name, 'form' );
+			return true;
 		}
 
 
-		return;
+		return false;
 	}
 
 	/**
@@ -153,7 +154,8 @@ class NSU_Form {
 		// check if form was not submitted or contains error
 		if ( ! isset( $_POST['nsu_submit'] ) || count( $errors ) > 0 ) {
 
-			$output .= '<form class="nsu-form" id="nsu-form-' . esc-attr( $formno ) .'" action="' . esc_attr( $form_action ) . '" method="post">';
+
+			$output .= '<form class="nsu-form" id="nsu-form-' . esc_attr( $formno ) .'" action="' . esc_attr( $form_action ) . '" method="post">';
 
 			if ( $opts['mailinglist']['subscribe_with_name'] == 1 ) {
 				$output .= '<p><label for="nsu-name-'. esc_attr( $formno ) . '">'. esc_html( $name_label ) . '</label>';

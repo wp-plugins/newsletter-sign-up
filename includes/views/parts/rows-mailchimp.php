@@ -8,8 +8,9 @@
 </tr>
 
 <tr valign="top">
-	<th scope="row"><label for="use_api">Use MailChimp API?</label><br />
-		<small>(recommended)</small>
+	<th scope="row">
+		<label for="use_api">Use MailChimp API?</label>
+		<small class="help">(recommended)</small>
 	</th>
 	<td>
 		<input type="checkbox" id="use_api" name="nsu_mailinglist[use_api]" value="1"<?php if ( isset( $opts['use_api'] ) && $opts['use_api'] == '1' ) {
@@ -21,7 +22,7 @@
 	echo ' style="display:none" ';
 } ?>>
 <tr valign="top">
-	<th scope="row">MailChimp API Key <a target="_blank" href="http://admin.mailchimp.com/account/api">(?)</a></th>
+	<th scope="row">MailChimp API Key <a target="_blank" href="https://admin.mailchimp.com/account/api">(?)</a></th>
 	<td>
 		<input class="widefat" type="text" id="mc_api_key" name="nsu_mailinglist[mc_api_key]" value="<?php if ( isset( $opts['mc_api_key'] ) ) {
 			echo esc_attr( $opts['mc_api_key'] );
@@ -63,8 +64,9 @@
 		} ?>" /></td>
 </tr>
 <tr valign="top">
-	<th scope="row">Groups <br />
-		<small>(comma delimited list of interest groups to add to)</small>
+	<th scope="row">
+		Groups
+		<small class="help">(comma delimited list of interest groups to add to)</small>
 	</th>
 	<td>
 		<input class="widefat" type="text" name="nsu_mailinglist[mc_groupings_groups]" placeholder="Example: Group 1,Group 2,Group 3" value="<?php if ( isset( $opts['mc_groupings_groups'] ) ) {
